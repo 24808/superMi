@@ -21,7 +21,10 @@ export default {
   },
   mounted() {
     // jsonp跨域
-    let url = "https://www.imooc.com/common/adver-getadver";
+    // let url = "https://www.imooc.com/common/adver-getadver";
+    // let url = "https://www.imooc.com/common/adver-getadver";
+    // 代理;
+    let url = "/api/common/adver-getadver";
     // rows跨域
     // "https://easy-mock.com/mock/5f54a2d522b6925fcfc5dd5e/example/query";
     //使用jsonp保存
