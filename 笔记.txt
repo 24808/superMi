@@ -23,3 +23,29 @@
     图片懒加载
     "vue-lazyload": "^1.3.3",
     "vue-template-compiler": "^2.6.11"
+
+    这个项目的右路只能放在最外层，routes.js
+    router/index.js识别不出
+    导入
+    import Vue from "vue"
+import Router from 'vue-router';
+和路由对应的模块
+    // 1/安装插件
+Vue.use(Router);
+导出
+export default new  Router){
+  设置路由
+  routes:[{
+    path: "/",
+      name: "home",
+      component: home,
+      redirect: '/index',
+      // 子路由
+       children: [{
+          path: "/index",
+          name: "index",
+          component: index,
+        },]
+  } 
+     
+}
