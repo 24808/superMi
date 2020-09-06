@@ -1,0 +1,51 @@
+前端跨域
+//浏览器卫龙安全做出的限制策略
+//请求同源策略: 同域名 同端口 同协议
+1.CORS跨域 - 服务端设置，前端直接调用
+后台允许前端某个战斗进行访问
+2.JSONP跨域
+3.代理跨域
+
+请求
+ "axios": "^0.20.0",
+ ui
+    "element-ui": "^2.13.2",
+    "jsonp": "^0.2.1",
+    统一设置样式
+    "node-sass": "^4.14.1",
+    "sass-loader": "^10.0.2",
+    //轮播组件
+    "vue-awesome-swiper": "^4.1.1",
+    更好的使用axios
+    "vue-axios": "^2.1.5",
+    前后端交互
+    "vue-cookie": "^1.1.4",
+    图片懒加载
+    "vue-lazyload": "^1.3.3",
+    "vue-template-compiler": "^2.6.11"
+
+    这个项目的右路只能放在最外层，routes.js
+    router/index.js识别不出
+    导入
+    import Vue from "vue"
+import Router from 'vue-router';
+和路由对应的模块
+    // 1/安装插件
+Vue.use(Router);
+导出
+export default new  Router){
+  设置路由
+  routes:[{
+    path: "/",
+      name: "home",
+      component: home,
+      redirect: '/index',
+      // 子路由
+       children: [{
+          path: "/index",
+          name: "index",
+          component: index,
+        },]
+  } 
+     
+}
