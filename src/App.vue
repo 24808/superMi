@@ -7,7 +7,8 @@
 
 <script>
 import HelloWorld from "./components/HelloWorld.vue";
-
+import axios from "axios";
+import jsonp from "jsonp";
 export default {
   name: "App",
   components: {
@@ -17,6 +18,22 @@ export default {
     return {
       age: 301,
     };
+  },
+  mounted() {
+    // jsonp跨域
+    let url = "https://www.imooc.com/common/adver-getadver";
+    // rows跨域
+    // "https://easy-mock.com/mock/5f54a2d522b6925fcfc5dd5e/example/query";
+    //使用jsonp保存
+    // axios
+    //   .get(url)
+    //   .then((res) => console.log(res))
+    //   .catch((res) => {
+    //     console.log(res);
+    //   });
+    jsonp(url, (err, res) => {
+      console.log(res);
+    });
   },
 };
 </script>
