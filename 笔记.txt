@@ -5,3 +5,21 @@
 后台允许前端某个战斗进行访问
 2.JSONP跨域
 3.代理跨域
+
+请求
+ "axios": "^0.20.0",
+ ui
+    "element-ui": "^2.13.2",
+    "jsonp": "^0.2.1",
+    统一设置样式
+    "node-sass": "^4.14.1",
+    "sass-loader": "^10.0.2",
+    //轮播组件
+    "vue-awesome-swiper": "^4.1.1",
+    更好的使用axios
+    "vue-axios": "^2.1.5",
+    前后端交互
+    "vue-cookie": "^1.1.4",
+    图片懒加载
+    "vue-lazyload": "^1.3.3",
+    "vue-template-compiler": "^2.6.11"
