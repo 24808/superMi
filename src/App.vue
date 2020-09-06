@@ -15,7 +15,7 @@ export default {
   },
   data() {
     return {
-      age: 30,
+      age: 301,
     };
   },
 };
