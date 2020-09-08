@@ -49,3 +49,7 @@ export default new  Router){
   } 
      
 }
+cookie \sessionStorage\Storage的区别
+cookie 4k  服务器
+Storage 5m 浏览器
+package设置环境变量 ；例:--mode=development
