@@ -8,8 +8,8 @@ export function request(config) {
     // baseURL: "http://123.207.32.32:8000/api/x6/",
     //根据前端的跨域方式做调整
     //根据黄金变量获取不同的请求地址
-    baseURL: env.baseURL,
-    timeout: 5000
+    // baseURL: env.baseURL,
+    timeout: 5000,
   })
   //错误拦截
   instance.interceptors.response.use(function (response) {
@@ -19,7 +19,7 @@ export function request(config) {
     } else if (res.status == 10) {
       window.location.href = '/#/login'
     } else {
-      alert(res.msg)
+      alert(res)
     }
   })
   return instance(config);

@@ -1,6 +1,7 @@
 {
-  {
-    "status": 0,
+  "status": 0,
+  "data": {
+
     "data": {
       "id": 12,
       "username": "admin",
@@ -9,6 +10,7 @@
       "role": 0,
       "createTime": 1479048325000,
       "updateTime": 1479048325000,
+      "status": 0
     }
   }
 }

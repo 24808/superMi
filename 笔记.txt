@@ -53,3 +53,39 @@ cookie \sessionStorage\Storage的区别
 cookie 4k  服务器
 Storage 5m 浏览器
 package设置环境变量 ；例:--mode=development
+axios请求
+//原始人用法
+    Axios.get("/mock/user/login.json")
+      .then(function(response) {
+        console.log(response);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+
+统一位置
+//这里进行请求动作
+import { mock } from "./network/mock";
+        mock().then((res) => {
+      this.data = res;
+    });
+//这里设置请求
+    import {
+  request
+} from "./request"
+
+export function mock() {
+  return request({
+    url: "/mock/user/login.json",
+    method: "get"
+  })
+}
+//发送请求
+export function request(config) {
+  let instance = axios.create({
+    // baseURL: "http://123.207.32.32:8000/api/x6/",
+  
+    timeout: 5000,
+  })
+  return instance(config);
+}
