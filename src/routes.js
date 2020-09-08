@@ -15,7 +15,7 @@ import alipay from "./view/Order/OrderChild/alipay"
 Vue.use(Router);
 export default new Router({
   routes: [{
-      path: "/",
+      path: "",
       name: "home",
       component: home,
       redirect: '/index',
