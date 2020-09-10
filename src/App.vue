@@ -2,7 +2,6 @@
   <div id="app">
     <!-- <route-view></route-view> -->
     <!-- 是最顶层的出口，渲染最高级路由匹配到的组件。 -->
-    {{ data }}
     <router-view></router-view>
   </div>
 </template>
@@ -25,20 +24,13 @@ export default {
     // storage.clear("a", "user");
     console.log("asdsd");
 
-    mock().then((res) => {
-      this.data = res;
-    });
+    // mock().then((res) => {
+    //   this.data = res;
+    // });
   },
 };
 </script>
 
 <style>
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+@import "./assets/scss/reset.scss";
 </style>

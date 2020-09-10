@@ -1,0 +1,19 @@
+// 混合函数
+//flexd的复用
+@mixin flex($hov:space-between, $rol:center) {
+  display: flex;
+  justify-content: $hov;
+
+  align-items: $rol;
+}
+
+//背景图片的复用
+@mixin bgImg($w:0, $h:0, $img:'', $size:contain) {
+  display: inline-block;
+  width: $w;
+  height: $h;
+  background: url($img) no-repeat center;
+  //设置图片尺寸  contain把图像图像扩展至最大尺寸，以使其宽度和高度完全适应内容区域。
+
+  background-size: $size;
+}

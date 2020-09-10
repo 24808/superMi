@@ -19,6 +19,7 @@
     "axios": "^0.20.0",
     "element-ui": "^2.13.2",
     "jsonp": "^0.2.1",
+    "mockjs": "^1.1.0",
     "node-sass": "^4.14.1",
     "sass-loader": "^10.0.2",
     "vue-awesome-swiper": "^4.1.1",

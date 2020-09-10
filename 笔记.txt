@@ -89,3 +89,6 @@ export function request(config) {
   })
   return instance(config);
 }
+import和require的区别
+import 预编译加载，一开始就加载
+require执行时才加载，栏加载
