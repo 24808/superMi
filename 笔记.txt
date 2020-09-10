@@ -92,3 +92,10 @@ export function request(config) {
 import和require的区别
 import 预编译加载，一开始就加载
 require执行时才加载，栏加载
+
+
+
+scss的使用
+样式的嵌套
+使用&:hour $:after等表示选择器
+@mixin 使用@mixin关建字可以把样式抽离成函数使用
