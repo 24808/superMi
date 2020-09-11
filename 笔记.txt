@@ -99,3 +99,15 @@ scss的使用
 样式的嵌套
 使用&:hour $:after等表示选择器
 @mixin 使用@mixin关建字可以把样式抽离成函数使用
+反向代理
+配置文件 vue.config.js
+对url进行配置，需要后端设置
+
+过滤器的使用
+一般对值进行转化或筛选,比如金额/时间
+fiter{
+  guo(value){
+    return "s"+value
+  }
+}
+value |guo过滤器
