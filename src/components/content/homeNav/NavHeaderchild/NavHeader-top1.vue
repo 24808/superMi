@@ -8,9 +8,10 @@
         <a href="#">协议规则</a>
       </div>
       <div class="topbar-user">
-        <a href="#">登录</a>
-        <a href="#">注册</a>
-        <a href="#" class="my-cart">
+        <a href="#" v-if="username">{{ username }}</a>
+        <a href="#" v-if="!username" @click="login">登录</a>
+        <a href="#" v-if="username">我的订单</a>
+        <a href="#" class="my-cart" @click="goToCart">
           <span class="icon-cart"></span>购物车
         </a>
       </div>
@@ -20,9 +21,20 @@
 <script>
 export default {
   name: "NavHeader-top1",
+  props: {
+    username: String,
+  },
+  methods: {
+    goToCart() {
+      this.$router.push("/cart");
+    },
+    login() {
+      this.$router.push("/login");
+    },
+  },
 };
 </script>
-<style  lang="scss" scoped>
+<style lang="scss" scoped>
 @import "./../../../../assets/scss/mixin.scss";
 @import "./../../../../assets/scss/base.scss";
 //sass可以嵌套

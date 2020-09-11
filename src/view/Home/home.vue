@@ -1,6 +1,5 @@
 <template>
   <div>
-    我是首页
     <nav-header></nav-header>
     <!-- 子路由的出口 -->
     <router-view></router-view>

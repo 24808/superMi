@@ -1,5 +1,5 @@
 <template>
-  <div>foot</div>
+  <div></div>
 </template>
 <script>
 export default {

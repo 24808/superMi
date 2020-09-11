@@ -8,7 +8,7 @@
 
 <script>
 import storage from "./storage";
-import { mock } from "./network/mock";
+import { getphoneList } from "./network/home";
 export default {
   name: "app",
   data() {
@@ -24,7 +24,7 @@ export default {
     // storage.clear("a", "user");
     console.log("asdsd");
 
-    // mock().then((res) => {
+    // getphoneList().then((res) => {
     //   this.data = res;
     // });
   },
