@@ -1,4 +1,6 @@
-import { request } from "./request";
+import {
+  request
+} from "./request";
 
 export function getphoneList() {
   return request({
@@ -6,6 +8,7 @@ export function getphoneList() {
     method: "get",
     params: {
       categoryId: "100012",
+      pageSize: 6
     },
   });
 }

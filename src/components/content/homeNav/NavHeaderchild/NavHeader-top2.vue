@@ -157,16 +157,17 @@ export default {
           height: 1;
           //默认透明度为0
           opacity: 1;
+          background: #fff;
         }
       }
       .children {
         transition: all 0.5s;
-        z-index: 1;
         position: absolute;
         top: 112px;
         // height: 220px;
         //默认高度为0
         height: 0;
+        z-index: 9;
         //默认透明度为0
         opacity: 0;
         overflow: hidden;

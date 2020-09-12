@@ -27,6 +27,8 @@ export default {
         if (res.list.length > 6) {
           //数组的截取
           this.phoneList = res.list.slice(0, 6);
+        } else {
+          this.phoneList = res.list;
         }
       });
     },
