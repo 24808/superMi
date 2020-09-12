@@ -2,25 +2,45 @@
   <div class="index">
     <div class="container">
       <swiper-box></swiper-box>
-      <product-box></product-box>
-      <banner></banner>
-      <ads-box></ads-box>
-    </div>
 
-    <service-bar></service-bar>
+      <ads-box></ads-box>
+
+      <!-- <banner></banner> -->
+    </div>
+    <div class="bg-wrtie">
+      <product-box></product-box>
+
+      <service-bar></service-bar>
+    </div>
   </div>
 </template>
 <script>
 import swiperBox from "./indexChild/swiperBox";
 import productBox from "./indexChild/productBox";
-import banner from "./indexChild/banner";
 import adsBox from "./indexChild/adsBox";
 import ServiceBar from "./../../../components/content/homeNav/ServiceBar";
+
 export default {
   name: "index",
-  components: { ServiceBar, swiperBox, productBox, banner, adsBox },
+  components: { ServiceBar, swiperBox, productBox, adsBox },
+  data() {
+    return {
+      adsList: [
+        { id: 33, img: "/imgs/item-box-4.jpg" },
+        { id: 48, img: "/imgs/item-box-4.jpg" },
+        { id: 45, img: "/imgs/item-box-4.jpg" },
+        { id: 47, img: "/imgs/item-box-4.jpg" },
+      ],
+    };
+  },
 };
 </script>
-<style scoped>
+<style scoped lang="scss">
 @import "./../../../assets/scss/base.scss";
+.banner {
+  margin-bottom: 50px;
+}
+.bg-wrtie {
+  background: #e5e5e5;
+}
 </style>

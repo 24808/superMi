@@ -12,3 +12,12 @@ export function getphoneList() {
     },
   });
 }
+export function getProductsList() {
+  return request({
+    url: "/products",
+    params: {
+      categoryId: 100012,
+      pageSize: 8
+    }
+  })
+}

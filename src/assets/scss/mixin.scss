@@ -3,7 +3,6 @@
 @mixin flex($hov:space-between, $rol:center) {
   display: flex;
   justify-content: $hov;
-
   align-items: $rol;
 }
 
