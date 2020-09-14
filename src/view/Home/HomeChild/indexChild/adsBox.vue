@@ -1,11 +1,7 @@
 <template>
   <div class="ads-box1">
-    <a
-      :href="'/#/product' + item.id"
-      v-for="(item, index) in adsList"
-      :key="index"
-    >
-      <img :src="item.img" alt="" />
+    <a :href="'/#/product' + item.id" v-for="(item, index) in adsList" :key="index">
+      <img v-lazy="item.img" alt />
       <!-- <img src="/imgs/ads/ads-1.png" alt="" /> -->
     </a>
   </div>

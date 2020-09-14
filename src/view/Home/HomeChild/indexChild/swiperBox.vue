@@ -8,7 +8,7 @@
             <ul v-for="(item, index) in item1.menuList" :key="index">
               <li v-for="(sub, indexsub) in item" :key="indexsub">
                 <a :href="sub.id ? '/#/product/' + sub.id : ''">
-                  <img :src="sub ? sub.img : '/imgs/item-box-1.png'" alt="" />
+                  <img v-lazy="sub ? sub.img : '/imgs/item-box-1.png'" alt />
                   {{ sub ? sub.name : "小米10Pro" }}
                 </a>
               </li>
@@ -20,7 +20,7 @@
     <swiper ref="mySwiper" :options="swiperOptions">
       <swiper-slide v-for="(item, index) in slideList" :key="index">
         <a :href="'/#product/' + item.id">
-          <img :src="item.img" alt="" />
+          <img v-lazy="item.img" alt />
           <!-- <img src="./../../../../../public/imgs/slider/slide-1.jpg" alt="" /> -->
         </a>
       </swiper-slide>

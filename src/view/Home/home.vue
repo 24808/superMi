@@ -9,6 +9,7 @@
 <script>
 import NavHeader from "./../../components/content/homeNav/NavHeader";
 import NavFooter from "./../../components/content/homeNav/NavFooter";
+
 export default {
   name: "home",
   components: {

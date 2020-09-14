@@ -1,0 +1,66 @@
+@import "./mixin.scss";
+@import "./config.scss";
+@import "./button.scss";
+
+.modal {
+  border: 0px solid;
+  @include position(fixed);
+  z-index: 10;
+  transition: all .5s;
+
+  .mask {
+    @include position(fixed);
+    background-color: $colorI;
+    opacity: 0.5;
+  }
+
+  &.slide-enter {
+    opacity: 1;
+    top: -100%;
+  }
+
+  &.slide-enter-to {
+    // top: 0
+
+  }
+
+  &.slide-leave-active {
+    opacity: 0;
+    top: -100%;
+  }
+
+  .modal-dialog {
+    @include position(absolute, 40%, 50%, 660px, auto);
+    background-color: $colorG;
+    transform: translate(-50%, -50%);
+
+    .modal-header {
+      // box-sizing: border-box;
+      height: 60px;
+      background: $colorJ;
+      padding: 22px 25px;
+      line-height: 60px;
+      font-size: $fontI;
+
+      .icon-close {
+        @include positionImg(absolute, 23px, 25px, 14px, 14px, '/imgs/icon-close.png') &:hover {
+          transform: scale(1.5);
+          transition: transform .3s;
+        }
+      }
+
+    }
+
+    .modal-body {
+      padding: 42px 40px 54px;
+      font-size: 14px;
+    }
+
+    .modal-footer {
+      height: 82px;
+      line-height: 82px;
+      background-color: $colorJ;
+      text-align: center;
+    }
+  }
+}

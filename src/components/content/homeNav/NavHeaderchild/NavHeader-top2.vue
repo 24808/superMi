@@ -9,14 +9,10 @@
           <span>小米手机</span>
           <div class="children">
             <ul>
-              <li
-                class="product"
-                v-for="(item, index) in phoneList"
-                :key="index"
-              >
+              <li class="product" v-for="(item, index) in phoneList" :key="index">
                 <a :href="'/#/product/' + item.id" target="_blank">
                   <div class="pro-img">
-                    <img :src="item.mainImage" alt="" />
+                    <img v-lazy="item.mainImage" alt />
                   </div>
                   <div class="pro-name">{{ item.name }}</div>
                   <div class="pro-price">{{ item.price | currency }}</div>
@@ -33,8 +29,8 @@
                 <a href="#" target="_blank">
                   <div class="pro-img">
                     <img
-                      src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/31d0dc82068abcaa46464b4baa9fbbdf.jpg?thumb=1&w=160&h=110&f=webp&q=90"
-                      alt=""
+                      v-lazy="'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/31d0dc82068abcaa46464b4baa9fbbdf.jpg?thumb=1&w=160&h=110&f=webp&q=90'"
+                      alt
                     />
                   </div>
                   <div class="pro-name">查看全部</div>
@@ -52,8 +48,8 @@
                 <a href="#" target="_blank">
                   <div class="pro-img">
                     <img
-                      src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/932b583c6eccd8aabfa0771f8a854940.jpg?thumb=1&w=160&h=110&f=webp&q=90"
-                      alt=""
+                      v-lazy="'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/932b583c6eccd8aabfa0771f8a854940.jpg?thumb=1&w=160&h=110&f=webp&q=90'"
+                      alt
                     />
                   </div>
                   <div class="pro-name">小米cc9</div>

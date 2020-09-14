@@ -17,7 +17,16 @@ export function getProductsList() {
     url: "/products",
     params: {
       categoryId: 100012,
-      pageSize: 8
+      pageSize: 14
+    }
+  })
+}
+export function getgood(id) {
+  return request({
+    url: "/carts",
+    query: {
+      productId: id,
+      selected: true
     }
   })
 }

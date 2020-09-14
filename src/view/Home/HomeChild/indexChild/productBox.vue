@@ -3,7 +3,7 @@
     <div class="container">
       <div class="banner">
         <a href="/#/product/30">
-          <img src="/imgs/banner-1.png" alt="" />
+          <img v-lazy="'/imgs/banner-1.png'" alt />
         </a>
       </div>
     </div>
@@ -13,7 +13,7 @@
         <div class="wrapper">
           <div class="banner-left">
             <a href="/#/product/35">
-              <img src="/imgs/mix-alpha.jpg" alt="" />
+              <img v-lazy="'/imgs/mix-alpha.jpg'" alt />
             </a>
           </div>
 
@@ -23,15 +23,15 @@
                 <!-- <a :href="'/#/product/'+arr.id"> -->
                 <a href="#0">
                   <div class="item">
-                    <span v-if="index1 % 2 == 0" class="new-pro ">新品</span>
-                    <span v-else class="kill-pro ">爆款</span>
+                    <span v-if="index1 % 2 == 0" class="new-pro">新品</span>
+                    <span v-else class="kill-pro">爆款</span>
                     <div class="item-img">
-                      <img :src="arr.mainImage" alt="" />
+                      <img v-lazy="arr.mainImage" alt />
                     </div>
                     <div class="item-info">
                       <h3>{{ arr.name }}</h3>
                       <p>{{ arr.subtitle }}</p>
-                      <p class="price">{{ arr.price | currency }}</p>
+                      <p class="price" @click="addCart(item.id)">{{ arr.price | currency }}</p>
                     </div>
                   </div>
                 </a>
@@ -41,14 +41,33 @@
         </div>
       </div>
     </div>
+    <!-- //  @submit自定义事件，接收子组件的事件 -->
+
+    <Modalstate
+      title="提示"
+      sureText="查看购物车"
+      btnType="1"
+      modalTyoe="middle"
+      :showModal="showModal"
+      @submit="goToCart"
+      @cancel="showModal=false"
+    >
+      <template v-slot:body>
+        <p>商品添加成功</p>
+      </template>
+    </Modalstate>
   </div>
 </template>
 <script>
 //请求
 import { getProductsList } from "./../../../../network/home";
+//模态框逐渐
+import Modalstate from "./../../../../components/common/Modalstate";
 export default {
   name: "productBox",
-  components: {},
+  components: {
+    Modalstate,
+  },
   data() {
     return {
       adsList: [
@@ -61,6 +80,7 @@ export default {
         [1, 2, 3, 4],
         [1, 2, 3, 4],
       ],
+      showModal: false,
     };
   },
   mounted() {
@@ -73,10 +93,26 @@ export default {
     },
   },
   methods: {
+    goToCart() {
+      //路由跳转
+      this.$router.push("/cart");
+    },
     intit() {
       getProductsList().then((res) => {
+        res.list = res.list.slice(6, 14);
         this.phoneList = [res.list.slice(0, 4), res.list.slice(4, 8)];
       });
+    },
+    addCart(id) {
+      this.showModal = true;
+
+      //  getgood();.then((res) => {
+      //   this.showModal = true;
+      //   console.log(res);
+      // })
+      // .carch((res) => {
+      //   this.showModal = true;
+      // });
     },
   },
 };
@@ -87,6 +123,7 @@ export default {
 @import "./../../../../assets/scss/mixin.scss";
 .banner {
   margin-bottom: 20px;
+  padding-top: 20px;
 }
 .product-box {
   // background: $colorJ;
