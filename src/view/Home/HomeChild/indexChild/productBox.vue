@@ -60,7 +60,7 @@
 </template>
 <script>
 //请求
-import { getProductsList } from "./../../../../network/home";
+import { getProductsList, getgood } from "./../../../../network/home";
 //模态框逐渐
 import Modalstate from "./../../../../components/common/Modalstate";
 export default {
@@ -104,15 +104,16 @@ export default {
       });
     },
     addCart(id) {
-      this.showModal = true;
-
-      //  getgood();.then((res) => {
-      //   this.showModal = true;
-      //   console.log(res);
-      // })
-      // .carch((res) => {
-      //   this.showModal = true;
-      // });
+      getgood()
+        .then((res) => {
+          this.showModal = true;
+          console.log(res);
+        })
+        .catch((res) => {
+          console.log(res);
+          alert(res);
+          // this.showModal = true;
+        });
     },
   },
 };

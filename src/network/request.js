@@ -26,7 +26,7 @@ export function request(config) {
     if (res.status == 0) {
       return res.data;
     } else if (res.status == 10) {
-      // window.location.href = "/#/login";
+      window.location.href = "/#/login";
     } else {
       alert(res);
     }
