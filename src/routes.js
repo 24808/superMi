@@ -7,6 +7,7 @@ import product from "./view/Home/HomeChild/product"
 import detail from "./view/Home/HomeChild/detail"
 import cart from "./view/Order/OrderChild/cart"
 import order from "./view/Order/order"
+import login from "./view/login"
 import orderConfirm from "./view/Order/OrderChild/orderConfirm"
 import orderList from "./view/Order/OrderChild/orderList"
 import orderPay from "./view/Order/OrderChild/orderPay"
@@ -46,9 +47,9 @@ export default new Router({
       component: login,
     },
     {
-      path: "/order",
-      name: "order",
-      component: order,
+      path: "/login",
+      name: "login",
+      component: login,
       children: [{
         path: "orderConfirm",
         name: "orderConfirm",

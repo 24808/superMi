@@ -60,7 +60,7 @@
 </template>
 <script>
 //请求
-import { getProductsList,getgood } from "./../../../../network/home";
+import { getProductsList, getgood } from "./../../../../network/home";
 //模态框逐渐
 import Modalstate from "./../../../../components/common/Modalstate";
 export default {
@@ -104,6 +104,7 @@ export default {
       });
     },
     addCart(id) {
+<<<<<<< HEAD
       this.showModal = true;
 
        getgood(id).then((res) => {
@@ -114,6 +115,18 @@ export default {
         this.$router.push("/#/login")
         // this.showModal = true;
       });
+=======
+      getgood()
+        .then((res) => {
+          this.showModal = true;
+          console.log(res);
+        })
+        .catch((res) => {
+          console.log(res);
+          alert(res);
+          // this.showModal = true;
+        });
+>>>>>>> e7fc670a8e1a66baf9897e55807b47e9c643939d
     },
   },
 };
