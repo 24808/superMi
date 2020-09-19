@@ -128,3 +128,7 @@ v-leave-to：2.1.8 版及以上定义离开过渡的结束状态。在离开过�
 
 图片懒加载的安装
 npm i vue-lazyload -s
+
+//调试
+ctRl P 浏览器控制台sources力搜索文件
+或者debug

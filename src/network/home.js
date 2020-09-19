@@ -23,19 +23,11 @@ export function getProductsList() {
 }
 export function getgood(id) {
   return request({
-    url: "/carts",method: "get",
+    url: "/carts",
+    method: "get",
     query: {
       productId: id,
       selected: true
     },
-  })
-}
-export function login(username,password){
-  return  request({ 
-      url:"/login",
-      method:"post",
-      query:{
-        username,password
-      }
   })
 }

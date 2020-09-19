@@ -23,13 +23,20 @@ export function request(config) {
   //错误拦截
   instance.interceptors.response.use(function (response) {
     let res = response.data;
+    console.log(res)
+    //获取路径
+    let path = location.hash;
     // alert(res.status)
     if (res.status == 0) {
       return res.data;
     } else if (res.status == 10) {
-      window.location.href = "/#/login";
+      if(path !="#/index"){
+        window.location.href = "/#/login";
+      }
     } else {
       alert(res);
+      //返回异常
+      return Promise.reject();
     }
   });
   return instance(config);

@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <nav-headertop1 :username="username"></nav-headertop1>
+    <nav-headertop1 :username="username" :cartCount="cartCount"></nav-headertop1>
     <nav-headertop2 :phoneList="phoneList"></nav-headertop2>
   </div>
 </template>
@@ -8,13 +8,25 @@
 import NavHeadertop1 from "./NavHeaderchild/NavHeader-top1";
 import NavHeadertop2 from "./NavHeaderchild/NavHeader-top2";
 import { getphoneList } from "./../../../network/home";
+//解构
+import {mapState} from "vuex"
 export default {
   name: "NavHeader",
   data() {
     return {
-      username: "jack",
       phoneList: [],
     };
+  },
+  computed:{
+    //解构使用
+    ...mapState(['username','cartCount']),
+    //一般使用
+    // username(){
+    //   return this.$store.state.username;
+    // },
+    // cartCount(){
+    //   return this.$store.state.cartCount;
+    // }
   },
   mounted() {
     this.getProductList();
@@ -22,7 +34,7 @@ export default {
   methods: {
     getProductList() {
       getphoneList().then((res) => {
-        console.log(res);
+        console.log(res); 
         //判断返回的数据是否大于6
         if (res.list.length > 6) {
           //数组的截取

@@ -104,29 +104,17 @@ export default {
       });
     },
     addCart(id) {
-<<<<<<< HEAD
       this.showModal = true;
 
-       getgood(id).then((res) => {
-        this.showModal = true;
-      })
-      .catch((res) => {
-        // alert(res); 
-        this.$router.push("/#/login")
-        // this.showModal = true;
-      });
-=======
-      getgood()
+      getgood(id)
         .then((res) => {
           this.showModal = true;
-          console.log(res);
         })
         .catch((res) => {
-          console.log(res);
-          alert(res);
+          // alert(res);
+          this.$router.push("/#/login");
           // this.showModal = true;
         });
->>>>>>> e7fc670a8e1a66baf9897e55807b47e9c643939d
     },
   },
 };

@@ -12,17 +12,20 @@
         <a href="#" v-if="!username" @click="login">登录</a>
         <a href="#" v-if="username">我的订单</a>
         <a href="#" class="my-cart" @click="goToCart">
-          <span class="icon-cart"></span>购物车
+          <span class="icon-cart"></span>购物车({{cartCount}})
         </a>
       </div>
     </div>
   </div>
 </template>
 <script>
+import {mapState} from "vuex"
+
 export default {
   name: "NavHeader-top1",
   props: {
-    username: String,
+    username: '',
+    cartCount:'',
   },
   methods: {
     goToCart() {
@@ -61,6 +64,8 @@ export default {
       background: #ff6600;
       text-align: center;
       color: #fff;
+      margin-right: 0;
+
       .icon-cart {
         //背景图片样式
         @include bgImg(

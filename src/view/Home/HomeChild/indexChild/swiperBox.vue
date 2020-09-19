@@ -19,7 +19,7 @@
     </div>
     <swiper ref="mySwiper" :options="swiperOptions">
       <swiper-slide v-for="(item, index) in slideList" :key="index">
-        <a :href="'/#product/' + item.id">
+        <a :href="'/#/product/' + item.id">
           <img v-lazy="item.img" alt />
           <!-- <img src="./../../../../../public/imgs/slider/slide-1.jpg" alt="" /> -->
         </a>

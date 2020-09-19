@@ -1,6 +1,5 @@
 import Vue from "vue"
 import Router from 'vue-router';
-import login from "./view/login"
 import home from "./view/Home/home"
 import index from "./view/Home/HomeChild/index"
 import product from "./view/Home/HomeChild/product"
@@ -12,7 +11,8 @@ import orderConfirm from "./view/Order/OrderChild/orderConfirm"
 import orderList from "./view/Order/OrderChild/orderList"
 import orderPay from "./view/Order/OrderChild/orderPay"
 import alipay from "./view/Order/OrderChild/alipay"
-
+// http://localhost:8080/#/product/1
+// http://localhost:8080/#/product/42
 // 1/安装插件
 Vue.use(Router);
 export default new Router({
@@ -41,7 +41,7 @@ export default new Router({
       path: "/cart",
       name: "cart",
       component: cart,
-    },{
+    }, {
       path: "/login",
       name: "login",
       component: login,

@@ -2,7 +2,7 @@
   <div>
     <nav-header></nav-header>
     <!-- 子路由的出口 -->
-    <router-view></router-view>
+    <router-view :key="$route.fullPath"></router-view>
     <nav-footer></nav-footer>
   </div>
 </template>
