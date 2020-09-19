@@ -58,14 +58,19 @@
           <br />更能AI 精准分析视频内容，15个场景智能匹配背景音效。
         </p>
         <!-- <div class="video-bg" @click="showSlide=true"></div> -->
-        <div class="video-bg" @click="showSlide='slideDown'"></div>
+        <div class="video-bg" @click="showSlide = 'slideDown'"></div>
         <div class="video-box">
-          <div class="overlay" v-if="showSlide=='slideDown'"></div>
+          <div class="overlay" v-if="showSlide == 'slideDown'"></div>
           <!-- <div class="video" :class="{'slide':showSlide}"> -->
           <div class="video" :class="showSlide">
-            <span class="icon-close" @click="showSlide='slideUp'"></span>
+            <span class="icon-close" @click="showSlide = 'slideUp'"></span>
 
-            <video src="/imgs/product/video.mp4" muted autoplay controls="controls"></video>
+            <video
+              src="/imgs/product/video.mp4"
+              muted
+              autoplay
+              controls="controls"
+            ></video>
           </div>
         </div>
       </div>
@@ -98,7 +103,7 @@ export default {
 };
 </script>
 
-<style  scoped  lang="scss"  >
+<style scoped lang="scss">
 @import "./../../../assets/scss/mixin.scss";
 .product {
   .btn {
