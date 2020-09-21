@@ -9,7 +9,11 @@
           <span>小米手机</span>
           <div class="children">
             <ul>
-              <li class="product" v-for="(item, index) in phoneList" :key="index">
+              <li
+                class="product"
+                v-for="(item, index) in phoneList"
+                :key="index"
+              >
                 <a :href="'/#/product/' + item.id" target="_blank">
                   <div class="pro-img">
                     <img v-lazy="item.mainImage" alt />
@@ -29,7 +33,9 @@
                 <a href="#" target="_blank">
                   <div class="pro-img">
                     <img
-                      v-lazy="'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/31d0dc82068abcaa46464b4baa9fbbdf.jpg?thumb=1&w=160&h=110&f=webp&q=90'"
+                      v-lazy="
+                        'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/31d0dc82068abcaa46464b4baa9fbbdf.jpg?thumb=1&w=160&h=110&f=webp&q=90'
+                      "
                       alt
                     />
                   </div>
@@ -48,7 +54,9 @@
                 <a href="#" target="_blank">
                   <div class="pro-img">
                     <img
-                      v-lazy="'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/932b583c6eccd8aabfa0771f8a854940.jpg?thumb=1&w=160&h=110&f=webp&q=90'"
+                      v-lazy="
+                        'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/932b583c6eccd8aabfa0771f8a854940.jpg?thumb=1&w=160&h=110&f=webp&q=90'
+                      "
                       alt
                     />
                   </div>
@@ -98,38 +106,38 @@ export default {
   //混合函数的使用
   @include flex();
 
-  .header-logo {
-    display: inline-block;
-    width: 55px;
-    height: 55px;
-    background-color: #f60;
-    a {
-      display: inline-block;
-      width: 110px;
-      height: 55px;
-      // scss伪类写法
-      &:before {
-        content: "";
-        //背景图片样式
-        @include bgImg(55px, 55px, "./../../../../../public/imgs/mi-logo.png");
-        transition: 0.4s;
-      }
-      &:after {
-        //占位
-        content: "";
-        //背景图片样式
-        @include bgImg(55px, 55px, "./../../../../../public/imgs/mi-home.png");
+  // .header-logo {
+  //   display: inline-block;
+  //   width: 55px;
+  //   height: 55px;
+  //   background-color: #f60;
+  //   a {
+  //     display: inline-block;
+  //     width: 110px;
+  //     height: 55px;
+  //     // scss伪类写法
+  //     &:before {
+  //       content: "";
+  //       //背景图片样式
+  //       @include bgImg(55px, 55px, "./../../../../../public/imgs/mi-logo.png");
+  //       transition: 0.4s;
+  //     }
+  //     &:after {
+  //       //占位
+  //       content: "";
+  //       //背景图片样式
+  //       @include bgImg(55px, 55px, "./../../../../../public/imgs/mi-home.png");
 
-        background-size: 55px;
-      }
-      &:hover::before {
-        //只改变图片位置
-        // transform: translateX(-100%);
-        margin-left: -55px;
-        transition: 0.4s;
-      }
-    }
-  }
+  //       background-size: 55px;
+  //     }
+  //     &:hover::before {
+  //       //只改变图片位置
+  //       // transform: translateX(-100%);
+  //       margin-left: -55px;
+  //       transition: 0.4s;
+  //     }
+  //   }
+  // }
   .header-menu {
     display: inline-block;
     flex: 1;

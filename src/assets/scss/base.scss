@@ -1,3 +1,6 @@
+@import './config.scss';
+@import './mixin.scss';
+
 .container {
   width: 1226px;
   margin: 0 auto;
@@ -29,4 +32,42 @@ a {
 .clearfix:after {
   clear: both;
   // nav-bar
+}
+
+//公共logo
+.header-logo {
+  display: inline-block;
+  width: 55px;
+  height: 55px;
+  background-color: #f60;
+
+  a {
+    display: inline-block;
+    width: 110px;
+    height: 55px;
+
+    // scss伪类写法
+    &:before {
+      content: "";
+      //背景图片样式
+      @include bgImg(55px, 55px, "/imgs/mi-logo.png");
+      transition: 0.4s;
+    }
+
+    &:after {
+      //占位
+      content: "";
+      //背景图片样式
+      @include bgImg(55px, 55px, "/imgs/mi-home.png");
+
+      background-size: 55px;
+    }
+
+    &:hover::before {
+      //只改变图片位置
+      // transform: translateX(-100%);
+      margin-left: -55px;
+      transition: 0.4s;
+    }
+  }
 }
