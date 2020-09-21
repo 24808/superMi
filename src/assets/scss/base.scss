@@ -10,3 +10,23 @@ a {
     height: 100%;
   }
 }
+
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}
+
+//
+.clearfix:before,
+.clearfix:after {
+  content: '';
+  display: table;
+}
+
+.clearfix:after {
+  clear: both;
+  // nav-bar
+}

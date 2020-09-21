@@ -30,9 +30,10 @@ export function request(config) {
     if (res.status == 0) {
       return res.data;
     } else if (res.status == 10) {
-      if(path !="#/index"){
+      if (path != "#/index") {
         window.location.href = "/#/login";
       }
+      return Promise.reject();
     } else {
       alert(res);
       //返回异常

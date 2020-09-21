@@ -9,7 +9,7 @@
 <script>
 import storage from "./storage";
 import { getphoneList } from "./network/home";
-import { getlogin,getCartCount } from "./network/login";
+import { getlogin, getCartCount } from "./network/login";
 export default {
   name: "app",
   data() {
@@ -29,23 +29,23 @@ export default {
     //   this.data = res;
     // });
     //携带了cookie，可以获取用户信息
-     this.getUser();
+    this.getUser();
     this.getCartCount();
   },
-  methods:{
+  methods: {
     //用户
-    getUser(){
-      getlogin().then(res=>{
-        this.$store.dispatch('saveUserName',res.username)
-              });
-          },
-          //购物车数量
-          getCartCount(){
-      getCartCount().then(res=>{
-        this.$store.dispatch('saveCartCount',res)
-              });
-          }
-  }
+    getUser() {
+      getlogin().then((res) => {
+        this.$store.dispatch("saveUserName", res.username);
+      });
+    },
+    //购物车数量
+    getCartCount() {
+      getCartCount().then((res = 0) => {
+        this.$store.dispatch("saveCartCount", res);
+      });
+    },
+  },
 };
 </script>
 

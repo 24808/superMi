@@ -31,7 +31,9 @@
                     <div class="item-info">
                       <h3>{{ arr.name }}</h3>
                       <p>{{ arr.subtitle }}</p>
-                      <p class="price" @click="addCart(item.id)">{{ arr.price | currency }}</p>
+                      <p class="price" @click="addCart(arr.id)">
+                        {{ arr.price | currency }}
+                      </p>
                     </div>
                   </div>
                 </a>
@@ -50,7 +52,7 @@
       modalTyoe="middle"
       :showModal="showModal"
       @submit="goToCart"
-      @cancel="showModal=false"
+      @cancel="showModal = false"
     >
       <template v-slot:body>
         <p>商品添加成功</p>
@@ -61,6 +63,7 @@
 <script>
 //请求
 import { getProductsList, getgood } from "./../../../../network/home";
+import { addCart } from "./../../../../network/cart";
 //模态框逐渐
 import Modalstate from "./../../../../components/common/Modalstate";
 export default {
@@ -76,10 +79,7 @@ export default {
         { id: 45, img: "/imgs/item-box-4.jpg" },
         { id: 47, img: "/imgs/item-box-4.jpg" },
       ],
-      phoneList: [
-        [1, 2, 3, 4],
-        [1, 2, 3, 4],
-      ],
+      phoneList: [],
       showModal: false,
     };
   },
@@ -95,7 +95,9 @@ export default {
   methods: {
     goToCart() {
       //路由跳转
-      this.$router.go(0)
+      // this.$router.go(0);
+      this.showModal = false;
+      this.$router.push("/cart");
     },
     intit() {
       getProductsList().then((res) => {
@@ -106,15 +108,24 @@ export default {
     addCart(id) {
       // this.showModal = true;
 
-      getgood(id)
-        .then((res) => {
+      // getgood(id)
+      //   .then((res) => {
+      //     this.showModal = true;
+      //     // this.$router.push("/product/"+id);
+      //   })
+      //   .catch((res) => {
+      //     // alert(res);
+      //     this.$router.push("/#/login");
+      //     // this.showModal = true;
+      //   });
+      addCart(id)
+        .then((res = { cartProductVoList: 0 }) => {
+          this.$store.dispatch("saveCartCount", res.cartTotalQuantity);
           this.showModal = true;
-          // this.$router.push("/product/"+id);
-
         })
         .catch((res) => {
           // alert(res);
-          this.$router.push("/#/login");
+          this.$router.push("/login");
           // this.showModal = true;
         });
     },

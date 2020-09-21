@@ -1,7 +1,7 @@
 <template>
-  <div class="nav-bar" ref="productTop" :class="{'is_fixed':isFixed}">
+  <div class="nav-bar" ref="productTop" :class="{ is_fixed: isFixed }">
     <div class="container">
-      <div class="pro-title">{{title}}</div>
+      <div class="pro-title">{{ title }}</div>
       <div class="pro-param">
         <a href="#0">概述</a>
         <span>|</span>
@@ -17,12 +17,11 @@
 <script>
 export default {
   name: "productParam",
-  props:{
-    title:String
+  props: {
+    title: String,
   },
   data() {
     return {
-      
       //距离顶部的高度
       offsetTop: 0,
       //自己的高度
@@ -70,7 +69,7 @@ export default {
   line-height: 70px;
   border-top: 1px solid $colorH;
   box-shadow: 0 5px 5px $colorE;
-  // z-index: 11;
+  z-index: 11;
   &.is_fixed {
     position: fixed;
     top: 0;
