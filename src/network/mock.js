@@ -6,7 +6,6 @@ export function mock() {
   return request({
     // url: "/mock/user/login.json",
     url: "/user/login",
-
     method: "get"
   })
 }

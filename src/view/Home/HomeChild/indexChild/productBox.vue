@@ -21,7 +21,7 @@
             <div class="list" v-for="(item, index) in phoneList" :key="index">
               <div v-for="(arr, index1) in item" :key="index1">
                 <!-- <a :href="'/#/product/'+arr.id"> -->
-                <a href="#0">
+                <a href="javascript:void(0)">
                   <div class="item">
                     <span v-if="index1 % 2 == 0" class="new-pro">新品</span>
                     <span v-else class="kill-pro">爆款</span>
@@ -95,7 +95,7 @@ export default {
   methods: {
     goToCart() {
       //路由跳转
-      this.$router.push("/login");
+      this.$router.go(0)
     },
     intit() {
       getProductsList().then((res) => {
@@ -104,11 +104,13 @@ export default {
       });
     },
     addCart(id) {
-      this.showModal = true;
+      // this.showModal = true;
 
       getgood(id)
         .then((res) => {
           this.showModal = true;
+          // this.$router.push("/product/"+id);
+
         })
         .catch((res) => {
           // alert(res);

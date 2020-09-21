@@ -2,14 +2,12 @@
   <div class="index">
     <div class="container">
       <swiper-box></swiper-box>
-
       <ads-box></ads-box>
 
       <!-- <banner></banner> -->
     </div>
     <div class="bg-wrtie">
       <product-box></product-box>
-
       <service-bar></service-bar>
     </div>
   </div>

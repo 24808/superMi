@@ -1,19 +1,19 @@
 <template>
   <div class="product">
-    <productParam>
+    <productParam :title="Product.name">
       <!-- //插槽 -->
       <template v-slot:buy>
-        <button class="btn">立即购买</button>
+        <button class="btn" @click="goBuy">立即购买</button>
       </template>
     </productParam>
     <div class="content">
       <div class="item-bg">
-        <h2>全球首款双频</h2>
-        <h3>全球首款双频</h3>
+        <h2>{{Product.name}}</h2>
+        <h3>{{Product.subtitle}}</h3>
         <p>
-          <a href id>全球首款双频 GP</a>
+          <a href id>全球首款双频 GPS</a>
           <span>|</span>
-          <a href id>骁龙845</a>
+          <a href id>骁龙865+</a>
           <span>|</span>
           <a href id>AI 变焦双摄</a>
           <span>|</span>
@@ -21,7 +21,7 @@
         </p>
         <div class="price">
           <span>
-            ￥
+            ￥{{Product.price}}
             <em>全球首款双频</em>
           </span>
         </div>
@@ -64,6 +64,7 @@
           <!-- <div class="video" :class="{'slide':showSlide}"> -->
           <div class="video" :class="showSlide">
             <span class="icon-close" @click="showSlide = 'slideUp'"></span>
+            <!-- <span class="icon-close" @click="closeVideo"></span> -->
 
             <video
               src="/imgs/product/video.mp4"
@@ -79,13 +80,37 @@
 </template>
 <script>
 import { swiper, swiperSlide } from "vue-awesome-swiper";
+import { getProductInfo } from "./../../../network/product";
 // import "swiper/swiper-bundle.css";
 import productParam from "./../../../components/content/productChild/productParam";
 export default {
   name: "product",
   components: { productParam, swiper, swiperSlide },
+  mounted(){
+      this.getProductInfo();
+  },
+  methods:{
+    getProductInfo(){
+      //获取地址栏的动态路由
+      let id =this.$route.params.id;
+      getProductInfo(id).then(res=>{
+        this.Product=res
+      })
+    },
+    goBuy(){
+      let id =this.$route.params.id;
+        this.$router.push(`/detail/${id}`);
+    },
+        closeVideo(){
+this.showSlide="slideUp";
+    setTimeout(()=>{
+      this.showSlide='';
+    }),600
+    }
+  },
   data() {
     return {
+      Product:{},//商品信息
       // showSlide: false, //控制动画效果
       showSlide: "", //控制动画效果
       product: {}, //商品信息
@@ -101,6 +126,7 @@ export default {
     };
   },
 };
+
 </script>
 
 <style scoped lang="scss">
