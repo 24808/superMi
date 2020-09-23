@@ -95,7 +95,8 @@ export default {
     order() {
       let isCheck = this.list.every((item) => !item.productSelected);
       if (isCheck) {
-        alert("请选择一件商品");
+        // alert("请选择一件商品");
+        this.$message("请选择一件商品");
       } else {
         this.$router.push("/order/confirm");
       }
@@ -112,13 +113,16 @@ export default {
         selected = item.productSelected;
       if (type == "+") {
         if (quantity >= item.quantity) {
-          alert("商品不能超过库存数量");
+          // alert("商品不能超过库存数量");
+          this.$message("商品不能超过库存数量");
           return;
         }
         quantity = quantity++;
       } else if (type == "-") {
         if (item.quantity == 1) {
-          alert("商品至少表刘一件");
+          this.$message("商品至少表刘一件");
+          // alert("商品至少表刘一件");
+
           return;
         }
         quantity = quantity--;
