@@ -12,16 +12,21 @@
         </h2>
       </div>
       <div class="username">
-        <a href="javascript:;">jack</a>
+        <a href="javascript:;">{{ username }}</a>
       </div>
     </div>
   </div>
 </template>
 <script>
+import { mapState } from "vuex";
 export default {
   name: "orderHeader",
   props: {
     title: String,
+  },
+  computed: {
+    // 解构vuex
+    ...mapState(["username"], ["cartCount"]),
   },
 };
 </script>
@@ -30,6 +35,7 @@ export default {
   height: 112px;
   padding: 30px 0;
   box-sizing: border-box;
+  border-bottom: 2px solid #ff6600;
   .header-logo {
     float: left;
   }
@@ -41,16 +47,18 @@ export default {
     line-height: 55px;
   }
   .title {
-    font-size: 28px;
     float: left;
-    color: #333;
-    margin-left: 54px;
 
+    margin-left: 54px;
+    h2 {
+      color: #333;
+      font-size: 28px;
+    }
     span {
       font-size: 14px;
       margin-left: 17px;
       color: #999;
-      font-weight: bold;
+      font-weight: 300;
     }
   }
   .username {
