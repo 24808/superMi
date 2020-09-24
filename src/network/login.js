@@ -13,6 +13,12 @@ export function login(username, password) {
     }
   })
 }
+//退出登录
+export function logout(){
+  return request({
+    url:'/user/logout',method:'post'
+  })
+}
 //注册
 export function register(username, password,email) {
   return request({

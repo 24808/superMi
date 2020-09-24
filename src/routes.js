@@ -47,20 +47,20 @@ export default new Router({
       component: login,
     },
     {
-      path: "/login",
-      name: "login",
-      component: login,
-      children: [{
-        path: "orderConfirm",
-        name: "orderConfirm",
+      path: "/order",
+      name: "order",
+      component: order,
+      children: [ {
+        path: "confirm",
+        name: "confirm",
         component: orderConfirm,
-      }, {
-        path: "orderList",
-        name: "orderList",
+      },{
+        path: "list",
+        name: "list",
         component: orderList,
       }, {
-        path: "orderPay",
-        name: "orderPay",
+        path: "Pay",
+        name: "Pay",
         component: orderPay,
       }, {
         path: "alipay",

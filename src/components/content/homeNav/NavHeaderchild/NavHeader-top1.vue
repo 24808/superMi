@@ -10,6 +10,7 @@
       <div class="topbar-user">
         <a href="#" v-if="username">{{ username }}</a>
         <a href="#" v-if="!username" @click="login">登录</a>
+        <a href="#" v-if="username" @click="logout">退出登录</a>
         <a href="#" v-if="username">我的订单</a>
         <a href="#" class="my-cart" @click="goToCart">
           <span class="icon-cart"></span>购物车({{cartCount}})
@@ -20,20 +21,48 @@
 </template>
 <script>
 import {mapState} from "vuex"
-
+import {logout,getCartCount} from "./../../../../network/login"
 export default {
   name: "NavHeader-top1",
   props: {
     username: '',
     cartCount:'',
   },
+  mounted(){
+    // this.getCartCount();
+
+    if(this.$route.params&&this.$route.params.from=="login"){
+    this.getCartCount();
+    }
+  },
   methods: {
+      getCartCount() {
+      getCartCount().then((res = 0) => {
+        this.$store.dispatch("saveCartCount", res);
+      });
+    },
     goToCart() {
       this.$router.push("/cart");
     },
     login() {
       this.$router.push("/login");
     },
+    logout(){
+      logout().then(res=>{
+         this.$message({
+          showClose: true,
+          message: '退出登录成功',center: true,
+          type: 'success'
+        });
+        
+      })
+      //清除cookie
+      this.$cookie.set('userId','',{expires:'-1'})
+      //清空vuex的数据
+      this.$store.dispatch('saveUserName','')
+      this.$store.dispatch('saveCartCount','0')
+      this.$router.push("/index");
+    }
   },
 };
 </script>
