@@ -4,7 +4,7 @@
       <div class="mask"></div>
       <div class="modal-dialog">
         <div class="modal-header">
-          <span>{{title}}</span>
+          <span>{{ title }}</span>
           <a href="#0" class="icon-close" @click="$emit('cancel')"></a>
         </div>
         <div class="modal-body">
@@ -12,11 +12,25 @@
         </div>
         <div class="modal-footer">
           <!-- //@click="$emit(submit)"向父组件传递事件 -->
-          <a href="#0" class="btn" v-if="btnType==1" @click="$emit('submit')">{{surerText}}</a>
-          <a href="#0" class="btn" v-if="btnType==2" @click="$emit('cancel')">{{cancelText}}</a>
-          <div class="btn-group" v-if="btnType==3">
-            <a href="#0" class="btn" @click="$emit(submit)">{{surerText}}</a>
-            <a href="#0" class="btn btn-default" @click="$emit('cancel')">{{cancelText}}</a>
+          <a
+            href="#0"
+            class="btn"
+            v-if="btnType == 1"
+            @click="$emit('submit')"
+            >{{ surerText }}</a
+          >
+          <a
+            href="#0"
+            class="btn"
+            v-if="btnType == 2"
+            @click="$emit('cancel')"
+            >{{ cancelText }}</a
+          >
+          <div class="btn-group" v-if="btnType == 3">
+            <a href="#0" class="btn" @click="$emit(submit)">{{ surerText }}</a>
+            <a href="#0" class="btn btn-default" @click="$emit('cancel')">{{
+              cancelText
+            }}</a>
           </div>
         </div>
       </div>
@@ -45,7 +59,7 @@ export default {
       type: String,
       default: "取消",
     },
-    showModal: true,
+    showModal: false,
   },
 };
 </script>
