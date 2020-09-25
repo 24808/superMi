@@ -48,18 +48,24 @@
           <div class="item-address">
             <h2 class="addr-title">收货地址</h2>
             <div class="addr-list clearfix">
-              <div class="addr-info" v-for="(item, index) in list" :key="index">
+              <div
+                class="addr-info"
+                :class="{ checked: index == checkIndex }"
+                @click="checkIndex = index"
+                v-for="(item, index) in list"
+                :key="index"
+              >
                 <h2>{{ item.receiverName }}</h2>
                 <div class="phone">{{ item.receiverMobile }}</div>
                 <div class="street">
                   {{
                     item.receiverProvince +
-                    " " +
-                    item.receiverCity +
-                    " " +
-                    item.receiverDistrict +
-                    " " +
-                    item.receiverAddress
+                      " " +
+                      item.receiverCity +
+                      " " +
+                      item.receiverDistrict +
+                      " " +
+                      item.receiverAddress
                   }}
                 </div>
                 <!-- <div>{{ item.id }}</div> -->
@@ -75,7 +81,7 @@
                   </a>
                   <a
                     href="javascript:;"
-                    @click="GodelAddress(item.id)"
+                    @click="editAddressModal(item)"
                     class="fr"
                   >
                     <svg class="icon icon-edit">
@@ -84,7 +90,7 @@
                   </a>
                 </div>
               </div>
-              <div class="addr-add">
+              <div class="addr-add" @click="openAddressModal">
                 <div class="icon-add"></div>
                 <div>添加新地址</div>
               </div>
@@ -140,7 +146,9 @@
           </div>
           <div class="btn-group">
             <a href="/#/cart" class="btn btn-default btn-large">返回购物车</a>
-            <a href="javascript:;" class="btn btn-large">去结算</a>
+            <a href="javascript:;" class="btn btn-large" @click="orderSubmit"
+              >去结算</a
+            >
           </div>
         </div>
       </div>
@@ -156,17 +164,82 @@
         <p>您确认要删除此地址吗？</p>
       </template>
     </modal>
+
+    <modal
+      title="删除确认"
+      btnType="1"
+      :showModal="showEditModal"
+      @cancel="showEditModal = false"
+      @submit="submitAddress()"
+    >
+      <template v-slot:body>
+        <!-- <p>您确认要删除此地址吗？</p> -->
+        <div class="edit-wrap">
+          <div class="item">
+            <input
+              type="text"
+              value=""
+              class="input"
+              placeholder="姓名"
+              v-model="checkedItem.receiverName"
+            />
+            <input
+              type="text"
+              value=""
+              class="input"
+              placeholder="手机号"
+              v-model="checkedItem.receiverMobile"
+            />
+          </div>
+          <div class="item">
+            <select name="province" v-model="checkedItem.receiverCity">
+              <option value="北京1">北京1</option>
+              <option value="北京2">北京2</option>
+              <option value="北京3">北京3</option>
+              <option value="北京4">北京4</option>
+            </select>
+            <select name="city" v-model="checkedItem.receiverDistrict">
+              <option value="北京1">北京1</option>
+              <option value="北京2">北京2</option>
+              <option value="北京3">北京3</option>
+              <option value="石家庄">石家庄</option>
+            </select>
+            <select name="district" v-model="checkedItem.receiverProvince">
+              <option value="昌平区">昌平区</option>
+              <option value="海定区">海定区</option>
+              <option value="东城区">东城区</option>
+              <option value="西城区">西城区</option>
+            </select>
+          </div>
+          <div class="item">
+            <textarea name="street" id="" v-model="checkedItem.receiverAddress">
+            </textarea>
+          </div>
+          <div class="item">
+            <input
+              type="text"
+              value=""
+              class="input"
+              placeholder="邮编"
+              v-model="checkedItem.receiverZip"
+            />
+          </div>
+        </div>
+      </template>
+    </modal>
   </div>
 </template>
 <script>
 //弹框
 import Modal from "./../../../components/common/Modalstate";
+import { getCartCount } from "./../../../network/login";
 import {
   getAddressList,
   getCartList,
   addShippings,
   delShippings,
   editShippings,
+  submitShippings,
 } from "./../../../network/order";
 export default {
   name: "orderConfirm",
@@ -180,6 +253,10 @@ export default {
       checkedItem: {}, //选中的商品的对象
       userAction: "", //用户的行为0：编辑 1：新增 2：删除
       showDelModal: false, //是否显示删除弹框
+      showEditModal: false, //编辑的
+      //当前收获地址选中的索引
+      checkIndex: 0,
+      checked: "checked",
     };
   },
   mounted() {
@@ -187,6 +264,40 @@ export default {
     this.getCartList();
   },
   methods: {
+    getCartCount() {
+      getCartCount().then((res = 0) => {
+        this.$store.dispatch("saveCartCount", res);
+      });
+    },
+    //订单提交
+    orderSubmit() {
+      let item = this.list[this.checkIndex];
+      if (!item) {
+        this.$message.error("请选择收货地址");
+        return;
+      } else {
+        submitShippings(item.id).then((res) => {
+          this.getCartCount();
+          this.$router.push({
+            path: "/order/pay",
+            query: {
+              orderNo: res.orderNo,
+            },
+          });
+        });
+      }
+    },
+    //编辑商品
+    editAddressModal(item) {
+      this.checkedItem = item;
+      this.userAction = 1;
+      this.showEditModal = true;
+    },
+    openAddressModal() {
+      this.checkedItem = {};
+      this.userAction = 0;
+      this.showEditModal = true;
+    },
     //删除地址
     GodelAddress(id) {
       this.checkedItem = id;
@@ -216,13 +327,43 @@ export default {
     submitAddress() {
       //解构
       let { checkedItem, userAction } = this;
-      let fun = function () {};
+      let fun = function() {};
       if (userAction == 0) {
-        fun = delShippings;
+        fun = addShippings;
       } else if (userAction == 1) {
-        fun = delShippings;
+        fun = editShippings;
       } else if (userAction == 2) {
         fun = delShippings;
+      }
+      if (userAction == 1 || userAction == 0) {
+        let {
+          receiverAddress,
+          receiverCity,
+          receiverDistrict,
+          receiverMobile,
+          receiverName,
+          receiverProvince,
+          receiverZip,
+        } = checkedItem;
+        let errMsg;
+        if (!receiverName) {
+          errMsg = "请输入收货人名称";
+        } else if (!receiverMobile || !/\d{11}/.test(receiverMobile)) {
+          errMsg = "请输入正确格式的手机号";
+        } else if (!receiverCity) {
+          errMsg = "请选择省份";
+        } else if (!receiverDistrict) {
+          errMsg = "请选择对应城市";
+        } else if (!receiverProvince || !receiverAddress) {
+          errMsg = "请选择收获地址";
+        } else if (!/\d{6}/.test(receiverZip)) {
+          errMsg = "请选择6位邮编";
+        }
+        if (errMsg) {
+          this.$message.error(errMsg);
+          // this.showEditModal = false;
+          return;
+        }
       }
       // 返回
       fun(checkedItem).then((res) => {
@@ -234,6 +375,7 @@ export default {
       // 拉取用户地址
       this.getAddressList();
       this.showDelModal = false;
+      this.showEditModal = false;
     },
     //获取购物车中需要结算的商品列表
     getCartList() {
@@ -414,30 +556,67 @@ export default {
     .item {
       margin-bottom: 15px;
       .input {
-        display: inline-block;
-        width: 283px;
+        width: 280px;
         height: 40px;
-        line-height: 40px;
-        padding-left: 15px;
         border: 1px solid #e5e5e5;
+        margin-right: 12px;
+        line-height: 40px;
+        text-indent: 22px;
+        box-sizing: border-box;
+        //兄弟选择器
         & + .input {
           margin-left: 14px;
         }
       }
+      display: flex;
       select {
         height: 40px;
         line-height: 40px;
         border: 1px solid #e5e5e5;
+        flex: 1;
         margin-right: 15px;
+        color: #333333;
+        &:last-child {
+          margin-right: 0px;
+        }
       }
       textarea {
         height: 62px;
-        width: 100%;
-        padding: 13px 15px;
-        box-sizing: border-box;
+        flex: 1;
         border: 1px solid #e5e5e5;
+        box-sizing: border-box;
+        text-indent: 20px;
+        font-size: 14px;
       }
     }
+    // font-size: 14px;
+    // .item {
+    //   margin-bottom: 15px;
+    //   .input {
+    //     display: inline-block;
+    //     width: 283px;
+    //     height: 40px;
+    //     line-height: 40px;
+    //     padding-left: 15px;
+    //     border: 1px solid #e5e5e5;
+    //     & + .input {
+    //       margin-left: 14px;
+    //     }
+    //   }
+    // select {
+    //   height: 40px;
+    //   line-height: 40px;
+    //   border: 1px solid #e5e5e5;
+    //   margin-right: 15px;
+    // }
+    // textarea {
+    //   height: 62px;
+    //   width: 100%;
+    //   padding: 13px 15px;
+    //   box-sizing: border-box;
+    //   border: 1px solid #e5e5e5;
+    // }
+    // }
   }
 }
 </style>

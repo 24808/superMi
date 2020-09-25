@@ -15,21 +15,32 @@ export function getCartList() {
   })
 }
 //地址
-export function editShippings(id) {
+export function editShippings(checkedItem) {
   return request({
-    url: `/shippings`,
-    method: "post"
+    url: `/shippings/${checkedItem.id}`,
+    method: "put",
+    data: checkedItem
   })
 }
-export function addShippings(id) {
+export function addShippings(checkedItem) {
   return request({
-    url: `/shippings/${id}`,
-    method: "put"
+    url: `/shippings`,
+    method: "post",
+    data: checkedItem
   })
 }
 export function delShippings(id) {
   return request({
     url: `/shippings/${id}`,
     method: "delete"
+  })
+}
+export function submitShippings(shippingId) {
+  return request({
+    url: `/orders`,
+    method: "post",
+    data: {
+      shippingId
+    }
   })
 }
