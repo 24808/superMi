@@ -1,10 +1,10 @@
 <template>
   <div class="order-pay">
-    <order-header title="订单支付">
+    <!-- <order-header title="订单支付">
       <template v-slot:tip>
         <span>请谨防钓鱼链接或诈骗电话，了解更多</span>
       </template>
-    </order-header>
+    </order-header> -->
     <div class="wrapper">
       <div class="container">
         <div class="order-wrap">
@@ -17,7 +17,8 @@
             </div>
             <div class="order-total">
               <p>
-                应付总额：<span>33</span>元
+                应付总额：<span>{{ totalMoney }}</span
+                >元
               </p>
               <p>
                 订单详情<em
@@ -75,15 +76,35 @@
         </div>
       </div>
     </div>
-    <!-- <scan-pay-code
+    <scan-pay-code
       v-if="showPay"
-      @close="closePayModal"
+      @close="closePaymodal"
       :img="payImg"
-    ></scan-pay-code> -->
+    ></scan-pay-code>
+    <modal
+      title="支付确认"
+      btnType="3"
+      :showModal="showPayModal"
+      sureText="查看订单"
+      cancelText="未支付"
+      @cancel="showPayModal = false"
+      @submit="goOrderList"
+    >
+      <template v-slot:body>
+        <p>您确认是否完成支付？</p>
+      </template></modal
+    >
   </div>
 </template>
 <script>
-import { getOrderDetail } from "./../../../network/pay";
+//请求
+import { getOrderDetail, gopay } from "./../../../network/pay";
+
+import ScanPayCode from "./../../../components/content/ScanPayCode";
+//二维码
+import QRCode from "qrcode";
+import Modal from "./../../../components/common/Modalstate";
+
 export default {
   name: "orderPay",
   data() {
@@ -94,19 +115,57 @@ export default {
       goodDetail: {}, //订单详情包含了商品列表
       showDetail: false, //是否显示订单详情
       patType: "", //支付类型，
+      totalMoney: 24808, //支付金额
       up: "up",
       checked: "checked",
+      payImg: "", //微信支付图片
+      showPay: false, //是否显示微信弹框
+      showPayModal: false, //是否显示二次支付弹框
+      T: {}, //定时器id
     };
   },
-  components: {},
+  components: { ScanPayCode, Modal },
   mounted() {
     this.getOrderDetail();
   },
   methods: {
+    // 轮询当前订单支付状态
+    loopOrderState() {
+      this.T = setInterval(() => {
+        getOrderDetail(this.orderNo).then((res) => {
+          //用户付款
+          if (res.status == 20) {
+            clearInterval(this.T);
+            this.goOrderList();
+          }
+        });
+      }, 1000);
+    },
+    goOrderList() {
+      this.$router.push("/index");
+    },
+    closePaymodal() {
+      // 关闭微信弹框
+      this.showPay = false;
+      this.showPayModal = true;
+      clearInterval(this.T);
+    },
     paySubmit(payType) {
       this.patType = payType;
       if (payType == 1) {
         window.open("/#/order/alipay?orderId=" + this.orderNo, "_blank");
+      } else {
+        gopay(this.orderNo, 2).then((res) => {
+          QRCode.toDataURL(res.content)
+            .then((res) => {
+              this.showPay = true;
+              this.payImg = res;
+              this.loopOrderState();
+            })
+            .catch(() => {
+              this.$message.error("二维码生成失败，请重试");
+            });
+        });
       }
     },
     getOrderDetail() {
@@ -114,6 +173,8 @@ export default {
         let item = res.shippingVo;
         this.addressInfo = `${item.receiverName} ${item.receiverMobile} ${item.receiverProvince} ${item.receiverCity} ${item.receiverDistrict} ${item.receiverAddress}`;
         this.goodDetail = res.orderItemVoList;
+        this.totalMoney = res.payment;
+        // this.item = res;
       });
     },
   },

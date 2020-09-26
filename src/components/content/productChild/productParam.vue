@@ -3,11 +3,11 @@
     <div class="container">
       <div class="pro-title">{{ title }}</div>
       <div class="pro-param">
-        <a href="#0">概述</a>
+        <a href="javascript:;">概述</a>
         <span>|</span>
-        <a href="#0">参数</a>
+        <a href="javascript:;">参数</a>
         <span>|</span>
-        <a href="#0">用户评价</a>
+        <a href="javascript:;">用户评价</a>
         <slot name="buy"></slot>
       </div>
     </div>

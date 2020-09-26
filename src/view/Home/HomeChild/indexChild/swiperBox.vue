@@ -3,7 +3,7 @@
     <div class="nav-menu">
       <ul class="menu-wrap">
         <li class="menu-item" v-for="(item1, index1) in getmenu" :key="index1">
-          <a href="#0">{{ item1.text }}</a>
+          <a href="javascript:;">{{ item1.text }}</a>
           <div :class="item1.menuList && 'children'">
             <ul v-for="(item, index) in item1.menuList" :key="index">
               <li v-for="(sub, indexsub) in item" :key="indexsub">

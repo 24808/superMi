@@ -1,11 +1,12 @@
 import {
   request
-} from "./request"
+} from "./request";
 
 export function getOrderDetail(orderId) {
   return request({
-    url: `/orders/${payid}`,
-  })
+    url: `/orders/${orderId}`,
+    method: "get",
+  });
 }
 export function gopay(orderId, payType) {
   return request({
@@ -13,9 +14,9 @@ export function gopay(orderId, payType) {
     method: "post",
     data: {
       orderId,
-      orderName: 'Vue高仿小米商场',
+      orderName: "你好烦啊",
       amount: 0.01,
-      payType: payType
-    }
-  })
+      payType: payType,
+    },
+  });
 }

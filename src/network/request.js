@@ -20,7 +20,7 @@ export function request(config) {
 
     timeout: 5000,
   });
-  //错误拦截
+  //错误拦截:1.拦截状态2.拦截请求
   instance.interceptors.response.use(function (response) {
     let res = response.data;
     console.log(res)
@@ -39,6 +39,10 @@ export function request(config) {
       //返回异常
       return Promise.reject();
     }
+  }, (err) => {
+    let res = err.response;
+    this.$message.error(res.data.message)
+    return Promise.reject(err);
   });
   return instance(config);
 }
