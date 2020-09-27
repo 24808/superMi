@@ -1,10 +1,10 @@
 <template>
   <div>
-    <order-header :title="title">
+    <!-- <order-header :title="title">
       <template slot="tip">
         <span>{{ tip }}</span>
       </template>
-    </order-header>
+    </order-header> -->
     <!-- 子路由的出口 -->
     <router-view></router-view>
     <service-bar></service-bar>

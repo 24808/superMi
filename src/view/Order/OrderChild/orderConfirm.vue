@@ -1,5 +1,10 @@
 <template>
   <div class="order-confirm">
+    <order-header title="订单确认">
+      <template slot="tip">
+        <span>请认真填写收获地址</span>
+      </template>
+    </order-header>
     <svg
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
@@ -230,6 +235,7 @@
   </div>
 </template>
 <script>
+import orderHeader from "./../../../components/content/order/orderHeader";
 //弹框
 import Modal from "./../../../components/common/Modalstate";
 import { getCartCount } from "./../../../network/login";
@@ -243,7 +249,7 @@ import {
 } from "./../../../network/order";
 export default {
   name: "orderConfirm",
-  components: { Modal },
+  components: { Modal, orderHeader },
   data() {
     return {
       list: [], //收获地址列表，

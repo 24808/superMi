@@ -1,13 +1,25 @@
 import {
   request
 } from "./request"
-
+//获取订单列表
+export function getOrderList(pageSize = 10, pageNum = 1) {
+  return request({
+    url: "/orders",
+    method: "get",
+    params: {
+      pageSize,
+      pageNum
+    }
+  })
+}
+//获取收获地址
 export function getAddressList() {
   return request({
     url: "/shippings",
     method: "get"
   })
 }
+//获取购物车中需要结算的商品列表
 export function getCartList() {
   return request({
     url: "/carts",

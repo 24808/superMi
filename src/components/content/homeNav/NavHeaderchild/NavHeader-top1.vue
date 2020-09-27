@@ -2,41 +2,41 @@
   <div class="nav-topbar">
     <div class="container">
       <div class="topbar-menu">
-        <a href="#">小米商城</a>
-        <a href="#">MIUI</a>
-        <a href="#">云服务</a>
-        <a href="#">协议规则</a>
+        <a href="javascript:;">小米商城</a>
+        <a href="javascript:;">MIUI</a>
+        <a href="javascript:;">云服务</a>
+        <a href="javascript:;">协议规则</a>
       </div>
       <div class="topbar-user">
-        <a href="#" v-if="username">{{ username }}</a>
-        <a href="#" v-if="!username" @click="login">登录</a>
-        <a href="#" v-if="username" @click="logout">退出登录</a>
-        <a href="#" v-if="username">我的订单</a>
-        <a href="#" class="my-cart" @click="goToCart">
-          <span class="icon-cart"></span>购物车({{cartCount}})
+        <a href="javascript:;" v-if="username">{{ username }}</a>
+        <a href="javascript:;" v-if="!username" @click="login">登录</a>
+        <a href="javascript:;" v-if="username" @click="logout">退出登录</a>
+        <a href="/#/order/list" v-if="username">我的订单</a>
+        <a href="javascript:;" class="my-cart" @click="goToCart">
+          <span class="icon-cart"></span>购物车({{ cartCount }})
         </a>
       </div>
     </div>
   </div>
 </template>
 <script>
-import {mapState} from "vuex"
-import {logout,getCartCount} from "./../../../../network/login"
+import { mapState } from "vuex";
+import { logout, getCartCount } from "./../../../../network/login";
 export default {
   name: "NavHeader-top1",
   props: {
-    username: '',
-    cartCount:'',
+    username: "",
+    cartCount: "",
   },
-  mounted(){
+  mounted() {
     // this.getCartCount();
 
-    if(this.$route.params&&this.$route.params.from=="login"){
-    this.getCartCount();
+    if (this.$route.params && this.$route.params.from == "login") {
+      this.getCartCount();
     }
   },
   methods: {
-      getCartCount() {
+    getCartCount() {
       getCartCount().then((res = 0) => {
         this.$store.dispatch("saveCartCount", res);
       });
@@ -47,22 +47,22 @@ export default {
     login() {
       this.$router.push("/login");
     },
-    logout(){
-      logout().then(res=>{
-         this.$message({
+    logout() {
+      logout().then((res) => {
+        this.$message({
           showClose: true,
-          message: '退出登录成功',center: true,
-          type: 'success'
+          message: "退出登录成功",
+          center: true,
+          type: "success",
         });
-        
-      })
+      });
       //清除cookie
-      this.$cookie.set('userId','',{expires:'-1'})
+      this.$cookie.set("userId", "", { expires: "-1" });
       //清空vuex的数据
-      this.$store.dispatch('saveUserName','')
-      this.$store.dispatch('saveCartCount','0')
+      this.$store.dispatch("saveUserName", "");
+      this.$store.dispatch("saveCartCount", "0");
       this.$router.push("/index");
-    }
+    },
   },
 };
 </script>

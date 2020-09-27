@@ -8,13 +8,16 @@
     "build": "vue-cli-service build --mode=production"
   },
   "dependencies": {
+    "better-scroll": "^2.0.4",
     "core-js": "^3.6.5",
+    "mescroll.js": "^1.4.2",
     "qrcode": "^1.4.4",
     "router": "^1.3.5",
     "scss": "^0.2.4",
     "scss-loader": "0.0.1",
     "swiper": "^6.2.0",
     "vue": "^2.6.11",
+    "vue-infinite-scroll": "^2.0.2",
     "vue-router": "^3.4.3",
     "vuex": "^3.5.1"
   },
