@@ -31,7 +31,7 @@
             >{{ cancelText }}</a
           >
           <div class="btn-group" v-if="btnType == 3">
-            <a href="javascript:;" class="btn" @click="$emit(submit)">{{
+            <a href="javascript:;" class="btn" @click="$emit('submit')">{{
               surerText
             }}</a>
             <a

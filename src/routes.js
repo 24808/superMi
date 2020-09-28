@@ -15,58 +15,99 @@ import alipay from "./view/Order/OrderChild/alipay"
 // http://localhost:8080/#/product/42
 // 1/安装插件
 Vue.use(Router);
+// const index = () =>
+//     import ("./view/Home/HomeChild/index");
+// // import home from "./view/Home/home"
+// const home = () =>
+//     import ("./view/Home/home");
+// // import index from "./view/Home/HomeChild/index"
+// const product = () =>
+//     import ("./view/Home/HomeChild/product");
+// // import product from "./view/Home/HomeChild/product"
+// const detail = () =>
+//     import ("./view/Home/HomeChild/detail");
+// // import detail from "./view/Home/HomeChild/detail"
+// const cart = () =>
+//     import ("./view/Order/OrderChild/cart");
+// // import cart from "./view/Order/OrderChild/cart"
+// const order = () =>
+//     import ("./view/Order/order");
+// // import order from "./view/Order/order"
+// const login = () =>
+//     import ("./view/login");
+// // import login from "./view/login"
+// const orderConfirm = () =>
+//     import ("./view/Order/OrderChild/orderConfirm");
+// // import orderConfirm from "./view/Order/OrderChild/orderConfirm"
+// const orderList = () =>
+//     import ("./view/Order/OrderChild/orderList");
+// // import orderList from "./view/Order/OrderChild/orderList"
+// const orderPay = () =>
+//     import ("./view/Order/OrderChild/orderPay");
+// // import orderPay from "./view/Order/OrderChild/orderPay"
+// const alipay = () =>
+//     import ("./view/Order/OrderChild/alipay");
+// // import alipay from "./view/Order/OrderChild/alipay"
+
+
+
+
+
+
+
 export default new Router({
-  routes: [{
-      path: "/",
-      name: "home",
-      component: home,
-      redirect: '/index',
-      // 子路由
-      children: [{
-          path: "/index",
-          name: "index",
-          component: index,
+    routes: [{
+            path: "/",
+            name: "home",
+            component: home,
+            redirect: '/index',
+            // 子路由
+            children: [{
+                    path: "/index",
+                    name: "index",
+                    component: index,
+                    // component: resolve => require(['./view/Home/HomeChild/indexChild/index'], resolve)
+                },
+                {
+                    path: "product/:id",
+                    name: "product",
+                    component: product,
+                }, {
+                    path: "detail/:id",
+                    name: "detail",
+                    component: detail,
+                },
+            ]
+        }, {
+            path: "/cart",
+            name: "cart",
+            component: cart,
+        }, {
+            path: "/login",
+            name: "login",
+            component: login,
         },
         {
-          path: "product/:id",
-          name: "product",
-          component: product,
-        }, {
-          path: "detail/:id",
-          name: "detail",
-          component: detail,
-        },
-      ]
-    }, {
-      path: "/cart",
-      name: "cart",
-      component: cart,
-    }, {
-      path: "/login",
-      name: "login",
-      component: login,
-    },
-    {
-      path: "/order",
-      name: "order",
-      component: order,
-      children: [ {
-        path: "confirm",
-        name: "confirm",
-        component: orderConfirm,
-      },{
-        path: "list",
-        name: "list",
-        component: orderList,
-      }, {
-        path: "Pay",
-        name: "Pay",
-        component: orderPay,
-      }, {
-        path: "alipay",
-        name: "alipay",
-        component: alipay,
-      }]
-    }
-  ]
+            path: "/order",
+            name: "order",
+            component: order,
+            children: [{
+                path: "confirm",
+                name: "confirm",
+                component: orderConfirm,
+            }, {
+                path: "list",
+                name: "list",
+                component: orderList,
+            }, {
+                path: "Pay",
+                name: "Pay",
+                component: orderPay,
+            }, {
+                path: "alipay",
+                name: "alipay",
+                component: alipay,
+            }]
+        }
+    ]
 })

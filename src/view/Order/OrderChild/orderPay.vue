@@ -87,8 +87,8 @@
       :showModal="showPayModal"
       sureText="查看订单"
       cancelText="未支付"
-      @cancel="showPayModal = false"
       @submit="goOrderList"
+      @cancel="showPayModal = false"
     >
       <template v-slot:body>
         <p>您确认是否完成支付？</p>
@@ -115,12 +115,14 @@ export default {
       addressInfo: "", //收货人地址
       goodDetail: {}, //订单详情包含了商品列表
       showDetail: false, //是否显示订单详情
+
       patType: "", //支付类型，
       totalMoney: 24808, //支付金额
       up: "up",
       checked: "checked",
       payImg: "", //微信支付图片
       showPay: false, //是否显示微信弹框
+
       showPayModal: false, //是否显示二次支付弹框
       T: {}, //定时器id
     };
@@ -137,6 +139,8 @@ export default {
           //用户付款
           if (res.status == 20) {
             clearInterval(this.T);
+               // 关闭微信弹框
+      this.showPay = false;
             this.goOrderList();
           }
         });

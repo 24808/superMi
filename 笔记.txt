@@ -135,3 +135,7 @@ ctRl P 浏览器控制台sources力搜索文件
 路由的传参
 query传参用路径，
 params传参用路由设置的name
+
+//路由懒加载
+const home = () =>
+    import ("./view/Home/home");

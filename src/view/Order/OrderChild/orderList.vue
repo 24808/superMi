@@ -58,7 +58,7 @@
               </div>
             </div>
             <el-pagination
-              v-if="false"
+              v-if="true"
               background
               layout="prev, pager, next"
               class="pagination"
@@ -76,7 +76,7 @@
 
             <div
               class="scroll-more"
-              v-infinite-scroll="scrollMore"
+              v-infinite-scroll="false"
               infinite-scroll-disabled="true"
               infinite-scroll-distance="410"
             >
