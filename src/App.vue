@@ -29,8 +29,12 @@ export default {
     //   this.data = res;
     // });
     //携带了cookie，可以获取用户信息
-    this.getUser();
+    //屏蔽掉没有调用的接口
+    if(this.$cookie.get('userId')){
+this.getUser();
     this.getCartCount();
+    }
+    
   },
   methods: {
     //用户
