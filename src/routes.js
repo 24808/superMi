@@ -2,6 +2,7 @@ import Vue from "vue"
 import Router from 'vue-router';
 import home from "./view/Home/home"
 import index from "./view/Home/HomeChild/index"
+import seach from "./view/Home/HomeChild/seach"
 import product from "./view/Home/HomeChild/product"
 import detail from "./view/Home/HomeChild/detail"
 import cart from "./view/Order/OrderChild/cart"
@@ -76,6 +77,11 @@ export default new Router({
                     path: "detail/:id",
                     name: "detail",
                     component: detail,
+                },
+                {
+                    path: "seach",
+                    name: "seach",
+                    component: seach,
                 },
             ]
         }, {

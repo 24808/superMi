@@ -15,10 +15,13 @@
 // }
 
 module.exports = {
+
   //服务
+
   devServer: {
     host: "localhost",
     port: 8080,
+    disableHostCheck: true,
     proxy: {
       "/api": {
         target: "http://mall-pre.springboot.cn",
