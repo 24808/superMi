@@ -57,63 +57,63 @@ Vue.use(Router);
 
 
 export default new Router({
-    routes: [{
-            path: "/",
-            name: "home",
-            component: home,
-            redirect: '/index',
-            // 子路由
-            children: [{
-                    path: "/index",
-                    name: "index",
-                    component: index,
-                    // component: resolve => require(['./view/Home/HomeChild/indexChild/index'], resolve)
-                },
-                {
-                    path: "product/:id",
-                    name: "product",
-                    component: product,
-                }, {
-                    path: "detail/:id",
-                    name: "detail",
-                    component: detail,
-                },
-                {
-                    path: "seach",
-                    name: "seach",
-                    component: seach,
-                },
-            ]
-        }, {
-            path: "/cart",
-            name: "cart",
-            component: cart,
-        }, {
-            path: "/login",
-            name: "login",
-            component: login,
+  routes: [{
+      path: "/",
+      name: "home",
+      component: home,
+      redirect: '/index',
+      // 子路由
+      children: [{
+          path: "/index",
+          name: "index",
+          component: index,
+          // component: resolve => require(['./view/Home/HomeChild/indexChild/index'], resolve)
         },
         {
-            path: "/order",
-            name: "order",
-            component: order,
-            children: [{
-                path: "confirm",
-                name: "confirm",
-                component: orderConfirm,
-            }, {
-                path: "list",
-                name: "list",
-                component: orderList,
-            }, {
-                path: "Pay",
-                name: "Pay",
-                component: orderPay,
-            }, {
-                path: "alipay",
-                name: "alipay",
-                component: alipay,
-            }]
-        }
-    ]
+          path: "product/:id",
+          name: "product",
+          component: product,
+        }, {
+          path: "detail/:id",
+          name: "detail",
+          component: detail,
+        },
+        {
+          path: "seach/:keyword",
+          name: "seach",
+          component: seach,
+        },
+      ]
+    }, {
+      path: "/cart",
+      name: "cart",
+      component: cart,
+    }, {
+      path: "/login",
+      name: "login",
+      component: login,
+    },
+    {
+      path: "/order",
+      name: "order",
+      component: order,
+      children: [{
+        path: "confirm",
+        name: "confirm",
+        component: orderConfirm,
+      }, {
+        path: "list",
+        name: "list",
+        component: orderList,
+      }, {
+        path: "Pay",
+        name: "Pay",
+        component: orderPay,
+      }, {
+        path: "alipay",
+        name: "alipay",
+        component: alipay,
+      }]
+    }
+  ]
 })

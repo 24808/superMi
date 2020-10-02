@@ -122,7 +122,12 @@ export default {
       isgoushow: "isgoushow",
       goushow: 0,
       goushowfalse: 0,
+      goodlist: {},
     };
+  },
+  mounted() {
+    this.$message.success("搜索的值为" + this.$route.params.keyword);
+    // goodlist=res
   },
   methods: {
     show(index) {

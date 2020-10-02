@@ -71,8 +71,8 @@
 
       <div class="header-search">
         <div class="wraper">
-          <input type="text" name="keyword" />
-          <a href="#"></a>
+          <input type="text" name="keyword" v-model="seachvalue" />
+          <a :href="'/#/seach/' + seachvalue"></a>
         </div>
       </div>
     </div>
@@ -81,6 +81,11 @@
 <script>
 export default {
   name: "NavHeader-top2",
+  data() {
+    return {
+      seachvalue: "",
+    };
+  },
   filters: {
     currency(val) {
       if (!val) return "$" + "0.00" + "元";
