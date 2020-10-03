@@ -25,7 +25,83 @@
             </li>
           </ul>
         </div>
-        <div class="seckill-con"></div>
+        <div class="seckill-con">
+          <ul class="clearfix">
+            <li>
+              <div class="item-box" @click="tiao">
+                <span class="img-con">
+                  <img src="" alt="" />
+                </span>
+                <span class="pro-con">
+                  <span class="name">小米10pro</span>
+                  <span class="desc">逆光也清晰</span>
+                  <span class="price">67元<del>9999元</del></span>
+                  <!-- v-if(可以购买) -->
+                  <!-- <a href="#" class="btn btn-red">立即抢购</a> -->
+                  <!-- v-else{} -->
+                  <a href="#" class="btn btn-green">提醒我</a>
+                  <span class="person">已有32人设置提醒</span>
+                </span>
+              </div>
+            </li>
+            <li>
+              <div class="item-box" @click="tiao">
+                <span class="img-con">
+                  <img src="" alt="" />
+                </span>
+                <span class="pro-con">
+                  <span class="name">小米10pro</span>
+                  <span class="desc">逆光也清晰</span>
+                  <span class="price">67元<del>9999元</del></span>
+                  <!-- v-if(可以购买) -->
+                  <!-- <a href="#" class="btn btn-red">立即抢购</a> -->
+                  <!-- v-else{} -->
+                  <a href="#" class="btn btn-green">提醒我</a>
+                  <span class="person">已有32人设置提醒</span>
+                </span>
+              </div>
+            </li>
+            <li>
+              <div class="item-box" @click="tiao">
+                <span class="img-con">
+                  <img src="" alt="" />
+                </span>
+                <span class="pro-con">
+                  <span class="name">小米10pro</span>
+                  <span class="desc">逆光也清晰</span>
+                  <span class="price">67元<del>9999元</del></span>
+                  <!-- v-if(可以购买) -->
+                  <!-- <a href="#" class="btn btn-red">立即抢购</a> -->
+                  <!-- v-else{} -->
+                  <a href="#" class="btn btn-green">提醒我</a>
+                  <span class="person">已有32人设置提醒</span>
+                </span>
+              </div>
+            </li>
+            <li>
+              <div class="item-box" @click="tiao">
+                <span class="img-con">
+                  <img src="" alt="" />
+                </span>
+                <span class="pro-con">
+                  <span class="name">小米10pro</span>
+                  <span class="desc">逆光也清晰</span>
+                  <span class="price">67元<del>9999元</del></span>
+                  <!-- v-if(可以购买) -->
+                  <!-- <a href="#" class="btn btn-red">立即抢购</a> -->
+                  <!-- v-else{} -->
+                  <a href="#" class="btn btn-green">提醒我</a>
+                  <span class="person">已有32人设置提醒</span>
+                </span>
+              </div>
+            </li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -64,6 +140,11 @@ export default {
     this.initList();
   },
   methods: {
+    //路由跳转
+    tiao() {
+      this.$router.push("/detail/42");
+    },
+    //切换
     down(index) {
       this.list = this.overlist[index];
       this.categoryshow = index;
@@ -155,6 +236,95 @@ export default {
                 display: inline-block;
                 margin-left: 0;
                 font-size: 14px;
+              }
+            }
+          }
+        }
+      }
+    }
+    .seckill-con {
+      .clearfix {
+        flex-wrap: wrap;
+        display: flex;
+        margin-left: -13px;
+        margin-top: 20px;
+        li {
+          background: #fff;
+          width: 400px;
+          height: 190px;
+          margin-left: 13px;
+          margin-bottom: 13px;
+          // box-sizing: border-box;
+          transition: 0.2s;
+          // flex-basis: 30%;
+          position: relative;
+          .item-box {
+            display: flex;
+            justify-content: space-between;
+            cursor: pointer;
+            &:hover {
+              transform: translateY(-1px);
+              transition-property: all; /*所有属性都获得效果*/
+              transition-duration: 0.2s; /*规定完成过渡效果需要花费的时间*/
+              transition-timing-function: linear; /*规定以相同速度开始至结束的过渡效果*/
+              transition-delay: 0s; /* 定义过渡效果何时开始*/
+              // transform: translateY(-10px);
+              box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.15);
+            }
+            .img-con {
+              width: 190px;
+              height: 190px;
+              background-color: #e9e9e9;
+              border: 0 none;
+            }
+            .pro-con {
+              // margin-left: 210px;
+              width: 180px;
+              height: 160px;
+              padding-top: 30px;
+              span {
+                display: block;
+                color: rgba(0, 0, 0, 0.54);
+                overflow: hidden;
+                font-size: 16px;
+              }
+              .name {
+                height: 16px;
+                line-height: 16px;
+                color: #333;
+              }
+              .desc {
+                margin-top: 7px;
+                font-size: 12px;
+                line-height: 15px;
+              }
+              .price {
+                color: red;
+                margin-top: 10px;
+                del {
+                  margin-left: 20px;
+                  font-size: 12px;
+                  line-height: 12px;
+                  color: rgba(0, 0, 0, 0.54);
+                }
+              }
+              a {
+                width: 120px;
+                margin-top: 10px;
+                &.btn-red {
+                  border: red;
+                  background: red;
+                }
+                &.btn-red {
+                  background: #83c44e;
+                  border: #83c44e;
+                }
+              }
+              .person {
+                font-size: 12px;
+                line-height: 12px;
+                color: rgba(0, 0, 0, 0.54);
+                margin-top: 12px;
               }
             }
           }
