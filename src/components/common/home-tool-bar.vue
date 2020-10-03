@@ -2,7 +2,7 @@
   <div class="home-tool-bar">
     <ul class="top-tab">
       <li v-for="(item, index) in list" :key="index">
-        <a href="#">
+        <a href="javascript:;">
           <div @mouseenter="Toshow(index)" @mouseleave="falseshow">
             <img v-if="count == index" :src="item.falseimg" alt="" />
             <img v-else :src="item.img" alt="" />

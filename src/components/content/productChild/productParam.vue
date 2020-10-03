@@ -7,7 +7,7 @@
         <span>|</span>
         <a href="javascript:;">参数</a>
         <span>|</span>
-        <a href="javascript:;">用户评价</a>
+        <a :href="'/#/comment/' + goodsid">用户评价</a>
         <slot name="buy"></slot>
       </div>
     </div>
@@ -24,6 +24,7 @@ export default {
     return {
       //距离顶部的高度
       offsetTop: 0,
+      goodsid: this.$route.params.id || 0,
       //自己的高度
       offsetHeight: 0,
       //是否需要定位
@@ -65,6 +66,7 @@ export default {
 //}
 
 .nav-bar {
+  background: #fff;
   height: 70px;
   line-height: 70px;
   border-top: 1px solid $colorH;

@@ -3,7 +3,9 @@ import Router from 'vue-router';
 import home from "./view/Home/home"
 import index from "./view/Home/HomeChild/index"
 import seach from "./view/Home/HomeChild/seach"
+import seckill from "./view/Home/HomeChild/seckill"
 import product from "./view/Home/HomeChild/product"
+import comment from "./view/Home/HomeChild/comment"
 import detail from "./view/Home/HomeChild/detail"
 import cart from "./view/Order/OrderChild/cart"
 import order from "./view/Order/order"
@@ -68,6 +70,16 @@ export default new Router({
           name: "index",
           component: index,
           // component: resolve => require(['./view/Home/HomeChild/indexChild/index'], resolve)
+        }, {
+          path: "seckill",
+          name: "seckill",
+          component: seckill,
+        },
+
+        {
+          path: "comment/:id",
+          name: "comment",
+          component: comment,
         },
         {
           path: "product/:id",
