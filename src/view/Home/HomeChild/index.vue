@@ -3,7 +3,7 @@
     <div class="container">
       <swiper-box></swiper-box>
       <ads-box></ads-box>
-
+      <home-Flashsale></home-Flashsale>
       <!-- <banner></banner> -->
     </div>
     <div class="bg-wrtie">
@@ -15,12 +15,13 @@
 <script>
 import swiperBox from "./indexChild/swiperBox";
 import productBox from "./indexChild/productBox";
+import homeFlashsale from "./indexChild/homeFlashsale";
 import adsBox from "./indexChild/adsBox";
 import ServiceBar from "./../../../components/content/homeNav/ServiceBar";
 
 export default {
   name: "index",
-  components: { ServiceBar, swiperBox, productBox, adsBox },
+  components: { ServiceBar, swiperBox, productBox, adsBox, homeFlashsale },
   data() {
     return {
       adsList: [
