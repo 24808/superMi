@@ -65,12 +65,12 @@
                 <div class="street">
                   {{
                     item.receiverProvince +
-                      " " +
-                      item.receiverCity +
-                      " " +
-                      item.receiverDistrict +
-                      " " +
-                      item.receiverAddress
+                    " " +
+                    item.receiverCity +
+                    " " +
+                    item.receiverDistrict +
+                    " " +
+                    item.receiverAddress
                   }}
                 </div>
                 <!-- <div>{{ item.id }}</div> -->
@@ -127,7 +127,18 @@
             <a href="javascript:;">电子发票</a>
             <a href="javascript:;">个人</a>
           </div>
+          <voucher :show="vouchershow" @exit="vouchershow = false"></voucher>
           <div class="detail">
+            <div class="section-discount">
+              <div class="discount-coupon" @click="vouchershow = true">
+                <i class="el-icon-circle-plus-outline"></i>
+                <span>使用优惠卷</span>
+              </div>
+              <div class="discount-ecard">
+                <i class="el-icon-circle-plus-outline"></i>
+                <span>使用大米礼品卡</span>
+              </div>
+            </div>
             <div class="item">
               <span class="item-name">商品件数：</span>
               <span class="item-val">{{ count }}件</span>
@@ -238,6 +249,7 @@
 import orderHeader from "./../../../components/content/order/orderHeader";
 //弹框
 import Modal from "./../../../components/common/Modalstate";
+import voucher from "./../../../components/content/voucher";
 import { getCartCount } from "./../../../network/login";
 import {
   getAddressList,
@@ -249,7 +261,7 @@ import {
 } from "./../../../network/order";
 export default {
   name: "orderConfirm",
-  components: { Modal, orderHeader },
+  components: { Modal, orderHeader, voucher },
   data() {
     return {
       list: [], //收获地址列表，
@@ -263,6 +275,7 @@ export default {
       //当前收获地址选中的索引
       checkIndex: 0,
       checked: "checked",
+      vouchershow: false, //优惠价的显示和掩藏
     };
   },
   mounted() {
@@ -333,7 +346,7 @@ export default {
     submitAddress() {
       //解构
       let { checkedItem, userAction } = this;
-      let fun = function() {};
+      let fun = function () {};
       if (userAction == 0) {
         fun = addShippings;
       } else if (userAction == 1) {
@@ -534,6 +547,27 @@ export default {
         text-align: right;
         font-size: 16px;
         color: #666666;
+        position: relative;
+        .section-discount {
+          position: absolute;
+
+          i {
+            width: 22px;
+            height: 22px;
+            color: #ff6700;
+            vertical-align: middle;
+            font-size: 22px;
+            font-weight: bold;
+            margin-right: 5px;
+          }
+          .discount-ecard {
+            margin-top: 20px;
+            display: flex;
+          }
+          .discount-coupon {
+            display: flex;
+          }
+        }
         .item-val {
           color: #ff6700;
         }
