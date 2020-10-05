@@ -7,6 +7,12 @@ import seckill from "./view/Home/HomeChild/seckill"
 import product from "./view/Home/HomeChild/product"
 import comment from "./view/Home/HomeChild/comment"
 import detail from "./view/Home/HomeChild/detail"
+//account
+import account from "./view/account/account"
+import PersonalInfo from "./view/account/accountChild/PersonalInfo"
+import security from "./view/account/accountChild/security"
+import Personalnone from "./view/account/accountChild/Personalnone"
+//
 import cart from "./view/Order/OrderChild/cart"
 import order from "./view/Order/order"
 import login from "./view/login"
@@ -104,6 +110,25 @@ export default new Router({
       path: "/login",
       name: "login",
       component: login,
+    },
+    {
+      path: "/account",
+      name: "account",
+      component: account,
+      children: [{
+        path: "security",
+        name: "security",
+        component: security,
+
+      }, {
+        path: "PersonalInfo",
+        name: "PersonalInfo",
+        component: PersonalInfo,
+      }, {
+        path: "Personalnone",
+        name: "Personalnone",
+        component: Personalnone,
+      }]
     },
     {
       path: "/order",
