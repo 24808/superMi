@@ -25,10 +25,11 @@
           </swiper>
         </div>
         <div class="content">
-          <h2 class="item-title">{{ ProductInfo.name }}</h2>
+          <h2 class="item-title">{{ ProductInfo.goodName }}</h2>
           <p class="item-info">
-            相机全新升级 / 960帧超慢动作 / 手持超级夜景 / 全球首款双频GPS /
-            骁龙845处理器 / 红<br />外人脸解锁 / AI变焦双摄 / 三星 AMOLED 屏
+            {{ ProductInfo.content }}
+            <!-- 相机全新升级 / 960帧超慢动作 / 手持超级夜景 / 全球首款双频GPS /
+            骁龙845处理器 / 红<br />外人脸解锁 / AI变焦双摄 / 三星 AMOLED 屏 -->
           </p>
           <div class="delivery">小米自营</div>
           <div class="item-price">
@@ -99,7 +100,7 @@ import ServiceBar from "./../../../components/content/homeNav/ServiceBar";
 import { swiper, swiperSlide } from "vue-awesome-swiper";
 import "swiper/swiper-bundle.css";
 //axios
-import { getProductInfo } from "./../../../network/product";
+import { getProductInfo, gogetProductInfo } from "./../../../network/product";
 import { addCart } from "./../../../network/cart";
 
 // import productParam from "./../../../components/content/";
@@ -115,7 +116,7 @@ export default {
     return {
       id: this.$route.params.id, //商品id
       //版本
-      version: 0,
+      version: 1,
       //轮播图
       swiperOption: {
         grabCursor: true,
@@ -151,7 +152,7 @@ export default {
     getProductInfo() {
       //获取 id
 
-      getProductInfo(this.id).then((res) => {
+      gogetProductInfo(this.id).then((res) => {
         this.ProductInfo = res;
       });
     },
@@ -186,6 +187,7 @@ export default {
       .item-info {
         font-size: 14px;
         height: 36px;
+        overflow: hidden;
       }
       .delivery {
         font-size: 16px;

@@ -3,6 +3,8 @@
 @import "./button.scss";
 
 .modal {
+  z-index: 111;
+
   border: 0px solid;
   @include position(fixed);
   z-index: 10;
@@ -29,6 +31,8 @@
     top: -100%;
   }
 
+
+
   .modal-dialog {
     @include position(absolute, 40%, 50%, 660px, auto);
     background-color: $colorG;
@@ -49,6 +53,10 @@
         }
       }
 
+    }
+
+    .ac-submit {
+      width: 400px;
     }
 
     .modal-body {

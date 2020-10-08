@@ -14,13 +14,16 @@ export function getphoneList() {
 }
 export function getProductsList() {
   return request({
-    url: "/products",
-    params: {
-      categoryId: 100012,
-      pageSize: 14
-    }
+    // HomeApi/GetHomeGood?page=1&limte=20"
+    url: "/HomeApi/GetHomeGood",
+    method: "get",
+    // params: {
+    //   page: 1,
+    //   limte: 13
+    // }
   })
 }
+// getProductsList
 export function getgood(id) {
   return request({
     url: "/carts",
@@ -31,3 +34,11 @@ export function getgood(id) {
     },
   })
 }
+//轮播图左边小图
+export function GetCagegoryHomes() {
+  return request({
+    url: "/HomeApi/CagegoryHome",
+    method: "get",
+  })
+}
+//查询分类的商品

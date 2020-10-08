@@ -15,10 +15,10 @@ export function request(config) {
     // baseURL: "http://123.207.32.32:8000/api/x6/",
     //根据前端的跨域方式做调整
     //根据黄金变量获取不同的请求地址
-    baseURL: "/api",
+    baseURL: "https://localhost:44363/api/",
     // baseURL: "https://www.easy-mock.com/mock/5f58f4b39ff3095b55ad7e36/mimall",
 
-    timeout: 5000,
+    // timeout: 5000,
   });
   //错误拦截:1.拦截状态2.拦截请求
   instance.interceptors.response.use(function (response) {

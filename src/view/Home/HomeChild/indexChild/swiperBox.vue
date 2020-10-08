@@ -3,13 +3,16 @@
     <div class="nav-menu">
       <ul class="menu-wrap">
         <li class="menu-item" v-for="(item1, index1) in getmenu" :key="index1">
-          <a href="javascript:;">{{ item1.text }}</a>
-          <div :class="item1.menuList && 'children'">
-            <ul v-for="(item, index) in item1.menuList" :key="index">
-              <li v-for="(sub, indexsub) in item" :key="indexsub">
-                <a :href="sub.id ? '/#/product/' + sub.id : ''">
-                  <img v-lazy="sub ? sub.img : '/imgs/item-box-1.png'" alt />
-                  {{ sub ? sub.name : "小米10Pro" }}
+          {{ item1.id }}
+          <a href="javascript:;">{{ item1.name }}</a>
+          <div :class="'children'">
+            <ul v-for="(item, index) in item1.child" :key="index">
+              <li v-for="(sub, indexsub) in item.goodList" :key="indexsub">
+                <a :href="'/#/product/' + sub.num">
+                  <img :src="sub ? sub.imgUrl : '/imgs/item-box-1.png'" alt />
+                  <span>{{
+                    sub ? sub.name : "小米10Pro1111111111111111"
+                  }}</span>
                 </a>
               </li>
             </ul>
@@ -34,72 +37,81 @@
 <script>
 import { swiper, swiperSlide } from "vue-awesome-swiper";
 import "swiper/swiper-bundle.css";
+import { GetCagegoryHomes } from "./../../../../network/home";
 // import  sss from "./../../../../assets/scss/mixin.scss"
 export default {
   name: "swiperBox",
-
   components: { swiper, swiperSlide },
-
+  methods: {
+    GetCagegoryHomes() {
+      GetCagegoryHomes().then((res) => {
+        this.getmenu = res;
+      });
+    },
+  },
+  mounted() {
+    this.GetCagegoryHomes();
+  },
   data() {
     return {
-      getmenu: [
-        {
-          text: "手机 电话卡",
-          menuList: [
-            [
-              {
-                id: 30,
-                img: "/imgs/item-box-1.png",
-                name: "小米cc9Pro",
-              },
-              {
-                id: 31,
-                img: "/imgs/item-box-2.png",
-                name: "小米8青春版",
-              },
-              {
-                id: 32,
-                img: "/imgs/item-box-3.jpg",
-                name: "Redmi K30 Pro",
-              },
-
-              {
-                id: 33,
-                img: "/imgs/item-box-4.jpg",
-                name: "移动5G专区",
-              },
-            ],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0],
-          ],
-        },
-        {
-          text: "电视 盒子",
-        },
-        {
-          text: "笔记本 平板",
-        },
-        {
-          text: "智能 路由器",
-        },
-        {
-          text: "出行 穿戴",
-        },
-        {
-          text: "电源 配件",
-        },
-        {
-          text: "生活 箱包",
-        },
-        {
-          text: "生活 箱包",
-        },
-        {
-          text: "生活 箱包",
-        },
-      ],
+      getmenu: {},
+      // getmenu: [
+      // {
+      //   text: "手机 电话卡",
+      //   menuList: [
+      //     [
+      //       {
+      //         id: 30,
+      //         img: "/imgs/item-box-1.png",
+      //         name: "小米cc9Pro",
+      //       },
+      //       {
+      //         id: 31,
+      //         img: "/imgs/item-box-2.png",
+      //         name: "小米8青春版",
+      //       },
+      //       {
+      //         id: 32,
+      //         img: "/imgs/item-box-3.jpg",
+      //         name: "Redmi K30 Pro",
+      //       },
+      //       {
+      //         id: 33,
+      //         img: "/imgs/item-box-4.jpg",
+      //         name: "移动5G专区",
+      //       },
+      //     ],
+      //     [0, 0, 0, 0],
+      //     [0, 0, 0, 0],
+      //     [0, 0, 0, 0],
+      //     [0, 0, 0, 0],
+      //   ],
+      // },
+      // {
+      //   text: "电视 盒子",
+      // },
+      // {
+      //   text: "笔记本 平板",
+      // },
+      // {
+      //   text: "智能 路由器",
+      // },
+      // {
+      //   text: "出行 穿戴",
+      // },
+      // {
+      //   text: "电源 配件",
+      // },
+      // {
+      //   text: "生活 箱包",
+      // },
+      // {
+      //   text: "生活 箱包",
+      // },
+      // {
+      //   text: "生活 箱包",
+      // },
+      // ],
 
       swiperOptions: {
         spaceBetween: 30,
@@ -150,8 +162,6 @@ export default {
       ],
     };
   },
-  computed: {},
-  mounted() {},
 };
 </script>
 
@@ -194,8 +204,11 @@ export default {
         // height: 50px;
         // line-height: 50px;
         display: flex;
+
         align-items: center;
         a {
+          // display: block;
+
           font-size: $fontI;
           color: $colorG;
           padding-left: 30px;
@@ -217,6 +230,8 @@ export default {
         }
         .children {
           display: none;
+          // display: block;
+          overflow: hidden;
 
           width: 962px;
           height: 476px;
@@ -237,9 +252,22 @@ export default {
             height: 75px;
             li {
               // height: 75px;
+              // visibility: hidden;
               // line-height: 75px;
               flex: 1;
-              padding: 23px;
+              // overflow: hidden;
+              padding: 20px;
+              a {
+                img {
+                  // float: left;
+                }
+                span {
+                  overflow: hidden;
+                  width: 83px;
+                  height: 13px;
+                  display: inline-block;
+                }
+              }
             }
             img {
               width: 42px;
@@ -251,6 +279,11 @@ export default {
               color: $colorB;
               font-size: 14px;
               line-height: 14px;
+
+              span {
+                overflow: hidden;
+                width: 133px;
+              }
             }
           }
         }

@@ -156,6 +156,8 @@
 </template>
 <script>
 import productParam from "./../../../components/content/productChild/productParam";
+import { getcomment } from "./../../../network/comment";
+
 export default {
   name: "comment",
   components: { productParam },
@@ -170,8 +172,10 @@ export default {
   mounted() {
     // var infoid = this.$route.params.id;
     this.$message.info(infoid);
+    this.goodcomment();
   },
   methods: {
+    goodcomment() {},
     goBuy() {
       let id = this.$route.params.id;
       this.$router.push(`/detail/${id}`);

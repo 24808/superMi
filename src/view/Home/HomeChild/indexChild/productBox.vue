@@ -7,7 +7,11 @@
         </a>
       </div>
     </div>
-    <div class="product-box">
+    <div
+      class="product-box"
+      v-for="(big, indexbig) in phoneList"
+      :key="indexbig"
+    >
       <div class="container">
         <h2>手机</h2>
         <div class="wrapper">
@@ -18,21 +22,27 @@
           </div>
 
           <div class="list-box">
-            <div class="list" v-for="(item, index) in phoneList" :key="index">
+            <div
+              class="list"
+              v-for="(item, index) in big.newgooods"
+              :key="index"
+            >
               <div v-for="(arr, index1) in item" :key="index1">
+                <!-- {{ arr }} -->
                 <!-- <a :href="'/#/product/'+arr.id"> -->
                 <a href="javascript:void(0)">
                   <div class="item">
                     <span v-if="index1 % 2 == 0" class="new-pro">新品</span>
                     <span v-else class="kill-pro">爆款</span>
                     <div class="item-img">
-                      <img v-lazy="arr.mainImage" alt />
+                      <!-- <img v-lazy="null || arr.mainImage" alt /> -->
+                      <img src="" alt="" />
                     </div>
                     <div class="item-info">
-                      <h3>{{ arr.name }}</h3>
-                      <p>{{ arr.subtitle }}</p>
-                      <p class="price" @click="addCart(arr.id)">
-                        {{ arr.price | currency }}
+                      <h3>{{ arr.goodName }}</h3>
+                      <p>{{ arr.hardName }}</p>
+                      <p class="price" @click="addCart(arr.goodId)">
+                        {{ arr.floorPrice | currency }}
                       </p>
                     </div>
                   </div>
@@ -84,7 +94,9 @@ export default {
     };
   },
   mounted() {
-    this.intit();
+    setTimeout(() => {
+      this.intit();
+    }, 100);
   },
   filters: {
     currency(val) {
@@ -101,8 +113,36 @@ export default {
     },
     intit() {
       getProductsList().then((res) => {
-        res.list = res.list.slice(6, 14);
-        this.phoneList = [res.list.slice(0, 4), res.list.slice(4, 8)];
+        // alert(res);
+
+        // res.list = res.list.slice(6, 14);
+        this.phoneList = res;
+        // if(res.list.length>8){
+        //    this.phoneList =[res.list.slice(0, 4), res.list.slice(4, 8)]
+        // }else if(res.list.length>8){
+        //   this.phoneList =[res.list.slice(0, 4), res.list.slice(4, (res.list.length-1))]
+        // }else{
+        // this.phoneList =  [res.list.slice(0, (res.list.length-1)),{}]
+        // }
+        for (const item of this.phoneList) {
+          // item.getHomeGood.
+          if (item.getHomeGood.length > 7) {
+            item.newgooods = [
+              item.getHomeGood.slice(0, 4),
+              item.getHomeGood.slice(4, 8),
+            ];
+          } else if (item.getHomeGood.length > 7) {
+            item.newgooods = [
+              item.getHomeGood.slice(0, 4),
+              item.getHomeGood.slice(4, item.getHomeGood.length),
+            ];
+          } else {
+            item.newgooods = [
+              item.getHomeGood.slice(0, item.getHomeGood.length),
+              {},
+            ];
+          }
+        }
       });
     },
     addCart(id) {

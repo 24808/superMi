@@ -1,4 +1,4 @@
-// @import "./config.scss";
+@import "./config.scss";
 
 .btn {
   display: inline-block;
@@ -43,4 +43,16 @@
     margin-right: 0;
 
   }
+}
+
+.n-btn {
+  display: inline-block;
+  line-height: normal !important;
+  color: #555;
+  border: 1px solid #e8e8e8;
+  padding: 7px 40px;
+  background: #fff;
+  overflow: visible;
+  cursor: pointer;
+  margin-left: 10px;
 }
