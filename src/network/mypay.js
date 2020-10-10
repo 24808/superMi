@@ -1,8 +1,16 @@
+import {
+  request
+} from "./payrequest";
 
-
+export function getOrderDetail(orderId) {
+  return request({
+    url: `/orders/${orderId}`,
+    method: "get",
+  });
+}
 export function gopay(orderId, payType) {
   return request({
-    url: "http://mi.futurefe.com/api/pay",
+    url: `/pay`,
     method: "post",
     data: {
       orderId,

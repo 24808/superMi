@@ -99,7 +99,7 @@
 <script>
 import orderHeader from "./../../../components/content/order/orderHeader";
 //请求
-import { getOrderDetail, gopay } from "./../../../network/pay";
+import { getOrderDetail, gopay } from "./../../../network/mypay";
 
 import ScanPayCode from "./../../../components/content/ScanPayCode";
 //二维码
