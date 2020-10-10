@@ -15,7 +15,7 @@
         <div class="tab-container">
           <div class="coupon-empty" v-show="isshow">您暂时没有可用的优惠券</div>
           <div v-show="!isshow">
-          <div class="youhu "  :class="{ 'action': count==index }" @click="xuanzhong(index)" v-for="(item,index) in youhuList" :key="index" >{{item}}</div>
+          <div class="youhu "  :class="{ 'action': count==index }" @click="xuanzhong(index,item)" v-for="(item,index) in voucherList" :key="index" >{{item.couponName}}</div>
 
           </div>
           
@@ -32,18 +32,19 @@ export default {
       count: 1,
       coloryellow: "coloryellow",
       isshow:false,//是否没有有数据
-      youhuList:['满一百','满一百'],
+      // youhuList:['满一百','满一百'],
       count:0,
     };
   },
   props: {
     show: true,
+    voucherList:{}
   },
   methods: {
-    xuanzhong(index){
+    xuanzhong(index,data){
       this.count=index;
       
-      this.$emit('data',"24808")
+      this.$emit('data',data)
     }
   },
 };

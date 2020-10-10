@@ -172,7 +172,7 @@ export default new Router({
             name: "order",
             component: order,
             children: [{
-                path: "confirm",
+                path: "confirm/:orderId",
                 name: "confirm",
                 component: orderConfirm,
             }, {

@@ -20,3 +20,23 @@ export function gopay(orderId, payType) {
     },
   });
 }
+
+export function go1() {
+  return request({
+    url: `/carts`,
+    method: "post",
+    data: {
+      productId: 37,
+      selected: true
+    },
+  });
+}
+export function go2() {
+  return request({
+    url: `/orders`,
+    method: "post",
+    data: {
+      shippingId: 5095
+    },
+  });
+}

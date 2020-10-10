@@ -56,3 +56,78 @@ export function submitShippings(shippingId) {
     }
   })
 }
+///////////新的
+export function GetSettlements(orderid) {
+
+  // let param = new URLSearchParams();
+  // param.append("orderid",  orderid );
+
+  return request({
+    url: `/ShoppingApi/GetSettlements`,
+    // method: "post",
+    params: {
+      orderid
+    }
+  })
+}
+//收货地址
+export function GetShoppingAddress(orderid) {
+  return request({
+    url: `/Personal/GetShoppingAddress`,
+   
+  })
+}
+
+export function AddADDress(list) {
+
+  let param = new URLSearchParams();
+  param.append("Name",  list.name );
+  param.append("Phone",  list.phone );
+  param.append("Address",  list.address );
+
+  return request({
+    url: `/Personal/AddADDress`,
+    method: "post",
+    data:param
+  })
+}
+export function UpAddress(list) {
+
+  let param = new URLSearchParams();
+  param.append("id",  list.id );
+  param.append("Name",  list.name );
+  param.append("Phone",  list.phone );
+  param.append("Address",  list.address );
+
+  return request({
+    url: `/Personal/UpAddress`,
+    method: "post",
+    data:param
+  })
+}
+export function DeleteAddress(list) {
+
+  let param = new URLSearchParams();
+  param.append("id",  list.id );
+  return request({
+    url: `/Personal/Delete`,
+    method: "post",
+    data:param
+  })
+}
+//去结算
+export function SettleBtnClick(orderid,address,totalPrice,name,phone,couponid) {
+
+  let param = new URLSearchParams();
+  param.append("orderid",  orderid );
+  param.append("Address",  address );
+  param.append("Name",  name );
+  param.append("Phone",  phone );
+  param.append("couponid",  couponid );
+  param.append("totalPrice",  totalPrice );
+  return request({
+    url: `/ShoppingApi/SettleBtnClick`,
+    method: "post",
+    data:param
+  })
+}

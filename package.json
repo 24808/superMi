@@ -7,6 +7,7 @@
     "test": "vue-cli-service serve --mode=test",
     "build": "vue-cli-service build --mode=production"
   },
+  
   "dependencies": {
     "better-scroll": "^2.0.4",
     "core-js": "^3.6.5",

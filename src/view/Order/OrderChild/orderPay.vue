@@ -99,7 +99,7 @@
 <script>
 import orderHeader from "./../../../components/content/order/orderHeader";
 //请求
-import { getOrderDetail, gopay } from "./../../../network/mypay";
+import { getOrderDetail, gopay,go1,go2 } from "./../../../network/mypay";
 
 import ScanPayCode from "./../../../components/content/ScanPayCode";
 //二维码
@@ -111,7 +111,7 @@ export default {
   data() {
     return {
       //获取地址栏的参数
-      orderNo: this.$route.query.orderNo,
+      orderNo: this.$route.params.orderNo,
       addressInfo: "", //收货人地址
       goodDetail: {}, //订单详情包含了商品列表
       showDetail: false, //是否显示订单详情
@@ -135,6 +135,7 @@ export default {
     // 轮询当前订单支付状态
     loopOrderState() {
       this.T = setInterval(() => {
+        //查询订单信息
         getOrderDetail(this.orderNo).then((res) => {
           //用户付款
           if (res.status == 20) {
@@ -161,7 +162,14 @@ export default {
       if (payType == 1) {
         window.open("/#/order/alipay?orderId=" + this.orderNo, "_blank");
       } else {
-        gopay(this.orderNo, 2).then((res) => {
+        
+        go1().then(res=>{
+          alert("添加购物车")
+          go2().then(res=>{
+          alert("添加订单")
+              this.orderNo=res.orderNo
+
+            gopay(res.orderNo, 2).then((res) => {
           QRCode.toDataURL(res.content)
             .then((res) => {
               this.showPay = true;
@@ -172,6 +180,9 @@ export default {
               this.$message.error("二维码生成失败，请重试");
             });
         });
+          })
+        })
+      
       }
     },
     getOrderDetail() {

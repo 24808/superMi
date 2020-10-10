@@ -102,12 +102,13 @@ export default {
         // alert("请选择一件商品");
         this.$message.warning("请选择一件商品");
       } else {
-        this.$router.push("/order/confirm");
-        return
-        GetSettlementsList(this.list).then(res=>{
-          alert(res);
-          // this.$router.push("/order/confirm");
+         GetSettlementsList(this.list).then(res=>{
+          alert(res.orderId);
+          this.$router.push("/order/confirm/"+res.orderId);
         })
+        // this.$router.push("/order/confirm");
+        // return
+       
         // this.$router.push("/order/confirm");
 
       }
