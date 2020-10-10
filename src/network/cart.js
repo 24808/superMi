@@ -53,6 +53,7 @@ export function ShiooingCarDelect(goodid) {
     method: "post", data: param
   })
 }
+
 //测试
 // meiyoude
 export function ceshi(list) {

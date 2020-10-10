@@ -5,7 +5,8 @@
   </div>
 </template>
 <script>
-import { gopay, getOrderDetail } from "./../../../network/pay";
+// import { gopay, getOrderDetail } from "./../../../network/pay";
+import { gopay } from "./../../../network/mypay";
 import Loading from "./../../../components/content/Loading";
 export default {
   name: "alipay",

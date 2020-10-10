@@ -155,6 +155,7 @@ export default {
       this.showPayModal = true;
       clearInterval(this.T);
     },
+    //提交订单
     paySubmit(payType) {
       this.patType = payType;
       if (payType == 1) {

@@ -296,6 +296,13 @@ export default {
     },
     //订单提交
     orderSubmit() {
+        this.$router.push({
+            path: "/order/pay",
+            query: {
+              orderNo: "1602332255036",
+            },
+          });
+          return;
       let item = this.list[this.checkIndex];
       if (!item) {
         this.$message.error("请选择收货地址");
