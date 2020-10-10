@@ -41,4 +41,10 @@ export function GetCagegoryHomes() {
     method: "get",
   })
 }
+export function HomeTopList() {
+  return request({
+    url: "/HomeApi/HomeTopList",
+    method: "get",
+  })
+}
 //查询分类的商品

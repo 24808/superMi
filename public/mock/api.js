@@ -1,4 +1,5 @@
 import Mock from "mockjs"
+Mock.XHR.prototype.withCredentials = true;
 Mock.mock("/api/user/login", {
   "status": 0,
   "data": {

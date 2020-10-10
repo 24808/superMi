@@ -14,6 +14,7 @@ export function gogetProductInfo(id) {
   return request({
     url: "/Details/GetGood",
     method: "get",
+    
     params: {
       goodid: "G1001"
     }

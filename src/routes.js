@@ -7,6 +7,15 @@ import seckill from "./view/Home/HomeChild/seckill"
 import product from "./view/Home/HomeChild/product"
 import comment from "./view/Home/HomeChild/comment"
 import detail from "./view/Home/HomeChild/detail"
+//个人中心
+import personalCenter from "./view/personalCenter/personalCenter"
+
+import coupon from "./view/personalCenter/personalCenterChild/coupon"
+import myOrder from "./view/personalCenter/personalCenterChild/myOrder"
+import myPersonalCenter from "./view/personalCenter/personalCenterChild/myPersonalCenter"
+import PhoneBill from "./view/personalCenter/personalCenterChild/PhoneBill"
+import shippingAddress from "./view/personalCenter/personalCenterChild/shippingAddress"
+//
 //account
 import account from "./view/account/account"
 import PersonalInfo from "./view/account/accountChild/PersonalInfo"
@@ -65,92 +74,120 @@ Vue.use(Router);
 
 
 export default new Router({
-  routes: [{
-      path: "/",
-      name: "home",
-      component: home,
-      redirect: '/index',
-      // 子路由
-      children: [{
-          path: "/index",
-          name: "index",
-          component: index,
-          // component: resolve => require(['./view/Home/HomeChild/indexChild/index'], resolve)
-        }, {
-          path: "seckill",
-          name: "seckill",
-          component: seckill,
-        },
+    routes: [{
+            path: "/",
+            name: "home",
+            component: home,
+            redirect: '/index',
+            // 子路由
+            children: [{
+                    path: "/index",
+                    name: "index",
+                    component: index,
+                    // component: resolve => require(['./view/Home/HomeChild/indexChild/index'], resolve)
+                }, {
+                    path: "seckill",
+                    name: "seckill",
+                    component: seckill,
+                },
 
-        {
-          path: "comment/:id",
-          name: "comment",
-          component: comment,
+                {
+                    path: "comment/:id",
+                    name: "comment",
+                    component: comment,
+                },
+                {
+                    path: "product/:id",
+                    name: "product",
+                    component: product,
+                }, {
+                    path: "detail/:id",
+                    name: "detail",
+                    component: detail,
+                },
+                {
+                    path: "seach/:keyword",
+                    name: "seach",
+                    component: seach,
+                },
+            ]
         },
         {
-          path: "product/:id",
-          name: "product",
-          component: product,
-        }, {
-          path: "detail/:id",
-          name: "detail",
-          component: detail,
-        },
-        {
-          path: "seach/:keyword",
-          name: "seach",
-          component: seach,
-        },
-      ]
-    }, {
-      path: "/cart",
-      name: "cart",
-      component: cart,
-    }, {
-      path: "/login",
-      name: "login",
-      component: login,
-    },
-    {
-      path: "/account",
-      name: "account",
-      component: account,
-      children: [{
-        path: "security",
-        name: "security",
-        component: security,
+            path: "/personalCenter",
+            name: "personalCenter",
+            component: personalCenter,
+            redirect: 'personalCenter/coupon',
 
-      }, {
-        path: "PersonalInfo",
-        name: "PersonalInfo",
-        component: PersonalInfo,
-      }, {
-        path: "Personalnone",
-        name: "Personalnone",
-        component: Personalnone,
-      }]
-    },
-    {
-      path: "/order",
-      name: "order",
-      component: order,
-      children: [{
-        path: "confirm",
-        name: "confirm",
-        component: orderConfirm,
-      }, {
-        path: "list",
-        name: "list",
-        component: orderList,
-      }, {
-        path: "Pay",
-        name: "Pay",
-        component: orderPay,
-      }, {
-        path: "alipay",
-        name: "alipay",
-        component: alipay,
-      }]
-    }
-  ]
+            children: [{
+                path: "coupon",
+                name: "coupon",
+                component: coupon,
+            }, {
+                path: "myOrder",
+                name: "myOrder",
+                component: myOrder,
+            }, {
+                path: "myPersonalCenter",
+                name: "myPersonalCenter",
+                component: myPersonalCenter,
+            }, {
+                path: "PhoneBill",
+                name: "PhoneBill",
+                component: PhoneBill,
+            }, {
+                path: "shippingAddress",
+                name: "shippingAddress",
+                component: shippingAddress,
+            }, ]
+        }, {
+            path: "/cart",
+            name: "cart",
+            component: cart,
+        }, {
+            path: "/login",
+            name: "login",
+            component: login,
+        },
+        {
+            path: "/account",
+            name: "account",
+            component: account,
+            children: [{
+                path: "security",
+                name: "security",
+                component: security,
+
+            }, {
+                path: "PersonalInfo",
+                name: "PersonalInfo",
+                component: PersonalInfo,
+            }, {
+                path: "Personalnone",
+                name: "Personalnone",
+                component: Personalnone,
+            }]
+        },
+        {
+            path: "/order",
+            name: "order",
+            component: order,
+            children: [{
+                path: "confirm",
+                name: "confirm",
+                component: orderConfirm,
+            }, {
+                path: "list",
+                name: "list",
+                component: orderList,
+            }, {
+                path: "Pay",
+                name: "Pay",
+                component: orderPay,
+            }, {
+                path: "alipay",
+                name: "alipay",
+                component: alipay,
+            }]
+        }
+    ]
 })

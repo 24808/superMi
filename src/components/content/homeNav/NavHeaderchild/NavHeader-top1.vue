@@ -57,7 +57,7 @@ export default {
         });
       });
       //清除cookie
-      this.$cookie.set("userId", "", { expires: "-1" });
+      this.$cookie.set("userid", "", { expires: "-1" });
       //清空vuex的数据
       this.$store.dispatch("saveUserName", "");
       this.$store.dispatch("saveCartCount", "0");
@@ -94,7 +94,6 @@ export default {
       text-align: center;
       color: #fff;
       margin-right: 0;
-
       .icon-cart {
         //背景图片样式
         @include bgImg(
@@ -102,7 +101,6 @@ export default {
           12px,
           "./../../../../../public/imgs/icon-cart-checked.png"
         );
-
         margin-right: 4px;
       }
     }

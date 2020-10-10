@@ -9,17 +9,10 @@
         <div class="swiper">
           <swiper :options="swiperOption">
             <swiper-slide
-              ><img src="/imgs/detail/phone-1.jpg" alt=""
+            v-for="(item,index) in ProductInfo.imagesUrl" :key="index"
+              ><img v-lazy="item.imgUrl" alt=""
             /></swiper-slide>
-            <swiper-slide
-              ><img src="/imgs/detail/phone-2.jpg" alt=""
-            /></swiper-slide>
-            <swiper-slide
-              ><img src="/imgs/detail/phone-3.jpg" alt=""
-            /></swiper-slide>
-            <swiper-slide
-              ><img src="/imgs/detail/phone-4.jpg" alt=""
-            /></swiper-slide>
+  
             <!-- Optional controls -->
             <div class="swiper-pagination" slot="pagination"></div>
           </swiper>
@@ -28,12 +21,10 @@
           <h2 class="item-title">{{ ProductInfo.goodName }}</h2>
           <p class="item-info">
             {{ ProductInfo.content }}
-            <!-- 相机全新升级 / 960帧超慢动作 / 手持超级夜景 / 全球首款双频GPS /
-            骁龙845处理器 / 红<br />外人脸解锁 / AI变焦双摄 / 三星 AMOLED 屏 -->
           </p>
           <div class="delivery">小米自营</div>
           <div class="item-price">
-            {{ ProductInfo.price }}<span class="del">1999元</span>
+            {{ banben.price }}<span class="del">1999元</span>
           </div>
           <div class="line"></div>
           <div class="item-addr">
@@ -42,8 +33,17 @@
             <div class="stock">有现货</div>
           </div>
           <div class="item-version clearfix">
+            <!-- {{dataviess}}
+            {{banben}}
+            {{color}} -->
+            <!-- {{dataviess.num}} -->
+            <!-- {{banben}} -->
             <h2>选择版本</h2>
-            <div
+            <div class="phone fl"  @click="selectbanben(index,item)" :class="{checked:viesscount==index}" v-for="(item,index) in dataviess.chlid[0].specificationNum" :key="index">
+               <!-- @click="selectbanben(index,item)" -->
+              {{item.num}}
+            </div>
+            <!-- <div
               class="phone fl"
               :class="{ checked: version == 1 }"
               @click="version = 1"
@@ -56,24 +56,25 @@
               @click="version = 2"
             >
               4GB+64GB 移动4G
-            </div>
+            </div> -->
           </div>
           <div class="item-color">
             <h2>选择颜色</h2>
-            <div class="phone checked">
-              <span class="color"></span>
-              深空灰
+            <div class="phone " :class="{'versionChecked':version==index}" @click="gocieass(item,index)" v-for="(item,index) in colorOrversion" :key="index">
+              <span class="color" ></span>
+              <!-- {{item.chlid}} -->
+              {{item.num}}
             </div>
           </div>
           <div class="item-total">
             <div class="phone-info clearfix">
               <div class="fl">
-                {{ ProductInfo.name }}
-                {{ version == 1 ? "6GB+64GB 全网通" : "4GB+64GB 移动4G" }}
+                版本: {{banben.num}}
+                <!-- {{ version == 1 ? "6GB+64GB 全网通" : "4GB+64GB 移动4G" }} -->
               </div>
-              <div class="fr">{{ ProductInfo.price }}</div>
+              <div class="fr">{{ banben.price }}</div>
             </div>
-            <div class="phone-total">总计：{{ ProductInfo.price }}元</div>
+            <div class="phone-total">总计：{{banben.price }}元</div>
           </div>
           <div class="btn-group">
             <a href="javascript:;" class="btn btn-huge fl" @click="addCart"
@@ -114,9 +115,19 @@ export default {
   },
   data() {
     return {
+      viesscount:0,
+      checked:"checked",
       id: this.$route.params.id, //商品id
       //版本
-      version: 1,
+      version: 0,
+      //颜色
+      colorOrversion:{},
+      //当前颜色:{}
+      color:{},
+      //所有版本
+      dataviess:{},
+      //当前版本
+      banben:{},
       //轮播图
       swiperOption: {
         grabCursor: true,
@@ -141,19 +152,46 @@ export default {
     this.getProductInfo();
   },
   methods: {
+    //当前版本
+    selectbanben(index,item){
+this.viesscount=index;
+this.banben=item;
+    }
+    //当前颜色
+    ,
+    gocieass(item,index){
+      // alert(item)
+
+      this.dataviess=item;
+      this.version=index
+    },
     addCart() {
-      addCart(this.id).then((res = { cartProductVoList: 0 }) => {
-        //返回数据的长度
+      const goodid = this.banben.goodId;
+      const specificationarr = this.banben.gsId+","+this.banben.parentId;
+      const price = this.banben.price;
+        this.$cookie.set("userid", "U1001", { expires: "Session" });
+      addCart(goodid,specificationarr,price).then(res => {
+      //返回数据的长度
         // this.$store.dispatch("saveCartCount", res.cartProductVoList.length);
-        this.$store.dispatch("saveCartCount", res.cartTotalQuantity);
+        // this.$store.dispatch("saveCartCount", res.cartTotalQuantity);
+
         this.$router.push("/cart");
       });
+      //
+
     },
     getProductInfo() {
       //获取 id
-
       gogetProductInfo(this.id).then((res) => {
         this.ProductInfo = res;
+        this.colorOrversion=res.chlidClass[0].specificationNum;
+        //当前颜色
+          this.dataviess=this.colorOrversion[0];
+          
+          // this.color=this.colorOrversion[0].num;
+          //当前版本
+          this.banben=this.dataviess.chlid[0].specificationNum[0];
+          // this.banben=this.dataviess;
       });
     },
   },
@@ -239,15 +277,17 @@ export default {
       }
       .item-version,
       .item-color {
-        margin-top: 30px;
+        margin-top: 20px;
         h2 {
           font-size: 18px;
-          margin-bottom: 20px;
+          margin-bottom: 10px;
         }
       }
       .item-version,
       .item-color {
         .phone {
+          display: inline-block;
+          margin: 0 5px 5px 0;
           width: 287px;
           height: 50px;
           line-height: 50px;
@@ -271,6 +311,11 @@ export default {
             border: 1px solid #ff6600;
             color: #ff6600;
           }
+            &.versionChecked {
+            border: 1px solid #ff6600;
+            color: #ff6600;
+          }
+          
         }
       }
       .item-total {
@@ -278,8 +323,8 @@ export default {
         background: #fafafa;
         padding: 24px 33px 29px 30px;
         font-size: 14px;
-        margin-top: 50px;
-        margin-bottom: 30px;
+        margin-top: 10px;
+        margin-bottom: 10px;
         box-sizing: border-box;
         .phone-total {
           font-size: 24px;

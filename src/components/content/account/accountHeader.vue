@@ -39,7 +39,7 @@ export default {
         });
       });
       //清除cookie
-      this.$cookie.set("userId", "", { expires: "-1" });
+      // this.$cookie.set("userid", "", { expires: "-1" });
       //清空vuex的数据
       this.$store.dispatch("saveUserName", "");
       this.$store.dispatch("saveCartCount", "0");

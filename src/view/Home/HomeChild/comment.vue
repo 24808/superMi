@@ -27,12 +27,12 @@
           <h3>热门评论</h3>
 
           <div class="l-content">
-            <div class="common">
+            <div class="common" v-for="(item,index) in GoodCommentList" :key="index">
               <div class="top">
                 <img src="/imgs/logo-mi.png" alt="" />
                 <div class="times">
-                  <div class="tit">24808</div>
-                  <div class="time">24808:8:8</div>
+                  <div class="tit">{{item.userName}}</div>
+                  <div class="time">{{item.createTime}}</div>
                 </div>
                 <div class="love">
                   <i class="el-icon-potato-strips"></i>
@@ -40,105 +40,42 @@
                 </div>
               </div>
               <div class="des">
-                小米10pro不错，拿到手很惊艳，运行流畅，本来想买珍珠白可以没有了，不过星空蓝也不错，就是在关机的状态下充电手机还是很热，希望继续优化一下，物流很快晚上下单，第二天上午就到了
+                {{item.content}}
               </div>
               <div
                 class="appreciate"
                 @click="contentlike = false"
                 v-if="contentlike"
               >
-                <i class="el-icon-star-on icon-show"></i>{{ likecount }}
+                <i class="el-icon-star-on icon-show"></i>{{ item.supportCount }}
               </div>
               <div
                 class="appreciate icon-no-show"
                 @click="contentlike = true"
                 v-else
               >
-                <i class="el-icon-star-off"></i>{{ likecount }}
+                <i class="el-icon-star-off"></i>{{ item.supportCount }}
               </div>
               <div class="reply">
-                <input type="text" name="" id="" placeholder="回复楼主" />
-                <span>回复</span>
+                <input  type="text" name=""  id="" v-on:keyup="inputTargetValue" placeholder="回复楼主" />
+                <span @click="goReplyComment(item)" >回复</span>
               </div>
               <div class="commentList">
-                <div class="comments">
+                <div class="comments" v-for="(arr,index1)  in item.chlidCom" :key="index1">
                   <img src="/imgs/logo-mi.png" alt="" />
                   <div class="c-right">
                     <div>
-                      <span>24808</span>
+                      <span>{{arr.userName}}</span>
                       <span
-                        >打开小米这扇窗，你会发现这片天地下有太多的惊喜和感动。</span
+                        >{{arr.content}}</span
                       >
                     </div>
                   </div>
                 </div>
-                <div class="comments">
-                  <img src="/imgs/logo-mi.png" alt="" />
-                  <div class="c-right">
-                    <div>
-                      <span>24808</span>
-                      <span
-                        >打开小米这扇窗，你会发现这片天地下有太多的惊喜和感动。</span
-                      >
-                    </div>
-                  </div>
-                </div>
+            
               </div>
             </div>
-            <div class="common">
-              <div class="top">
-                <img src="/imgs/logo-mi.png" alt="" />
-                <div class="times">
-                  <div class="tit">24808</div>
-                  <div class="time">24808:8:8</div>
-                </div>
-                <div class="love">
-                  <i class="el-icon-potato-strips"></i>
-                  超爱
-                </div>
-              </div>
-              <div class="des">
-                小米10pro不错，拿到手很惊艳，运行流畅，本来想买珍珠白可以没有了，不过星空蓝也不错，就是在关机的状态下充电手机还是很热，希望继续优化一下，物流很快晚上下单，第二天上午就到了
-              </div>
-              <div
-                class="appreciate"
-                @click="contentlike = false"
-                v-if="contentlike"
-              >
-                <i class="el-icon-star-on"></i>{{ likecount }}
-              </div>
-              <div class="appreciate" @click="contentlike = true" v-else>
-                <i class="el-icon-star-off"></i>{{ likecount }}
-              </div>
-              <div class="reply">
-                <input type="text" name="" id="" placeholder="回复楼主" />
-                <span>回复</span>
-              </div>
-              <div class="commentList">
-                <div class="comments">
-                  <img src="/imgs/logo-mi.png" alt="" />
-                  <div class="c-right">
-                    <div>
-                      <span>24808</span>
-                      <span
-                        >打开小米这扇窗，你会发现这片天地下有太多的惊喜和感动。</span
-                      >
-                    </div>
-                  </div>
-                </div>
-                <div class="comments">
-                  <img src="/imgs/logo-mi.png" alt="" />
-                  <div class="c-right">
-                    <div>
-                      <span>24808</span>
-                      <span
-                        >打开小米这扇窗，你会发现这片天地下有太多的惊喜和感动。</span
-                      >
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+     
           </div>
         </div>
         <div class="mid-right">
@@ -156,7 +93,7 @@
 </template>
 <script>
 import productParam from "./../../../components/content/productChild/productParam";
-import { getcomment } from "./../../../network/comment";
+import { GetGoodComment,ReplyComment } from "./../../../network/comment";
 
 export default {
   name: "comment",
@@ -167,15 +104,37 @@ export default {
       tagindex: {},
       contentlike: true,
       likecount: 20,
+      GoodCommentList:{},
+      text:''//文本
     };
   },
   mounted() {
-    // var infoid = this.$route.params.id;
+    var infoid = this.$route.params.id;
     this.$message.info(infoid);
     this.goodcomment();
   },
   methods: {
-    goodcomment() {},
+    inputTargetValue(e){
+ this.text = e.target.value
+//  alert
+    }
+    ,
+    goReplyComment(item){
+      // this.$message.info(item.number)
+      // this.$message.info(item.commentId)
+      ReplyComment(item.number,item.commentId,this.text).then(res=>{
+        this.GoodCommentList=res;
+        this.$message.success("恭喜你！回复成功！")
+
+      })
+      
+    },
+    goodcomment() {
+      // alert('asd');
+      GetGoodComment('G1001').then(res=>{
+this.GoodCommentList=res;
+      })
+    },
     goBuy() {
       let id = this.$route.params.id;
       this.$router.push(`/detail/${id}`);

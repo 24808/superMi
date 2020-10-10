@@ -13,7 +13,12 @@
       </ul>
       <div class="tab-content code-content">
         <div class="tab-container">
-          <div class="coupon-empty">您暂时没有可用的优惠券</div>
+          <div class="coupon-empty" v-show="isshow">您暂时没有可用的优惠券</div>
+          <div v-show="!isshow">
+          <div class="youhu "  :class="{ 'action': count==index }" @click="xuanzhong(index)" v-for="(item,index) in youhuList" :key="index" >{{item}}</div>
+
+          </div>
+          
         </div>
       </div>
     </div>
@@ -26,12 +31,21 @@ export default {
     return {
       count: 1,
       coloryellow: "coloryellow",
+      isshow:false,//是否没有有数据
+      youhuList:['满一百','满一百'],
+      count:0,
     };
   },
   props: {
-    show: false,
+    show: true,
   },
-  methods: {},
+  methods: {
+    xuanzhong(index){
+      this.count=index;
+      
+      this.$emit('data',"24808")
+    }
+  },
 };
 </script>
 <style scoped lang="scss">
@@ -88,6 +102,24 @@ export default {
         text-align: center;
         font-size: 18px;
       }
+        // text-align: center;
+margin-left: 100px;
+      .youhu{
+        cursor: pointer;
+        width: 400px;
+        background: #e3e3e3;
+        height: 50px;
+        line-height: 50px;
+        font-size: 40px;
+        color: #ff6600;
+        overflow: hidden;
+        margin-bottom: 4px;
+        &.action{
+          border: 1px solid #ff6600 ;
+        }
+      }
+
+      overflow: hidden;
     }
   }
 }

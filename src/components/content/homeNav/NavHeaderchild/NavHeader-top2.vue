@@ -5,21 +5,21 @@
         <a href="/#/index" class></a>
       </div>
       <div class="header-menu">
-        <div class="item-menu">
-          <span>小米手机</span>
+        <div class="item-menu" v-for="(item1,index1) in phoneList" :key="index1">
+          <span>{{item1.name}}</span>
           <div class="children">
             <ul>
               <li
                 class="product"
-                v-for="(item, index) in phoneList"
+                v-for="(item, index) in item1.getGoodList"
                 :key="index"
               >
-                <a :href="'/#/product/' + item.id" target="_blank">
+                <a :href="'/#/product/' + item.goodId" target="_blank">
                   <div class="pro-img">
-                    <img v-lazy="item.mainImage" alt />
+                    <img v-lazy="item.imgUrl" alt />
                   </div>
-                  <div class="pro-name">{{ item.name }}</div>
-                  <div class="pro-price">{{ item.price | currency }}</div>
+                  <div class="pro-name">{{ item.goodName }}</div>
+                  <div class="pro-price">{{ item.floorPrice | currency }}</div>
                 </a>
               </li>
             </ul>
@@ -67,6 +67,7 @@
             </ul>
           </div>
         </div>
+
       </div>
 
       <div class="header-search">
@@ -186,11 +187,12 @@ export default {
         box-shadow: 0px 7px 10px 0px rgba(0, 0, 0, 0.11);
         ul {
           display: flex;
-          justify-content: space-between;
+          justify-content: center;
           align-items: center;
         }
         .product {
           // flex: 1;
+          padding: 0 20px;
           height: 220px;
           font-size: 12px;
           line-height: 12px;

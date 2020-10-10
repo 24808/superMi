@@ -2,13 +2,24 @@ import {
   request
 } from "./request";
 
-export function getphoneList() {
+export function GetGoodComment(goodid) {
   return request({
-    url: "/products",
+    url: "/Details/GetGoodComment",
     method: "get",
     params: {
-      categoryId: "100012",
-      pageSize: 6
+      goodid
     },
+  });
+}
+export function ReplyComment(goodid,commentid,content) {
+  let param = new URLSearchParams();
+
+  param.append("goodid",  goodid);
+  param.append("commentid",  commentid);
+  param.append("content",  content);
+  return request({
+    url: "/Details/ReplyComments",
+    method: "post",
+    data: param
   });
 }

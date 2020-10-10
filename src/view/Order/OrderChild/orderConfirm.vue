@@ -127,7 +127,8 @@
             <a href="javascript:;">电子发票</a>
             <a href="javascript:;">个人</a>
           </div>
-          <voucher :show="vouchershow" @exit="vouchershow = false"></voucher>
+          <voucher :show="vouchershow" @exit="vouchershow = false" @data="gotoyouhu"></voucher>
+          
           <div class="detail">
             <div class="section-discount">
               <div class="discount-coupon" @click="vouchershow = true">
@@ -283,6 +284,11 @@ export default {
     this.getCartList();
   },
   methods: {
+    //优惠卷
+    gotoyouhu(data){
+      alert(data)
+    }
+    ,
     getCartCount() {
       getCartCount().then((res = 0) => {
         this.$store.dispatch("saveCartCount", res);

@@ -10,7 +10,7 @@
 <script>
 import NavHeadertop1 from "./NavHeaderchild/NavHeader-top1";
 import NavHeadertop2 from "./NavHeaderchild/NavHeader-top2";
-import { getphoneList } from "./../../../network/home";
+import { HomeTopList } from "./../../../network/home";
 //解构
 import { mapState } from "vuex";
 export default {
@@ -36,15 +36,16 @@ export default {
   },
   methods: {
     getProductList() {
-      getphoneList().then((res) => {
-        console.log(res);
+      HomeTopList().then((res) => {
+        // console.log(res);
+        this.phoneList=res
         //判断返回的数据是否大于6
-        if (res.list.length > 6) {
-          //数组的截取
-          this.phoneList = res.list.slice(0, 6);
-        } else {
-          this.phoneList = res.list;
-        }
+        // if (res.list.length > 6) {
+        //   //数组的截取
+        //   this.phoneList = res.list.slice(0, 6);
+        // } else {
+        //   this.phoneList = res.list;
+        // }
       });
     },
   },

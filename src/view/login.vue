@@ -62,7 +62,7 @@
 </template>
 <script>
 import Axios from "axios";
-import { login, register,getCartCount } from "./../network/login";
+import { login, register, getCartCount } from "./../network/login";
 import { mapActions } from "vuex";
 export default {
   name: "login",
@@ -75,7 +75,7 @@ export default {
     };
   },
   methods: {
-     getCartCount() {
+    getCartCount() {
       getCartCount().then((res = 0) => {
         this.$store.dispatch("saveCartCount", res);
       });
@@ -89,27 +89,28 @@ export default {
           //设置cookie
           // this.$cookie.set("userId", res.id, { expires: "1M" });
           // 过期时间和session同步
-          this.$cookie.set("userId", res.id, { expires: "Session" });
+          this.$cookie.set("userid", res.userId, { expires: "1M" });
           // 一般使用
           // this.$store.dispatch('saveUserName',res.username)
           //解构使用
-          this.saveUserName(res.username);
+          this.saveUserName(res.userName);
           //购物车的数量
           // this.getCartCount();
           //to-do 保存用户名
-         
-        this.$message({
-          showClose: true,
-          message: '登录成功',center: true,
-          type: 'success'
-        });
+
+          this.$message({
+            showClose: true,
+            message: "登录成功",
+            center: true,
+            type: "success",
+          });
           // this.$router.push("./index");
-      this.$router.push({name:"index",params:{from:'login'}});
+          this.$router.push({ name: "index", params: { from: "login" } });
         })
         .catch();
     },
     //解构
-    ...mapActions(["saveUserName"],["saveCartCount"]),
+    ...mapActions(["saveUserName"], ["saveCartCount"]),
     register() {
       register("admin24808", "admin24808", "222@qq.com").then((res) => {
         alert("注册成功");

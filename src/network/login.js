@@ -4,19 +4,19 @@ import {
 import axios from "axios";
 //登录
 export function login(username, password) {
+  let param = new URLSearchParams();
+  param.append("userId",  username);
+  param.append("pwd",  password);
   return request({
-    url: "/user/login",
+    url: "/Login/Login",
     method: "post",
-    data: {
-      username,
-      password
-    }
+  data: param
   })
 }
 //退出登录
 export function logout(){
   return request({
-    url:'/user/logout',method:'post'
+    url:'/Login/OutLogin',method:'post'
   })
 }
 //注册

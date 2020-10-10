@@ -13,7 +13,7 @@
               <span
                 class="checkbox"
                 :class="{ checked: allChecked }"
-                @click="toggleAll"
+                
               ></span
               >全选
             </li>
@@ -28,23 +28,23 @@
               <div class="item-check">
                 <span
                   class="checkbox"
-                  :class="{ checked: item.productSelected }"
+                  :class="{ checked: item.ischeck }"
                   @click="updateCart(item)"
                 ></span>
               </div>
               <div class="item-name">
                 <img v-lazy="item.productMainImage" alt="" />
-                <span>{{ item.productName + "," + item.productSubtitle }}</span>
+                <span>{{ item.goodName + "," + item.specificationName }}</span>
               </div>
-              <div class="item-price">{{ item.productPrice }}</div>
+              <div class="item-price">{{ item.price  }}</div>
               <div class="item-num">
                 <div class="num-box">
                   <a href="javascript:;" @click="updateCart(item, '-')">-</a>
-                  <span>{{ item.quantity }}</span>
+                  <span>{{ item.amount  }}</span>
                   <a href="javascript:;" @click="updateCart(item, '+')">+</a>
                 </div>
               </div>
-              <div class="item-total">{{ item.productTotalPrice }}</div>
+              <div class="item-total">{{ item.price * item.amount }}</div>
               <div class="item-del" @click="delProduct(item)"></div>
             </li>
           </ul>
@@ -53,11 +53,11 @@
           <div class="cart-tip fl">
             <a href="/#/index">继续购物</a>
             共<span>{{ list.length }}</span
-            >件商品，已选择<span>{{ checkedNum }}</span
+            >件商品，已选择<span>{{ count }}</span
             >件
           </div>
           <div class="total fr">
-            合计：<span>{{ cartTotalPrice }}</span
+            合计：<span>{{ qian }}</span
             >元
             <a href="javascript:;" class="btn" @click="order">去结算</a>
           </div>
@@ -76,6 +76,8 @@ import {
   SelectAll,
   updateCart,
   delProduct,
+  jianCart,fanCart,ShiooingCarDelect,ceshi,
+  GetSettlementsList
 } from "./../../../network/cart";
 export default {
   name: "cart",
@@ -86,6 +88,8 @@ export default {
       allChecked: false, //是否全选
       cartTotalPrice: 0, //金额
       checkedNum: 0, //商品数量
+      qian:0,//钱
+      count:0,//几件商品
     };
   },
   mounted() {
@@ -93,46 +97,62 @@ export default {
   },
   methods: {
     order() {
-      let isCheck = this.list.every((item) => !item.productSelected);
+      let isCheck = this.list.every((item) => !item.ischeck);
       if (isCheck) {
         // alert("请选择一件商品");
         this.$message.warning("请选择一件商品");
       } else {
-        this.$router.push("/order/confirm");
+        GetSettlementsList(this.list).then(res=>{
+          alert(res);
+          // this.$router.push("/order/confirm");
+        })
+        // this.$router.push("/order/confirm");
+
       }
     },
     //删除
     delProduct(item) {
-      delProduct(item.productId).then((res) => {
-        this.renderData(res);
+      ShiooingCarDelect(item.goodId).then((res) => {
+         this.list=res;
+        this.max();
       });
     },
     // 更新购物车数量和单选状态
-    updateCart(item, type) {
-      let quantity = item.quantity,
-        selected = item.productSelected;
+     updateCart(item, type) {
+      // let quantity = item.quantity,
+      //   selected = item.productSelected;
       if (type == "+") {
-        if (quantity >= item.quantity) {
-          // alert("商品不能超过库存数量");
-          this.$message.warning("商品不能超过库存数量");
-          return;
-        }
+        jianCart(item.goodId,1).then(res=>{
+          this.list=res;
+        this.max();
+
+        });
+      
         quantity = quantity++;
       } else if (type == "-") {
-        if (item.quantity == 1) {
+ if (item.amount == 1) {
+
           this.$message.warning("商品至少表刘一件");
           // alert("商品至少表刘一件");
-
           return;
         }
-        quantity = quantity--;
+             jianCart(item.goodId,0).then(res=>{
+          this.list=res;
+      this.max();
+
+        });
+       
       } else {
         //单选
-        selected = !item.productSelected;
+         fanCart(item.goodId).then(res=>{
+          this.list=res;
+          this.max();
+
+        });
       }
-      updateCart(item.productId, quantity, selected).then((res) => {
-        this.renderData(res);
-      });
+      // updateCart(item.productId, quantity, selected).then((res) => {
+      //   this.renderData(res);
+      // });
     },
     //全选和反选
     toggleAll() {
@@ -145,6 +165,21 @@ export default {
           this.renderData(res);
         });
       }
+    },
+    //合计(){}
+    max(){
+      let qian=0;
+
+let arr= this.list.filter(x=>{
+  return x.ischeck
+});
+this.count=arr.length
+
+arr.map(y=>{
+  qian+=(y.price*y.amount)
+})
+// alert(qian)
+this.qian=qian
     },
     //抽取s
     renderData(res) {
@@ -159,7 +194,9 @@ export default {
     },
     getCartList() {
       getCartList().then((res) => {
-        this.renderData(res);
+        // this.renderData(res);
+        this.list=res;
+        this.max();
       });
     },
   },

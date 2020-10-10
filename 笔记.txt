@@ -155,3 +155,23 @@ const home = () =>
         活动以截至
       }
     }
+
+post请求失败返回204
+解决办法
+//
+//post请求设置编码格式
+
+      headers: {
+      'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+    }
+
+一、URLSearchParams
+ 1、在main.js里 设置配置，修改Content-Type import axios from 'axios'; axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+  Vue.prototype.$axios = axios; 2、
+  在组件vue里 const url ='http://****你的接口****'; 
+  var params = new URLSearchParams(); params.append('key1', 'value1');
+  给后台的参数值 key/value params.append('key2', 'value2'); params.append('key3', 'value3'); 
+  this.$axios({ method: 'post', url:url, data:params }).then((res)=>{ }); 这样后台就收到数据了 请求成功;
+不过这个方法兼容性非常不好，ie浏览器完全不兼容。
+
+发送cookie前后端都要设置cookie

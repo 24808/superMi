@@ -16,7 +16,7 @@
           <div class="seach-classification">
             <span>分类:</span>
             <li
-              @click="actionShow = null"
+              @click="show(null)"
               :class="{ action: actionShow == null }"
             >
               全部
@@ -27,7 +27,7 @@
               @click="show(index)"
               :class="{ action: actionShow == index }"
             >
-              {{ item }}1
+              {{ item.name }}
             </li>
           </div>
         </div>
@@ -89,12 +89,15 @@
           </ul>
         </div>
         <div class="gods-list-box">
-          <li v-for="(item, index) in goods" :key="index">
-            <img src="" alt="" />
+          <li v-for="(item, index) in goodlist" :key="index">
+            <a :href="'/#/detail/'+item.goodId">
+            <img v-lazy="item.imgUrl" alt="" />
+            </a>
             <h2 class="h2-title">
-              <a href="javascript:;">小米10青春版 抗菌高透保护膜 白色</a>
+              <a href="javascript:;">{{item.goodName}}</a>
             </h2>
-            <p class="price"><span>价格</span></p>
+
+        <p class="price"><span>价格:{{ item.floorPrice}}元</span></p>
             <div class="flags">
               <span class="new-label">新品</span>
             </div>
@@ -106,6 +109,9 @@
 </template>
 
 <script>
+import {getseachgoodsList} from "./../../../network/seach"
+import {GetCagegoryHomes} from "./../../../network/home"
+import { gogetProductInfo } from '../../../network/product';
 export default {
   name: "seach",
   props: {
@@ -128,10 +134,31 @@ export default {
   mounted() {
     this.$message.success("搜索的值为" + this.$route.params.keyword);
     // goodlist=res
+    //模糊查询数据
+    let nmae =this.$route.params.keyword;
+    getseachgoodsList(nmae).then(res=>{
+      this.goodlist=res;
+    })
+    //分类数据
+    GetCagegoryHomes().then(res=>{
+      this.classification=res
+    })
   },
   methods: {
     show(index) {
       this.actionShow = index;
+      // const list=this.classification[index].child
+      // this.goodlist = []
+      // for (const item of list) {
+      //   this.goodlist.concat(item);
+      // }
+      let name = this.classification[index]&& this.classification[index].name;
+      getseachgoodsList(name).then(res=>{
+      // alert(res)
+
+      this.goodlist=res;
+    })
+
     },
     ordershow(index) {
       this.boderbyShow = index;
@@ -200,6 +227,7 @@ export default {
       height: 30px;
       line-height: 30px;
       display: flex;
+      // flex-wrap: wrap;
       .checkbox {
         font-weight: bold;
       }
@@ -278,10 +306,11 @@ export default {
   }
   .gods-list-box {
     display: flex;
+    flex-wrap: wrap;
     li {
       position: relative;
       float: left;
-      width: 296px;
+      width: 290px;
       height: 383px;
       padding-top: 47px;
       margin-right: 14px;

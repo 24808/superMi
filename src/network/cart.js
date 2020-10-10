@@ -3,21 +3,78 @@ import {
 } from "./request";
 import axios from "axios";
 // 添加购物车
-export function addCart(id) {
+export function addCart(goodid="G1001",specificationarr="GS1004,GS1001",price=5599) {
   return request({
-    url: "/carts",
+    url: `/ShoppingApi/IntoShoppingCar`,
     method: "post",
     data: {
-      productId: id,
-      selected: true
+      goodid,specificationarr,price
     }
+
+  })
+}
+// 减少购物车商品
+export function jianCart(goodid="G1001",type=0) {
+  let param = new URLSearchParams();
+  param.append("goodid", goodid);
+  param.append("type", type);
+  return request({
+    url: "/ShoppingApi/jianShoppingCar",
+    method: "post",
+    data: param
+
+  })
+}
+// 取反选中
+export function fanCart(goodid="G1001") {
+  let param = new URLSearchParams();
+  param.append("goodid", goodid);
+  // param.append("type", type);
+  return request({
+    url: `/ShoppingApi/fanShoppingCar`,
+    method: "post",
+    data: param
+
   })
 }
 //查询购物车
 export function getCartList() {
   return request({
-    url: "/carts",
+    url: "/ShoppingApi/ShiooingCarList",
     method: "get"
+  })
+}
+//删除
+export function ShiooingCarDelect(goodid) {
+  let param = new URLSearchParams();
+  param.append("goodid", goodid);
+  return request({
+    url: "/ShoppingApi/ShiooingCarDelect",
+    method: "post", data: param
+  })
+}
+//测试
+// meiyoude
+export function ceshi(list) {
+  let param = new URLSearchParams();
+
+  param.append("list",  JSON.stringify(list));
+  return request({
+    url: "/ShoppingApi/meiyoude",
+  
+    method: "post", data: param
+  })
+}
+//创建订单
+// meiyoude
+export function GetSettlementsList(list) {
+  let param = new URLSearchParams();
+
+  param.append("sett",  JSON.stringify(list));
+  return request({
+    url: "/ShoppingApi/CreateOrderList",
+  
+    method: "post", data: param
   })
 }
 //全选和全不选

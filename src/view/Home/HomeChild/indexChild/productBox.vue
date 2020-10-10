@@ -13,7 +13,7 @@
       :key="indexbig"
     >
       <div class="container">
-        <h2>手机</h2>
+        <h2>{{big.newgooods[0][0].hardName}}</h2>
         <div class="wrapper">
           <div class="banner-left">
             <a href="/#/product/35">
@@ -35,8 +35,8 @@
                     <span v-if="index1 % 2 == 0" class="new-pro">新品</span>
                     <span v-else class="kill-pro">爆款</span>
                     <div class="item-img">
-                      <!-- <img v-lazy="null || arr.mainImage" alt /> -->
-                      <img src="" alt="" />
+                      <img v-lazy="null || arr.imgUrl" alt />
+                      <!-- <img src="" alt="" /> -->
                     </div>
                     <div class="item-info">
                       <h3>{{ arr.goodName }}</h3>
