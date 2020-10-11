@@ -33,7 +33,7 @@ export function request(config) {
       return res.data;
     } else if (res.status == 10) {
       if (path != "#/index") {
-        window.location.href = "/#/login";
+        // window.location.href = "/#/login";
       }
       return Promise.reject();
     } else {

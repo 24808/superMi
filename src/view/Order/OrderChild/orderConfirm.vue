@@ -210,22 +210,22 @@
           </div>
           <div class="item">
             <select name="province" v-model="checkedItem.province">
-              <option value="广西省">广西省</option>
-              <option value="北京1">北京1</option>
-              <option value="北京2">北京2</option>
-              <option value="北京3">北京3</option>
-              <option value="北京4">北京4</option>
+              <option   value="广西省">广西省</option>
+              <option value="广东省">广东省</option>
+              <option value="四川省">四川省</option>
+              <option value="杭州省">杭州省</option>
+              <option value="北京">北京</option>
             </select>
             <select name="city" v-model="checkedItem.city">
-              <option value="桂林市">桂林市</option>
-              <option value="北京1">北京1</option>
-              <option value="北京2">北京2</option>
-              <option value="北京3">北京3</option>
-              <option value="石家庄">石家庄</option>
+              <option   value="桂林市">桂林市</option>
+              <option value="南宁市">南宁市</option>
+              <option value="广州市">广州市</option>
+              <option value="深圳市">深圳市</option>
+              <option value="柳州市">柳州市</option>
             </select>
             <select name="district" v-model="checkedItem.county">
-              <option value="灌阳县">灌阳县</option>
-              <option value="昌平区">昌平区</option>
+              <option   >天河区</option>
+              <option value="西乡塘区">西乡塘区</option>
               <option value="海定区">海定区</option>
               <option value="东城区">东城区</option>
               <option value="西城区">西城区</option>
@@ -345,7 +345,7 @@ let totalPrice =this.voucherdata.discountedPrice? this.otalPrice-this.voucherdat
           this.$router.push({
             path: "/order/pay",
             query: {
-              orderNo: res.orderId,
+              orderId: res.orderId,
             },
           });
         });
@@ -456,9 +456,9 @@ let totalPrice =this.voucherdata.discountedPrice? this.otalPrice-this.voucherdat
     getCartList() {
 // alert(this.$route.params.orderId)
       GetSettlements(this.$route.params.orderId).then((res) => {
-        // this.cartList
+        // this.cartList'
         let list = res.getGoodLists; //购物车所有商品
-        this.cartTotalPrice = res.price; //商品总金额
+        this.cartTotalPrice = res.price*res.amount; //商品总金额
         this.cartList =res.getGoodLists
         this.voucherList=res.getGoodCoupons
 
@@ -473,7 +473,7 @@ let totalPrice =this.voucherdata.discountedPrice? this.otalPrice-this.voucherdat
         //商品总价
         
          this.otalPrice = list.reduce((x, y) => {
-          return x + y.price;
+          return x + (y.price*y.amount);
         }, 0);
         //初始购物车
         if(res.getGoodLists){
@@ -648,7 +648,6 @@ let totalPrice =this.voucherdata.discountedPrice? this.otalPrice-this.voucherdat
         }
         .item-val {
           display: inline-block;
-          width: 100px;
         }
         .item-total {
           .item-val {

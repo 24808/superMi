@@ -16,15 +16,15 @@
                 <div class="item-info fl">
                   {{ item.createTime }}
                   <span>|</span>
-                  {{ item.receiverName }}
+                  {{ item.goodName }}
                   <span>|</span>
-                  {{ item.orderNo }}
+                  {{ item.goodId }}
                   <span>|</span>
-                  {{ item.patmentTypeDesc }}
+                  {{ item.userName }}
                 </div>
                 <div class="item-money fr">
                   <span>应付金额：</span>
-                  <span class="money">{{ item.payment }}</span>
+                  <span class="money">{{ item.price }}</span>
                   <span>元</span>
                 </div>
               </div>
@@ -99,7 +99,7 @@ import infiniteScroll from "vue-infinite-scroll";
 
 import NoData from "./../../../components/content/NoData";
 import orderHeader from "./../../../components/content/order/orderHeader";
-import { getOrderList } from "./../../../network/order";
+import { getOrderList,GetPersonal } from "./../../../network/order";
 import Loading from "./../../../components/content/Loading";
 export default {
   name: "orderList",
@@ -157,14 +157,15 @@ export default {
       });
     },
     //获取数据
+    // GetPersonal
     getOrderList(pageSize = 10, pageNum = 1) {
       this.moreLoading = true;
 
-      getOrderList(pageSize, pageNum)
+      GetPersonal()
         .then((res) => {
           this.moreLoading = false;
           //数据累加
-          this.list = this.list.concat(res.list);
+          this.list = this.list.concat(res);
           this.loading = false;
           this.total = res.total;
           // this.pageNum=res.pageNum
@@ -176,7 +177,7 @@ export default {
     //滚动加载
     getList(pageSize = 2, pageNum = 1) {
       this.moreLoading = true;
-      getOrderList(pageSize, pageNum).then((res) => {
+      GetPersonal().then((res) => {
         //数据累加
         this.list = this.list.concat(res.list);
         this.total = res.total;

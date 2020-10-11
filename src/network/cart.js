@@ -3,13 +3,15 @@ import {
 } from "./request";
 import axios from "axios";
 // 添加购物车
-export function addCart(goodid="G1001",specificationarr="GS1004,GS1001",price=5599) {
+export function addCart(goodid,specificationarr="GS1004,GS1001",price=551199) {
+  let param = new URLSearchParams();
+  param.append("goodid", goodid);
+  param.append("specificationarr", specificationarr);
+  param.append("price", price);
   return request({
     url: `/ShoppingApi/IntoShoppingCar`,
     method: "post",
-    data: {
-      goodid,specificationarr,price
-    }
+    data: param
 
   })
 }

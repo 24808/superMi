@@ -91,7 +91,7 @@
         <div class="gods-list-box">
           <li v-for="(item, index) in goodlist" :key="index">
             <a :href="'/#/detail/'+item.goodId">
-            <img v-lazy="item.imgUrl" alt="" />
+            <img :src="item.imgUrl" alt="" />
             </a>
             <h2 class="h2-title">
               <a href="javascript:;">{{item.goodName}}</a>
@@ -322,7 +322,10 @@ export default {
         height: 200px;
       }
       .h2-title {
+        overflow: hidden;    height: 30px;
+        line-height:30px;
         a {
+          overflow: hidden;
           color: #333;
           font-size: 14px;
           font-weight: 400;

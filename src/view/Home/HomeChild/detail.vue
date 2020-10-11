@@ -32,14 +32,15 @@
             <div class="addr">北京 北京市 朝阳区 安定门街道</div>
             <div class="stock">有现货</div>
           </div>
-          <div class="item-version clearfix">
+
+          <div class="item-version clearfix" v-if="dataviess.chlid" >
             <!-- {{dataviess}}
             {{banben}}
             {{color}} -->
             <!-- {{dataviess.num}} -->
             <!-- {{banben}} -->
-            <h2>选择版本</h2>
-            <div class="phone fl"  @click="selectbanben(index,item)" :class="{checked:viesscount==index}" v-for="(item,index) in dataviess.chlid[0].specificationNum" :key="index">
+            <h2 v-if="dataviess.chlid[0]">选择版本</h2>
+            <div  class="phone fl"  @click="selectbanben(index,item)" :class="{checked:viesscount==index}" v-for="(item,index) in (dataviess.chlid[0]&&dataviess.chlid[0].specificationNum)" :key="index">
                <!-- @click="selectbanben(index,item)" -->
               {{item.num}}
             </div>
@@ -155,7 +156,9 @@ export default {
     //当前版本
     selectbanben(index,item){
 this.viesscount=index;
+      if(item.price>0){
 this.banben=item;
+      }
     }
     //当前颜色
     ,
@@ -164,6 +167,10 @@ this.banben=item;
 
       this.dataviess=item;
       this.version=index
+      if(item.price>0){
+this.banben=item;
+      }
+      
     },
     addCart() {
       const goodid = this.banben.goodId;
@@ -184,13 +191,13 @@ this.banben=item;
       //获取 id
       gogetProductInfo(this.id).then((res) => {
         this.ProductInfo = res;
-        this.colorOrversion=res.chlidClass[0].specificationNum;
+        this.colorOrversion=res.chlidClass[0].specificationNum||{};
         //当前颜色
           this.dataviess=this.colorOrversion[0];
           
           // this.color=this.colorOrversion[0].num;
           //当前版本
-          this.banben=this.dataviess.chlid[0].specificationNum[0];
+          this.banben=this.dataviess.price<=0?this.dataviess.chlid[0].specificationNum[0]:this.dataviess;
           // this.banben=this.dataviess;
       });
     },

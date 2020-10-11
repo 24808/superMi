@@ -89,7 +89,8 @@ export default {
           //设置cookie
           // this.$cookie.set("userId", res.id, { expires: "1M" });
           // 过期时间和session同步
-          this.$cookie.set("userid", res.userId, { expires: "1M" });
+          // this.$cookie.set("userid", res.userId, { expires: "1M" });
+          this.$cookie.set("userId", "70", { expires: "1M" });
           // 一般使用
           // this.$store.dispatch('saveUserName',res.username)
           //解构使用

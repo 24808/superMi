@@ -32,7 +32,7 @@
           <div class="item-detail" v-if="showDetail">
             <div class="item">
               <div class="detail-title">订单号：</div>
-              <div class="detail-info theme-color">{{ orderNo }}</div>
+              <div class="detail-info theme-color">{{ orderId }}</div>
             </div>
             <div class="item">
               <div class="detail-title">收货信息：</div>
@@ -99,7 +99,8 @@
 <script>
 import orderHeader from "./../../../components/content/order/orderHeader";
 //请求
-import { getOrderDetail, gopay,go1,go2 } from "./../../../network/mypay";
+import { getOrderDetail, gopay,go1,go2,gologin } from "./../../../network/mypay";
+import { ChangeOrderType,GetPersonal } from "./../../../network/order";
 
 import ScanPayCode from "./../../../components/content/ScanPayCode";
 //二维码
@@ -111,7 +112,8 @@ export default {
   data() {
     return {
       //获取地址栏的参数
-      orderNo: this.$route.params.orderNo,
+      orderNo: this.$route.query.orderNo,
+      orderId: this.$route.query.orderId,
       addressInfo: "", //收货人地址
       goodDetail: {}, //订单详情包含了商品列表
       showDetail: false, //是否显示订单详情
@@ -122,7 +124,7 @@ export default {
       checked: "checked",
       payImg: "", //微信支付图片
       showPay: false, //是否显示微信弹框
-
+goodName:"",
       showPayModal: false, //是否显示二次支付弹框
       T: {}, //定时器id
     };
@@ -139,10 +141,16 @@ export default {
         getOrderDetail(this.orderNo).then((res) => {
           //用户付款
           if (res.status == 20) {
+            
             clearInterval(this.T);
                // 关闭微信弹框
       this.showPay = false;
-            this.goOrderList();
+            
+            ChangeOrderType(this.orderId).then(res=>{
+this.goOrderList();
+            })
+
+            
           }
         });
       }, 1000);
@@ -159,16 +167,19 @@ export default {
     //提交订单
     paySubmit(payType) {
       this.patType = payType;
-      if (payType == 1) {
-        window.open("/#/order/alipay?orderId=" + this.orderNo, "_blank");
-      } else {
+      
+         gologin().then(res=>{
+            // alert("登录成功")
         
         go1().then(res=>{
-          alert("添加购物车")
+          // alert("添加购物车")
+         
           go2().then(res=>{
-          alert("添加订单")
+          // alert("添加订单")
+          if (payType == 1) {
+        window.open("/#/order/alipay?orderId=" + this.orderNo, "_blank");
+      } else {
               this.orderNo=res.orderNo
-
             gopay(res.orderNo, 2).then((res) => {
           QRCode.toDataURL(res.content)
             .then((res) => {
@@ -180,17 +191,20 @@ export default {
               this.$message.error("二维码生成失败，请重试");
             });
         });
+            }
           })
         })
-      
-      }
+        });       
     },
     getOrderDetail() {
-      getOrderDetail(this.orderNo).then((res) => {
-        let item = res.shippingVo;
-        this.addressInfo = `${item.receiverName} ${item.receiverMobile} ${item.receiverProvince} ${item.receiverCity} ${item.receiverDistrict} ${item.receiverAddress}`;
-        this.goodDetail = res.orderItemVoList;
-        this.totalMoney = res.payment;
+      GetPersonal().then((res) => {
+        let id = this.orderId;
+        // alert(res)
+        let order= res.find(x=>x.orderId==id);
+         this.addressInfo = `${order.userName} ${order.address}`;
+this.goodName = res.goodName;
+        this.goodDetail = res.imgUrl;
+        this.price = res.payment;
         // this.item = res;
       });
     },

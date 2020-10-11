@@ -2,7 +2,7 @@
   <div class="product-boxBig">
     <div class="container">
       <div class="banner">
-        <a href="/#/product/30">
+        <a href="/#/product/G1001">
           <img v-lazy="'/imgs/banner-1.png'" alt />
         </a>
       </div>
@@ -16,7 +16,7 @@
         <h2>{{big.newgooods[0][0].hardName}}</h2>
         <div class="wrapper">
           <div class="banner-left">
-            <a href="/#/product/35">
+            <a href="/#/product/G1001">
               <img v-lazy="'/imgs/mix-alpha.jpg'" alt />
             </a>
           </div>
@@ -30,13 +30,14 @@
               <div v-for="(arr, index1) in item" :key="index1">
                 <!-- {{ arr }} -->
                 <!-- <a :href="'/#/product/'+arr.id"> -->
-                <a href="javascript:void(0)">
+                <a href="javascript:;">
                   <div class="item">
                     <span v-if="index1 % 2 == 0" class="new-pro">新品</span>
                     <span v-else class="kill-pro">爆款</span>
                     <div class="item-img">
-                      <img v-lazy="null || arr.imgUrl" alt />
-                      <!-- <img src="" alt="" /> -->
+                      <a :href="'/#/product/'+arr.goodId">
+                        <img v-lazy="null || arr.imgUrl" alt />
+                      </a>
                     </div>
                     <div class="item-info">
                       <h3>{{ arr.goodName }}</h3>
@@ -131,7 +132,7 @@ export default {
               item.getHomeGood.slice(0, 4),
               item.getHomeGood.slice(4, 8),
             ];
-          } else if (item.getHomeGood.length > 7) {
+          } else if (item.getHomeGood.length > 4) {
             item.newgooods = [
               item.getHomeGood.slice(0, 4),
               item.getHomeGood.slice(4, item.getHomeGood.length),
@@ -202,17 +203,28 @@ export default {
     .list-box {
       flex: 1;
       .list {
-        @include flex(space-around);
+        @include flex(end);
         margin-bottom: 14px;
         &:last-child {
           margin-bottom: 0px;
         }
         .item {
+                   &:hover {
+              transform: translateY(-1px);
+              transition-property: all; /*所有属性都获得效果*/
+              transition-duration: 0.2s; /*规定完成过渡效果需要花费的时间*/
+              transition-timing-function: linear; /*规定以相同速度开始至结束的过渡效果*/
+              transition-delay: 0s; /* 定义过渡效果何时开始*/
+              // transform: translateY(-10px);
+              box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.15);
+            }
           flex: 1;
           height: 302px;
           width: 236px;
           background: $colorG;
           text-align: center;
+            margin-right: 10px;
+
           span {
             display: inline-block;
             width: 67px;

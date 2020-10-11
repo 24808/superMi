@@ -25,48 +25,8 @@
             </ul>
           </div>
         </div>
-        <div class="item-menu">
-          <span>RedMi红米</span>
-          <div class="children">
-            <ul>
-              <li class="product">
-                <a href="#" target="_blank">
-                  <div class="pro-img">
-                    <img
-                      v-lazy="
-                        'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/31d0dc82068abcaa46464b4baa9fbbdf.jpg?thumb=1&w=160&h=110&f=webp&q=90'
-                      "
-                      alt
-                    />
-                  </div>
-                  <div class="pro-name">查看全部</div>
-                  <div class="pro-price">查看全部</div>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="item-menu">
-          <span>小米电视</span>
-          <div class="children">
-            <ul>
-              <li class="product">
-                <a href="#" target="_blank">
-                  <div class="pro-img">
-                    <img
-                      v-lazy="
-                        'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/932b583c6eccd8aabfa0771f8a854940.jpg?thumb=1&w=160&h=110&f=webp&q=90'
-                      "
-                      alt
-                    />
-                  </div>
-                  <div class="pro-name">小米cc9</div>
-                  <div class="pro-price">5299起</div>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
+   
+  
 
       </div>
 

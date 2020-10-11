@@ -130,8 +130,9 @@ export default {
       
     },
     goodcomment() {
-      // alert('asd');
-      GetGoodComment('G1001').then(res=>{
+      
+     let id = this.$route.params.id;
+      GetGoodComment(id).then(res=>{
 this.GoodCommentList=res;
       })
     },

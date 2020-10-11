@@ -103,7 +103,6 @@ export default {
         this.$message.warning("请选择一件商品");
       } else {
          GetSettlementsList(this.list).then(res=>{
-          alert(res.orderId);
           this.$router.push("/order/confirm/"+res.orderId);
         })
         // this.$router.push("/order/confirm");

@@ -6,7 +6,7 @@
     <div class="box-bd">
       <div class="row">
         <div class="flashsale-countdown">
-          <div class="round">10:00场</div>
+          <div class="round">{{new Date(this.list.startTiem).getDate()+"日"+ new Date(this.list.startTiem).getHours() }}时场</div>
           <i class="el-icon-message-solid"></i>
           <div class="desc">距离结束还有</div>
           <div class="countdown">
@@ -17,66 +17,22 @@
         </div>
         <div class="flashsale-list">
           <swiper :options="swiperOption">
-            <swiper-slide>
+            <swiper-slide v-for="(item,index) in list.chlidGood" :key="index">
               <a href="/#/seckill">
                 <div class="content">
                   <div class="thumb">
                     <img
-                      src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/76480468caef08ff3e5c1fe9ed24b0e7.png?thumb=1&w=200&h=200&f=webp&q=90"
+                      v-lazy="item.imgUrl"
                       alt=""
                     />
                   </div>
-                  <h3>小米是pro组织部</h3>
-                  <p class="desc">你在干什么</p>
-                  <p class="price">999元<del>100元</del></p>
+                  <h3>{{item.goodName}}</h3>
+                  <p class="desc">{{item.hardName}}</p>
+                  <p class="price">{{item.floorPrice}}<del>100元</del></p>
                 </div>
               </a>
             </swiper-slide>
-            <swiper-slide>
-              <a href="/#/seckill">
-                <div class="content">
-                  <div class="thumb">
-                    <img
-                      src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/76480468caef08ff3e5c1fe9ed24b0e7.png?thumb=1&w=200&h=200&f=webp&q=90"
-                      alt=""
-                    />
-                  </div>
-                  <h3>小米是pro组织部</h3>
-                  <p class="desc">你在干什么</p>
-                  <p class="price">999元<del>100元</del></p>
-                </div>
-              </a>
-            </swiper-slide>
-            <swiper-slide>
-              <a href="/#/seckill">
-                <div class="content">
-                  <div class="thumb">
-                    <img
-                      src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/76480468caef08ff3e5c1fe9ed24b0e7.png?thumb=1&w=200&h=200&f=webp&q=90"
-                      alt=""
-                    />
-                  </div>
-                  <h3>小米是pro组织部</h3>
-                  <p class="desc">你在干什么</p>
-                  <p class="price">999元<del>100元</del></p>
-                </div>
-              </a>
-            </swiper-slide>
-            <swiper-slide>
-              <a href="/#/seckill">
-                <div class="content">
-                  <div class="thumb">
-                    <img
-                      src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/76480468caef08ff3e5c1fe9ed24b0e7.png?thumb=1&w=200&h=200&f=webp&q=90"
-                      alt=""
-                    />
-                  </div>
-                  <h3>小米是pro组织部</h3>
-                  <p class="desc">你在干什么</p>
-                  <p class="price">999元<del>100元</del></p>
-                </div>
-              </a>
-            </swiper-slide>
+           
             <!-- Optional controls -->
             <div class="swiper-scrollbar" slot="scrollbar"></div>
           </swiper>
@@ -86,6 +42,7 @@
   </div>
 </template>
 <script>
+import {GetBuyingGoodList} from "./../../../../network/kill"
 import { swiper, swiperSlide } from "vue-awesome-swiper";
 import "swiper/swiper-bundle.css";
 export default {
@@ -96,6 +53,7 @@ export default {
   },
   data() {
     return {
+      list:{},
       hh: "00",
       mm: "00",
       ss: "00",
@@ -116,10 +74,19 @@ export default {
     this.Djs_time();
   },
   methods: {
+  
     Djs_time() {
-      setInterval(() => {
-        var Deadline = new Date("2020-10-5 22:18:0").getTime(); //后台时间
-        var presentTime = new Date().getTime();
+          GetBuyingGoodList().then(res=>{
+          this.list=res
+
+              
+              
+               setInterval(() => {
+        // var Deadline = new Date("2020-10-5 22:18:0").getTime(); //后台时间
+        // var Deadline = this.list.endTime.getTime(); //后台时间
+        // alert(this.list.endTime)
+        var Deadline =  new Date(this.list.endTime).getTime()//后台时间
+        var presentTime = new Date().getTime();//当前时间
         var rightTime = Deadline - presentTime;
         if (rightTime > 0) {
           // var dd = Math.floor(rightTime / 1000 / 60 / 60 / 24);
@@ -137,8 +104,15 @@ export default {
           presentTime += 1000;
         }
       }, 1000);
+    
+              //////////////////////////////
+        }
+    )
+
+     
     },
-  },
+ 
+ },
 };
 </script>
 <style lang="scss" scoped>

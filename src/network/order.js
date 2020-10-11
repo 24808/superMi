@@ -79,11 +79,11 @@ export function GetShoppingAddress(orderid) {
 }
 
 export function AddADDress(list) {
-
+  let address= list.province+","+list.city +","+list.county +","+list.address
   let param = new URLSearchParams();
   param.append("Name",  list.name );
   param.append("Phone",  list.phone );
-  param.append("Address",  list.address );
+  param.append("Address",  address );
 
   return request({
     url: `/Personal/AddADDress`,
@@ -129,5 +129,35 @@ export function SettleBtnClick(orderid,address,totalPrice,name,phone,couponid) {
     url: `/ShoppingApi/SettleBtnClick`,
     method: "post",
     data:param
+  })
+}
+
+//改变订单状态
+
+
+export function ChangeOrderType(orderid) {
+
+  let param = new URLSearchParams();
+  param.append("orderid",  orderid );
+
+  return request({
+    url: `/ShoppingApi/ChangeOrderType`,
+    method: "post",
+    data:param
+  })
+}
+//查看订单状态
+// /api/Personal/GetPersonal
+export function GetBuyingLists() {
+  return request({
+    url: `/Home/GetBuyingLists`,
+  })
+}
+export function GetBuyingGoodList() {
+ 
+  // param.append("type", type);
+  return request({
+    url: `/Home/GetBuyingGoodList`,
+
   })
 }

@@ -31,6 +31,20 @@ export function go1() {
     },
   });
 }
+export function gologin() {
+  return request({
+    url: `/user/login`,
+    method: "post",
+    data: {
+      password: "1",
+      username: "1"
+    },
+  });
+}
+
+
+
+
 export function go2() {
   return request({
     url: `/orders`,

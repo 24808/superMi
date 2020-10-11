@@ -16,7 +16,7 @@ export function gogetProductInfo(id) {
     method: "get",
     
     params: {
-      goodid: "G1001"
+      goodid: id
     }
   });
 }

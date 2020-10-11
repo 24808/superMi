@@ -17,9 +17,9 @@
               <a href="javascript:void(0);">
                 <!-- <em>{{ item }} </em> -->
                 <span>
-                  <em>{{ Djs_timeListtwo(item) }} </em>
+                  <em>{{ Djs_timeListtwo(item.endTime) }} </em>
 
-                  <div>{{ Djs_timeList(item) }}</div>
+                  <div>{{ Djs_timeList(item.endTime ) }}</div>
                 </span>
               </a>
             </li>
@@ -27,79 +27,24 @@
         </div>
         <div class="seckill-con">
           <ul class="clearfix">
-            <li>
-              <div class="item-box" @click="tiao">
+            <li v-for="(item,index) in list.chlidGood" :key="index">
+              <div class="item-box" >
                 <span class="img-con">
-                  <img src="" alt="" />
+                  <img v-lazy="item.imgUrl" alt="" />
                 </span>
                 <span class="pro-con">
-                  <span class="name">小米10pro</span>
-                  <span class="desc">逆光也清晰</span>
-                  <span class="price">67元<del>9999元</del></span>
-                  <!-- v-if(可以购买) -->
-                  <!-- <a href="#" class="btn btn-red">立即抢购</a> -->
+                  <span class="name">{{item.goodName}}</span>
+                  <span class="desc">{{item.hardName}}</span>
+                  <span class="price">{{item.floorPrice}}<del>{{item.floorPrice-item.discounts}}元</del></span>
+                  <a v-if="Date.parse(new Date(list.startTiem))< Date.parse(new Date())" href="#" class="btn btn-red" @click="tiao(item.goodId)">立即抢购</a>
                   <!-- v-else{} -->
-                  <a href="#" class="btn btn-green">提醒我</a>
+                  <a v-else href="javascript:;" class="btn btn-green">提醒我</a>
                   <span class="person">已有32人设置提醒</span>
                 </span>
               </div>
             </li>
-            <li>
-              <div class="item-box" @click="tiao">
-                <span class="img-con">
-                  <img src="" alt="" />
-                </span>
-                <span class="pro-con">
-                  <span class="name">小米10pro</span>
-                  <span class="desc">逆光也清晰</span>
-                  <span class="price">67元<del>9999元</del></span>
-                  <!-- v-if(可以购买) -->
-                  <!-- <a href="#" class="btn btn-red">立即抢购</a> -->
-                  <!-- v-else{} -->
-                  <a href="#" class="btn btn-green">提醒我</a>
-                  <span class="person">已有32人设置提醒</span>
-                </span>
-              </div>
-            </li>
-            <li>
-              <div class="item-box" @click="tiao">
-                <span class="img-con">
-                  <img src="" alt="" />
-                </span>
-                <span class="pro-con">
-                  <span class="name">小米10pro</span>
-                  <span class="desc">逆光也清晰</span>
-                  <span class="price">67元<del>9999元</del></span>
-                  <!-- v-if(可以购买) -->
-                  <!-- <a href="#" class="btn btn-red">立即抢购</a> -->
-                  <!-- v-else{} -->
-                  <a href="#" class="btn btn-green">提醒我</a>
-                  <span class="person">已有32人设置提醒</span>
-                </span>
-              </div>
-            </li>
-            <li>
-              <div class="item-box" @click="tiao">
-                <span class="img-con">
-                  <img src="" alt="" />
-                </span>
-                <span class="pro-con">
-                  <span class="name">小米10pro</span>
-                  <span class="desc">逆光也清晰</span>
-                  <span class="price">67元<del>9999元</del></span>
-                  <!-- v-if(可以购买) -->
-                  <!-- <a href="#" class="btn btn-red">立即抢购</a> -->
-                  <!-- v-else{} -->
-                  <a href="#" class="btn btn-green">提醒我</a>
-                  <span class="person">已有32人设置提醒</span>
-                </span>
-              </div>
-            </li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
+        
+       
           </ul>
         </div>
       </div>
@@ -107,6 +52,7 @@
   </div>
 </template>
 <script>
+import {GetBuyingLists} from "./../../../network/kill"
 export default {
   name: "seckill",
   components: {},
@@ -126,6 +72,13 @@ export default {
       categoryshow: {}, //选中状态
     };
   },
+  computed:{
+ currency(val) {
+      let date1_s=new Date(val)
+      let date2_s=new Date()
+      return  Date.parse(date1_s)> Date.parse(date2_s)
+    },
+  },
   mounted() {
     // const now = new Date();
     // setInterval
@@ -141,17 +94,26 @@ export default {
   },
   methods: {
     //路由跳转
-    tiao() {
-      this.$router.push("/detail/42");
+    tiao(index) {
+      this.$router.push("/detail/"+index);
     },
     //切换
     down(index) {
-      this.list = this.overlist[index];
+      this.list = this.categoryList[index];
       this.categoryshow = index;
     },
     initList() {
-      this.Djs_time(); //获取数据后调用单个的倒计时
+    
+      GetBuyingLists().then(res=>{
+        // alert(res)
+        //初始数据
+        this.categoryshow=0
+        this.list=res[0];
+//所有数据
+        this.categoryList=res
+          this.Djs_time(); //获取数据后调用单个的倒计时
       setTimeout(this.Djs_timeList, 1000); //抢购中
+      })
     },
     Djs_time: function() {
       setInterval(() => {
@@ -276,6 +238,9 @@ export default {
               height: 190px;
               background-color: #e9e9e9;
               border: 0 none;
+              img{
+                width: 190px;
+              }
             }
             .pro-con {
               // margin-left: 210px;

@@ -3,12 +3,11 @@
     <div class="nav-menu">
       <ul class="menu-wrap">
         <li class="menu-item" v-for="(item1, index1) in getmenu" :key="index1">
-          {{ item1.id }}
           <a href="javascript:;">{{ item1.name }}</a>
           <div :class="'children'">
             <ul v-for="(item, index) in item1.child" :key="index">
               <li v-for="(sub, indexsub) in item.goodList" :key="indexsub">
-                <a :href="'/#/product/' + sub.num">
+                <a href="javascript:;' + sub.num" @click="gotoclick(sub)">
                   <img :src="sub ? sub.imgUrl : '/imgs/item-box-1.png'" alt />
                   <span>{{
                     sub ? sub.name : "小米10Pro1111111111111111"
@@ -43,6 +42,15 @@ export default {
   name: "swiperBox",
   components: { swiper, swiperSlide },
   methods: {
+    gotoclick(item){
+      if(item.num.indexOf("C") == 0){
+          
+          this.$router.push("/seach/"+item.name);
+      }else{
+        this.$router.push("/product/"+item.num);
+      }
+    }
+    ,
     GetCagegoryHomes() {
       GetCagegoryHomes().then((res) => {
         this.getmenu = res;
@@ -51,6 +59,7 @@ export default {
   },
   mounted() {
     this.GetCagegoryHomes();
+
   },
   data() {
     return {
@@ -140,23 +149,23 @@ export default {
 
       slideList: [
         {
-          id: "42",
+          id: "G1001",
           img: "/imgs/slider/slide-1.jpg",
         },
         {
-          id: "45",
+          id: "G1002",
           img: "/imgs/slider/slide-2.jpg",
         },
         {
-          id: "46",
+          id: "G1003",
           img: "/imgs/slider/slide-3.jpg",
         },
         {
-          id: "42",
+          id: "G1004",
           img: "/imgs/slider/slide-4.jpg",
         },
         {
-          id: "42",
+          id: "G1005",
           img: "/imgs/slider/slide-5.jpg",
         },
       ],
@@ -249,7 +258,7 @@ export default {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            height: 75px;
+            height: 80px;
             li {
               // height: 75px;
               // visibility: hidden;
