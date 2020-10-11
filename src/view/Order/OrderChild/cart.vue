@@ -180,6 +180,7 @@ this.count=arr.length
 arr.map(y=>{
   qian+=(y.price*y.amount)
 })
+// alert(y.price)
 // alert(qian)
 this.qian=qian
     },
@@ -197,6 +198,7 @@ this.qian=qian
     getCartList() {
       getCartList().then((res) => {
         // this.renderData(res);
+        // alert("ASd")
         this.list=res;
         this.max();
       });

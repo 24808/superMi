@@ -3,8 +3,8 @@
   <personal-centerorder-header :title="'个人中心'" :small="'请谨防钓鱼链接或诈骗电话，了解更多>'"></personal-centerorder-header>
   <div class="more clearfix">
     <ul class="filter-list">
-      <li v-for="(item,index) in orderText" :key="index">
-        <a href="#">{{item}}</a>
+      <li v-for="(item,index) in orderText" :key="index" @click="goto(item.type)">
+        <a href="#">{{item.name}}</a>
       </li>
     </ul>
    <div class="header-search">
@@ -16,7 +16,7 @@
   </div>
   <div class="box-bd">
 <ul class="order-list">
-    <li class="uc-order-item">
+    <li class="uc-order-item" v-for="(item,index) in list " :key="index">
       <div class="order-detail">
         <div class="order-summary">
           <span>等待付款</span>
@@ -24,9 +24,9 @@
         <div class="order-detail-table">
           <div class="theaer">
             <div class="theaer-left">
-            <p>{{'2020年09月30日 '}}<span>|</span>
-            {{ '24808 '}}<span>|</span>
-            {{ '订单号 '+'24808'}}<span>|</span>
+            <p>{{item.createTime}}<span>|</span>
+            {{item. userName}}<span>|</span>
+            {{ '订单号 '+item.orderId}}<span>|</span>
             {{ '在线支付 '}}
             </p>
           </div>
@@ -37,18 +37,18 @@
           <div class="order-tbody">
             <div class="order-items">
               <ul class="goods-list">
-                <li>
-                  <a href="">asdasd</a>
+                <li v-for="(item1,index1) in item.chlidClass" :key="index1">
+                  <img v-lazy="item1.imgUrl" alt="" srcset="">
                   <div>
-                    <p>12313</p>
-                    <p>12313</p>
+                    <p>{{item1.goodName}}</p>
+                    <p>{{item1.specificationName}}</p>
                   </div>
                 </li>
               </ul>
             </div>
             <div class="order-actions">
-              <a href="#" class="btn btn-none">立即付款</a><br>
-              <a href="#" class="btn btn-none">订单详情</a><br>
+              <a :href="'/#/order/pay?orderId='+item.orderId" v-if="item.orderType==1"  class="btn btn-none">立即付款</a><br>
+              <a href="/#/order/list" class="btn btn-none">订单详情</a><br>
               <a href="#" class="btn btn-none">联系客服</a><br>
             </div>
           </div>
@@ -61,16 +61,37 @@
 </template>
 <script>
 import personalCenterorderHeader from "./../../../components/content/personalCenterorder/personalCenterorderHeader"
+import {GetPersonal} from "./../../../network/order"
 export default {
   name: "coupon",
   data(){
     return{
-      orderText:['全部有效订单','待支付','待收货','订单回收站']
+      orderText:[{name:'全部有效订单',type:null},{name:'待支付',type:1},{name:'待收货',type:2}],
+      list:{},
+      page:1,
+      big:1,
+      type:1,
     }
   },
    components: {
 personalCenterorderHeader
   },
+  mounted () {
+    this.go();
+  },
+  methods: {
+    goto(index){
+       GetPersonal(1,1,index).then(res=>{
+this.list=res;
+      })
+    }
+    ,
+    go(){
+      GetPersonal(this.page,this.big,this.type).then(res=>{
+this.list=res;
+      })
+    }
+  }
  
 };
 </script>
@@ -178,6 +199,15 @@ float: left;
             padding: 10px 30px;
             flex:1;
             .goods-list{
+              li{
+                img{
+                  width: 40px;
+                  
+                }
+                div{
+                  display: inline-block;
+                }
+              }
               margin: 0;
     padding: 10px 0;
     list-style-type: none;

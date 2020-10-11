@@ -108,7 +108,7 @@
                 <div class="good-name">
                   <img v-lazy="item.thumbnailImg" alt="" />
                   <span>{{
-                    item.goodName + " " + item.userId
+                    item.goodName + " " + item.specificationName
                   }}</span>
                 </div>
                 <div class="good-price">

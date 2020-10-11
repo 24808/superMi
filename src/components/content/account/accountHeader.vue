@@ -37,6 +37,9 @@ export default {
           center: true,
           type: "success",
         });
+        this.$cookie.set("userId", "", { expires: "-1" });
+        this.$cookie.set("userid", "", { expires: "-1" });
+        // userId
       });
       //清除cookie
       // this.$cookie.set("userid", "", { expires: "-1" });

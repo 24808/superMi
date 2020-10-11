@@ -16,10 +16,7 @@
                 <div class="item-info fl">
                   {{ item.createTime }}
                   <span>|</span>
-                  {{ item.goodName }}
-                  <span>|</span>
-                  {{ item.goodId }}
-                  <span>|</span>
+                  
                   {{ item.userName }}
                 </div>
                 <div class="item-money fr">
@@ -32,28 +29,28 @@
                 <div class="good-box fl">
                   <div
                     class="good-list"
-                    v-for="(tem, i) in item.orderItemVoList"
+                    v-for="(tem, i) in item.chlidClass"
                     :key="i"
                   >
                     <div class="good-img">
-                      <img v-lazy="tem.productImage" alt="" />
+                      <img v-lazy="tem.imgUrl" alt="" />
                     </div>
                     <div class="good-name">
-                      <div class="p-name">{{ tem.productName }}</div>
+                      <div class="p-name">{{ tem.goodName }}</div>
                       <div class="p-money">
-                        {{ tem.totalPrice + "X" + tem.quantity }}元
+                        {{ tem.price + "X" + tem.quantity }}元
                       </div>
                     </div>
                   </div>
                 </div>
                 <!-- //未付款 -->
-                <div class="good-state fr" v-if="item.status == 10">
-                  <a href="javascript:;" @click="goPay(item.orderNo)">{{
-                    item.statusDesc
+                <div class="good-state fr" v-if="item.orderType == 2">
+                  <a href="javascript:;" @click="goPay(item.orderId)">{{
+                    '未支付'
                   }}</a>
                 </div>
                 <div class="good-state fr" v-else>
-                  <a href="javascript:;">{{ item.statusDesc }}</a>
+                  <a href="javascript:;">{{ '已付款' }}</a>
                 </div>
               </div>
             </div>
@@ -112,9 +109,9 @@ export default {
       loading: true,
       moreLoading: false,
       //显示几条数据
-      pageSize: 2,
+      pageSize: 4,
       pageNum: 1, //当前页数
-      total: 0, //总条数
+      total: 100, //总条数
       //
       busy: true, //滚动加载，是否触发
     };
@@ -150,24 +147,23 @@ export default {
       this.getOrderList(this.pageSize, pageNum);
     },
     // 跳转支付
-    goPay(orderNo) {
+    goPay(orderId) {
       this.$router.push({
         path: "pay",
-        query: { orderNo },
+        query: { orderId },
       });
     },
     //获取数据
     // GetPersonal
-    getOrderList(pageSize = 10, pageNum = 1) {
+    getOrderList(pageSize = 4, pageNum = 2) {
       this.moreLoading = true;
 
-      GetPersonal()
+      GetPersonal(pageNum,pageSize)
         .then((res) => {
           this.moreLoading = false;
           //数据累加
           this.list = this.list.concat(res);
           this.loading = false;
-          this.total = res.total;
           // this.pageNum=res.pageNum
         })
         .catch(() => {

@@ -4,6 +4,7 @@
       <h4 class="title-big">安全等级</h4>
       <p class="fen"><em>40</em>分</p>
       <div class="demonstration">
+        <li v-show="false">{{ CountDown }}</li>
         <!-- <span class="demonstration">自定义初始值</span> -->
         <div class="slider">
           <el-slider v-model="value2" disabled></el-slider>
@@ -86,10 +87,31 @@
             @blur="focusing(3)"
             @focus="gofocus(3)"
           />
-          <!-- <span v-show="Passshow"
-            >密码长度8~16位，数字、字母、字符至少包含两种</span
-          > -->
-          <span v-show="pwdVisiableshow">{{ newpassinfo }}</span>
+          <div class="code">
+   <span v-show="pwdVisiableshow">{{ newpassinfo }}</span>
+            <p>验证码</p> <input
+            v-if="emailnoshow"
+           style=""
+            type="text"
+            v-model="codeinfo"
+            placeholder="验证码"
+            @blur="focusing(4)"
+            @focus="gofocus(4)"
+          />
+           <input
+           v-else
+            type="text"
+            v-model="email"
+            placeholder="发送邮箱验证"
+            @blur="focusing(5)"
+            @focus="gofocus(5)"
+            
+          />
+          
+           <a href="javascript:;" class="btn" @click="goemail">发送验证码</a>
+          </div>
+         <span  v-if="emailnoshow" v-show="codeshow">验证码不能为空</span>
+        
         </div>
       </template>
     </Modalstate>
@@ -97,7 +119,7 @@
 </template>
 <script>
 import Modalstate from "./../../../components/common/Modalstate";
-// import updpass from "./../../../network/login";
+import {pudpwd,Yz} from "./../../../network/login";
 export default {
   name: "security",
   components: { Modalstate },
@@ -112,16 +134,65 @@ export default {
       pwdVisiable: "",
       pwdVisiableshow: false,
       newpassinfo: "",
-      //
+      codeshow:false,
+      codeinfo:"",
+      //邮箱验证
+      email:"",
+      emailnoshow:false,
+      T:{},
+      daojishi:{},
+      emaildianji:true,
+      CountDown:0//计数
     };
   },
+  mounted () {
+    //  this.Djs_time(); 
+  },
   methods: {
+    //   Djs_time: function() {
+    //   setInterval(() => {
+    //     var presentTime = new Date().getTime();
+    //     this.CountDown = presentTime;
+    //   }, 1000);
+    // },
+    //发送邮箱验证
+
+
+    goemail(){
+      Yz(this.email).then(res=>{
+        this.emailnoshow=true;
+           if(this.emaildianji){
+        this.emaildianji=false,
+    this.$message.success("发送验证码成功,有效期120秒");
+      this.daojishi=120
+
+      this.T = setInterval(() => {
+        this.daojishi=this.daojishi-1;
+ this.CountDown++;
+
+    if(this.daojishi<=0){
+      clearInterval(this.T);
+   this.emaildianji=true;
+   this.emailnoshow=false;
+      }
+      }, 1000);
+      }
+  
+      })
+   
+    },
     //提交修改
     gotopassword() {
       this.focusing(1);
       this.focusing(2) || this.focusing(3);
-      if (!this.oldPassshow && !this.pwdVisiableshow) {
-        this.$message.info("假装修改成功");
+      this.focusing(4);
+      if (!this.oldPassshow && !this.pwdVisiableshow && !this.codeshow) {
+        // this.$message.success("假装修改成功");
+        this.showModal= false
+        pudpwd(this.oldPass,this.password,this.codeinfo).then(res=>{
+this.$message.success("修改成功");
+  this.$router.push("/index");
+         })
       }
       // updpass(this.oldPass,this.password).then(res=>{
       //   this.$router.push("/login")
@@ -135,6 +206,8 @@ export default {
         this.pwdVisiableshow = false;
       } else if (value == 3) {
         this.pwdVisiableshow = false;
+      }else if (value == 4) {
+        this.codeshow = false;
       }
     },
     //失去焦点事件
@@ -146,9 +219,9 @@ export default {
           this.oldPassshow = false;
         }
       } else if (value == 2) {
-        if (this.password.length < 8 || this.password.length > 16) {
+        if (this.password.length <6  || this.password.length > 12) {
           this.pwdVisiableshow = true;
-          this.newpassinfo = "密码必须大于8位并小于16为";
+          this.newpassinfo = "密码必须大于6位并小于12位";
         } else {
           this.pwdVisiableshow = false;
         }
@@ -159,6 +232,12 @@ export default {
         } else {
           this.pwdVisiableshow = false;
           this.focusing(2);
+        }
+      }else if (value == 4) {
+        if (this.codeinfo == "") {
+         this.codeshow = true;
+        } else{
+          this.codeshow = false;
         }
       }
     },
@@ -292,6 +371,7 @@ export default {
     color: #000;
   }
   .modify_pwd {
+    
     p {
       font-size: 15px;
       color: #555;
@@ -310,6 +390,17 @@ export default {
     }
     span {
       color: #f66;
+    }
+    .code{
+      input{
+        width: 200px;
+        display: inline-block;
+      }
+      a{
+        height: 42px;
+        vertical-align: middle;
+        line-height: 42px;
+      }
     }
   }
 }

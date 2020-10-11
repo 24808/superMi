@@ -13,12 +13,32 @@ export function login(username, password) {
   data: param
   })
 }
+//修改密码
+export function pudpwd(oldpwd,newpwd, code) {
+  let param = new URLSearchParams();
+  param.append("pwd",  oldpwd);
+  param.append("pwdOld",  newpwd);
+  param.append("Code",  code);
+  return request({
+    url: "/Personal/UpUserInfo",
+    method: "post",
+  data: param
+  })
+}
+//发送验证码登录
+export function Yz(email){
+  return request({
+    url:'/Personal/Yz',
+    params:{email}
+  })
+}
 //退出登录
 export function logout(){
   return request({
     url:'/Login/OutLogin',method:'post'
   })
 }
+
 //注册
 export function register(username, password,email) {
   return request({

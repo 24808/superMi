@@ -27,8 +27,8 @@
               <div class="menu-box">
                   <h3>账户管理</h3>
                   <ul>
-                      <li><a href="#">个人信息</a></li>
-                      <li><a href="#">修改密码</a></li>
+                      <li><a href="/#/account/security">个人信息</a></li>
+                      <li><a href="/#/account/security">修改密码</a></li>
                   </ul>
               </div>
           </div>

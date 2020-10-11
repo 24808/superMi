@@ -43,7 +43,7 @@
               <div class="detail-info">
                 <ul>
                   <li v-for="(item, index) in goodDetail" :key="index">
-                    <img v-lazy="item.productImage" alt="" />
+                    <img v-lazy="item.imgUrl" alt="" />{{ item.specificationName+"x"+item.quantity }} {{item.price*item.quantity}}元
                   </li>
                   <!-- <li v-for="(item, index) in orderDetail" :key="index">
                     <img v-lazy="item.productImage" />{{ item.productName }}
@@ -199,12 +199,18 @@ this.goOrderList();
     getOrderDetail() {
       GetPersonal().then((res) => {
         let id = this.orderId;
+        
         // alert(res)
         let order= res.find(x=>x.orderId==id);
+
          this.addressInfo = `${order.userName} ${order.address}`;
-this.goodName = res.goodName;
-        this.goodDetail = res.imgUrl;
-        this.price = res.payment;
+this.goodName = order.goodName;
+        this.goodDetail = order.chlidClass;
+        this.price = order.payment;
+        this.totalMoney = order.chlidClass.reduce((x,y)=>{
+          // alert(y)
+          return y.quantity*y.price
+        },0)
         // this.item = res;
       });
     },

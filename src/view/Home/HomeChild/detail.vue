@@ -170,18 +170,30 @@ this.banben=item;
       if(item.price>0){
 this.banben=item;
       }
-      
     },
     addCart() {
       const goodid = this.banben.goodId;
-      const specificationarr = this.banben.gsId+","+this.banben.parentId;
+       let specificationarr=""
+      
+      if(this.banben.parentId == ''){
+        
+        if( Object.prototype.isPrototypeOf(this.banben.chlid) && Object.keys(this.banben.chlid).length === 0){
+
+specificationarr =this.banben.gsId
+        }else{
+specificationarr =this.banben.gsId+  ","+this.banben.chlid[0].specificationNum[this.viesscount].parentId
+        }
+         
+// const specificationarr = this.banben.gsId+ (this.banben.chlid&&","+this.banben.chlid[0].specificationNum[this.viesscount].parentId)
+      }else{
+ specificationarr =this.banben.gsId+","+ this.banben.parentId;
+      }
       const price = this.banben.price;
-        this.$cookie.set("userid", "U1001", { expires: "Session" });
+        // this.$cookie.set("userid", "U1001", { expires: "Session" });
       addCart(goodid,specificationarr,price).then(res => {
       //返回数据的长度
         // this.$store.dispatch("saveCartCount", res.cartProductVoList.length);
         // this.$store.dispatch("saveCartCount", res.cartTotalQuantity);
-
         this.$router.push("/cart");
       });
       //

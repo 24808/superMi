@@ -6,7 +6,7 @@
         <span>></span>
         <a href="javascript:;">全部结果</a>
         <span>></span>
-        <a href="javascript:;">{{ "小米是" }}</a>
+        <a href="javascript:;">{{ this.$route.params.keyword}}</a>
         <span>></span>
       </div>
     </div>

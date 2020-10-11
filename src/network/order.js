@@ -146,6 +146,15 @@ export function ChangeOrderType(orderid) {
     data:param
   })
 }
+//GetPersonal//查询所有订单
+export function GetPersonal(page,limte,type=null) {
+  return request({
+    url: `/Personal/GetPersonal`,
+    params:{
+      page,limte,type
+    }
+  })
+}
 //查看订单状态
 // /api/Personal/GetPersonal
 export function GetBuyingLists() {
